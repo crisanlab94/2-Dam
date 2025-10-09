@@ -1,0 +1,118 @@
+2025-10-08 12:12:19.950 [main] DEBUG unidad1.ProbarPR - Directorio creado.
+2025-10-08 12:12:19.952 [main] DEBUG unidad1.ProbarPR - fichero1.txt creado.
+2025-10-08 12:12:19.952 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:12:19.953 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:12:19.954 [main] DEBUG unidad1.ProbarPR - fichero1.txt renombrado a renombrado.txt
+2025-10-08 12:12:19.954 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:13:09.512 [main] DEBUG unidad1.ProbarPR - fichero1.txt creado.
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:13:09.514 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:13:09.515 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:13:09.515 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:13:09.515 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:13:09.515 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:15:21.862 [main] DEBUG unidad1.ProbarPR - fichero1.txt ya existe.
+2025-10-08 12:15:21.864 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:15:21.864 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:15:21.864 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:15:21.864 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:15:21.864 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:15:21.865 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:15:21.865 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:15:21.865 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:15:21.865 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:15:21.865 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:15:21.865 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:15:21.866 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:16:12.322 [main] DEBUG unidad1.ProbarPR - fichero1.txt ya existe.
+2025-10-08 12:16:12.324 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:16:12.324 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:16:12.324 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:16:12.324 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:16:12.324 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:16:12.324 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:16:12.325 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:16:12.325 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:16:12.325 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:16:12.325 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:16:12.325 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:16:12.326 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:17:12.289 [main] DEBUG unidad1.ProbarPR - fichero1.txt ya existe.
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:17:12.292 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:17:12.293 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:17:12.293 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:17:12.293 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:17:12.293 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:19:48.107 [main] DEBUG unidad1.ProbarPR - fichero1.txt ya existe.
+2025-10-08 12:19:48.109 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:19:48.109 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:19:48.110 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:19:48.111 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:19:48.111 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:20:25.007 [main] DEBUG unidad1.ProbarPR - fichero1.txt ya existe.
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:20:25.009 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:20:25.010 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:20:25.010 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:20:25.010 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:20:25.010 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:39:25.538 [main] DEBUG unidad1.ProbarPR - fichero1.txt ya existe.
+2025-10-08 12:39:25.540 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:39:25.540 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:39:25.540 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:39:25.540 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:39:25.540 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:39:25.541 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:39:25.541 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:39:25.541 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:39:25.541 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:39:25.541 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:39:25.542 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:39:25.542 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
+2025-10-08 12:40:25.280 [main] DEBUG unidad1.ProbarPR - fichero1.txt ya existe.
+2025-10-08 12:40:25.282 [main] DEBUG unidad1.ProbarPR - fichero2.txt creado.
+2025-10-08 12:40:25.282 [main] DEBUG unidad1.ProbarPR - fichero2.txt es ahora solo lectura.
+2025-10-08 12:40:25.282 [main] DEBUG unidad1.ProbarPR - Nombre: fichero1.txt
+2025-10-08 12:40:25.282 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:40:25.283 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: true
+2025-10-08 12:40:25.283 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero1.txt
+2025-10-08 12:40:25.283 [main] DEBUG unidad1.ProbarPR - Nombre: fichero2.txt
+2025-10-08 12:40:25.283 [main] DEBUG unidad1.ProbarPR -    Se puede leer: true
+2025-10-08 12:40:25.283 [main] DEBUG unidad1.ProbarPR -    Se puede escribir: false
+2025-10-08 12:40:25.283 [main] DEBUG unidad1.ProbarPR -    Ruta absoluta: C:\Users\alumno\Documents\workspace-spring-tools-for-eclipse-4.31.0.RELEASE\unidad1\miDirectorio\fichero2.txt
+2025-10-08 12:40:25.284 [main] DEBUG unidad1.ProbarPR - No se pudo renombrar.
+2025-10-08 12:40:25.284 [main] DEBUG unidad1.ProbarPR - fichero2.txt eliminado.
