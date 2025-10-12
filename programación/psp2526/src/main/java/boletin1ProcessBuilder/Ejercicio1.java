@@ -1,8 +1,8 @@
-package Tema1;
+package boletin1ProcessBuilder;
 
 import java.io.IOException;
 
-public class Ejemplo {
+public class Ejercicio1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
