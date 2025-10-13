@@ -38,7 +38,7 @@ public class Ejercicio1 {
 			/*1.Busca la ruta dónde tienes el ejecutable para Chrome 
 		y crea un programa que usando Runtime abra una instancia de Chrome.*/
 		
-		String [] chrome = {"C:\\Program Files\\Google\\Chrome\\Application\\Chrome.exe"};
+		String [] chrome = {"C:\\Program Files\\Google\\Chrome\\Application\\Chrome.exe","www.google.com"};
 		try {
 			kernel.exec(chrome);
 		} catch (IOException e) {
