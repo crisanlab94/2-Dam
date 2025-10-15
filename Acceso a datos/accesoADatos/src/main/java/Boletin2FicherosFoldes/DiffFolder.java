@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,18 +54,16 @@ public class DiffFolder {
 		this.folder2=folder2;
 
 	}
+	
+	 Set<ResultadoComparacion> archivos1 = new HashSet<>();
+     Set<ResultadoComparacion> archivos2 = new HashSet<>();
+	public Set<ResultadoComparacion> agregarLista() {
 
-	 public Collection<ResultadoComparacion> compare() {
-	        Collection<ResultadoComparacion> resultados = new ArrayList<>();
-	       //nombreArchivo como clave y "archivo" como valor 
-	        Map<String, File> archivos1 = new HashMap<>();
-	        Map<String, File> archivos2 = new HashMap<>();
-
-	        try {
+	     try {
 	            if (esFolderValido(folder1)) {
 	                for (File f : folder1.listFiles()) {
 	                    if (f.isFile()) {
-	                        archivos1.put(f.getName(), f);
+	                        archivos1.add(null)
 	                    }
 	                }
 	            }
@@ -72,18 +71,41 @@ public class DiffFolder {
 	            if (esFolderValido(folder2)) {
 	                for (File f : folder2.listFiles()) {
 	                    if (f.isFile()) {
-	                        archivos2.put(f.getName(), f);
+	                        archivos2.add(f);
 	                    }
 	                }
 	            }
 	        } catch (Exception e) {
 	            logger.log(Level.SEVERE, "Error al acceder a los directorios", e);
-	            return resultados;
+	           
 	        }
+	}
+	
+	private Set<ResultadoComparacion> compararListaFicherps(File[] archivos1, File [] archivos2() {
+       Set<ResultadoComparacion> carpetaMayor;
+       Set<ResultadoComparacion> carpetaMenor;
+       boolean carpetaMayorEsFolder1;
+
+        if (archivos1.size() >= archivos2.size()) {
+            carpetaMayor = archivos1;
+            carpetaMenor = archivos2;
+            carpetaMayorEsFolder1 = true;
+        } else {
+            carpetaMayor = archivos2;
+            carpetaMenor = archivos1;
+            carpetaMayorEsFolder1 = false;
+        }
+		
+	}
+
+	 public Collection<ResultadoComparacion> compare() {
+	        Set<ResultadoComparacion> resultados = new HashSet<ResultadoComparacion>();
+	      
+	       
 
 	        //Mirar que carpetas tiene más archivos
-	        Map<String, File> carpetaMayor;
-	        Map<String, File> carpetaMenor;
+	        Set<> carpetaMayor;
+	        Set<> carpetaMenor;
 	        boolean carpetaMayorEsFolder1;
 
 	        if (archivos1.size() >= archivos2.size()) {
@@ -96,7 +118,7 @@ public class DiffFolder {
 	            carpetaMayorEsFolder1 = false;
 	        }
 
-	        // Comparar archivos que estan en la carpeta mayor
+	        // Comparar archivos que estan en la carpeta mayor  metodo comparar ficheros
 	        for (Map.Entry<String, File> entry : carpetaMayor.entrySet()) {
 	            String nombreArchivo = entry.getKey();
 	            File archivoMayor = entry.getValue();
