@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Caso práctico 1</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de registro</h1>
+
+        <form id="formulario">
+
+            <div class ="campo">
+                <label for ="nombre"> Nombre </label>
+                <input type="text" id="nombre" name="nombre" required>
+                
+            </div>
+
+            <div class ="campo">
+                <label for ="apellidos"> Apellidos </label>
+                <input type="text" id="apellidos" name="apellidos" required>
+                
+            </div>
+
+            <div class ="campo">
+                <label for ="dni"> DNI </label>
+                <input type="text" id="dni" name="dni" required>
+                
+            </div>
+
+             <div class ="campo">
+                <label for ="fecha"> Fecha de nacimiento </label>
+                <input type="date" id="fecha" name="fecha" >
+                
+            </div>
+
+            <div class ="campo">
+                <label for ="direccion"> Dirección </label>
+                <input type="text" id="direccion" name="direccion" >
+                
+            </div>
+
+            <div class ="campo">
+                <label for ="codigo"> Código postal </label>
+                <input type="number" id="codigo" name="codigo" >
+                
+            </div>
+
+             <div class ="campo">
+                <label for ="telefono"> Teléfono </label>
+                <input type="number" id="telefono" name="telefono" >
+                
+            </div>
+
+            <div class ="campo">
+                <label for ="email"> Email </label>
+                <input type="email" id="email" name="email" required>
+                
+            </div>
+
+            <div class ="campo">
+                <label for ="contraseña"> Contraseña </label>
+                <input type="password" id="contraseña" name="contraseña" required>
+                
+            </div>
+
+            <div class="campo">
+                <label for="genero">Género </label>
+                <select id="genero" name="genero">
+                    <option value="">Seleccione...</option>
+                    <option value="hombre">Hombre</option>
+                    <option value="mujer">Mujer</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label>
+                 Acepto los términos y condiciones
+                    <input type="checkbox" id="terminos" required> 
+                </label>
+            </div>
+            
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
