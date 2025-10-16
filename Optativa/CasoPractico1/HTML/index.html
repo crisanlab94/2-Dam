@@ -16,55 +16,64 @@
 
             <div class="campo">
                 <label for="nombre"> Nombre </label>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre">
+                <span class="error-mensaje" id="nombre-error"></span>
 
             </div>
 
             <div class="campo">
                 <label for="apellidos"> Apellidos </label>
-                <input type="text" id="apellidos" name="apellidos" required>
+                <input type="text" id="apellidos" name="apellidos">
+                <span class="error-apellidos" id="apellidos-error"></span>
 
             </div>
 
             <div class="campo">
                 <label for="dni"> DNI </label>
-                <input type="text" id="dni" name="dni" required>
+                <input type="text" id="dni" name="dni">
+                <span class="error-dni" id="dni-error"></span>
 
             </div>
 
             <div class="campo">
                 <label for="fecha"> Fecha de nacimiento </label>
                 <input type="date" id="fecha" name="fecha">
+                <span class="error-fecha" id="fecha-error"></span>
 
             </div>
 
             <div class="campo">
                 <label for="direccion"> Dirección </label>
-                <input type="text" id="direccion" name="direccion">
+                <input type="text" id="direccion" name="direccion" placeholder="C/La montana s/n">
+                <span class="error-direccion" id="direccion-error"></span>
 
             </div>
 
             <div class="campo">
                 <label for="codigo"> Código postal </label>
                 <input type="number" id="codigo" name="codigo">
+                <span class="error-codigo" id="codigo"></span>
 
             </div>
 
             <div class="campo">
                 <label for="telefono"> Teléfono </label>
                 <input type="number" id="telefono" name="telefono">
+                <span class="error-telefono" id="telefono-error"></span>
 
             </div>
 
             <div class="campo">
                 <label for="email"> Email </label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email">
+                <span class="error-email" id="email-error"></span>
 
             </div>
 
             <div class="campo">
                 <label for="contraseña"> Contraseña </label>
-                <input type="password" id="contraseña" name="contraseña" required>
+                <input type="password" id="contraseña" name="contraseña">
+                <span class="error-contraseña" id="contraseña-error"></span>
 
             </div>
 
@@ -72,9 +81,9 @@
                 <label for="genero">Género </label>
                 <select id="genero" name="genero">
                     <option value="">Seleccione...</option>
-                    <option value="hombre">Hombre</option>
-                    <option value="mujer">Mujer</option>
-                    <option value="otro">Otro</option>
+                    <option value="hombre">Masculino</option>
+                    <option value="mujer">Femenino</option>
+                    <option value="otro">Prefiero no decirlo</option>
                 </select>
             </div>
 
@@ -86,6 +95,7 @@
             </div>
 
             <button type="submit">Enviar</button>
+            <button type="reset" class="reset">Restablecer</button>
         </form>
     </div>
 
