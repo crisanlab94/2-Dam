@@ -1,110 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Caso práctico 1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caso práctico 1</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
 </head>
-
 <body>
-    <div class="container">
-        <h1>Formulario de registro</h1>
+  <div class="container">
+    <h1>Formulario de registro</h1>
 
-        <form id="formulario">
+    <form id="formulario">
 
-            <div class="campo">
-                <label for="nombre"> Nombre </label>
-                <input type="text" id="nombre" name="nombre">
-                <span class="error-mensaje" id="nombre-error"></span>
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" />
+        <span id="nombre-error" class="error"></span>
+      </div>
 
-            </div>
+      <div class="campo">
+        <label for="apellidos">Apellidos</label>
+        <input type="text" id="apellidos" name="apellidos" />
+        <span id="apellidos-error" class="error"></span>
+      </div>
 
-            <div class="campo">
-                <label for="apellidos"> Apellidos </label>
-                <input type="text" id="apellidos" name="apellidos">
-                <span class="error" id="apellidos-error"></span>
+      <div class="campo">
+        <label for="dni">DNI</label>
+        <input type="text" id="dni" name="dni" />
+        <span id="dni-error" class="error"></span>
+      </div>
 
-            </div>
+      <div class="campo">
+        <label for="fecha">Fecha de nacimiento</label>
+        <input type="date" id="fecha" name="fecha" />
+        <span id="fecha-error" class="error"></span>
+      </div>
 
-            <div class="campo">
-                <label for="dni"> DNI </label>
-                <input type="text" id="dni" name="dni">
-                <span class="error-dni" id="dni-error"></span>
+      <div class="campo">
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" />
+        <span id="direccion-error" class="error"></span>
+      </div>
 
-            </div>
+      <div class="campo">
+        <label for="codigo">Código postal</label>
+        <input type="text" id="codigo" name="codigo" />
+        <span id="codigo-error" class="error"></span>
+      </div>
 
-            <div class="campo">
-                <label for="fecha"> Fecha de nacimiento </label>
-                <input type="date" id="fecha" name="fecha">
-                <span class="error-fecha" id="fecha-error"></span>
+      <div class="campo">
+        <label for="telefono">Teléfono</label>
+        <input type="text" id="telefono" name="telefono" />
+        <span id="telefono-error" class="error"></span>
+      </div>
 
-            </div>
+      <div class="campo">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" />
+        <span id="email-error" class="error"></span>
+      </div>
 
-            <div class="campo">
-                <label for="direccion"> Dirección </label>
-                <input type="text" id="direccion" name="direccion" placeholder="C/La montana s/n">
-                <span class="error-direccion" id="direccion-error"></span>
+      <div class="campo">
+        <label for="contraseña">Contraseña</label>
+        <input type="password" id="contraseña" name="contraseña" />
+        <span id="contraseña-error" class="error"></span>
 
-            </div>
+        <div class="mostrar-contraseña-container">
+          <label for="mostrar-contraseña">Mostrar contraseña</label>
+          <input type="checkbox" id="mostrar-contraseña" />
+        </div>
+      </div>
 
-            <div class="campo">
-                <label for="codigo"> Código postal </label>
-                <input type="text" id="codigo" name="codigo" maxlength="5" placeholder="Ej: 41900">
-                <span class="error-codigo" id="codigo"></span>
+      <div class="campo">
+        <label for="genero">Género</label>
+        <select id="genero" name="genero">
+          <option value="">Seleccione...</option>
+          <option value="m">Masculino</option>
+          <option value="f">Femenino</option>
+          <option value="o">Otro</option>
+        </select>
+        <span id="genero-error" class="error"></span>
+      </div>
 
-            </div>
+      <div class="campo checkbox">
+        <div class="terminos-container">
+          <label for="terminos">Acepto los términos y condiciones</label>
+          <input type="checkbox" id="terminos" name="terminos" />
+        </div>
+        <span id="terminos-error" class="error"></span>
+      </div>
 
-            <div class="campo">
-                <label for="telefono"> Teléfono </label>
-                <input type="text" id="telefono" name="telefono" maxlength="9" placeholder="Ej: 674635297">
-                <span class="error-telefono" id="telefono-error"></span>
+      <div class="botones">
+        <button type="submit">Enviar</button>
+        <button type="reset" class="reset">Restablecer</button>
+      </div>
 
-            </div>
+    </form>
+  </div>
 
-            <div class="campo">
-                <label for="email"> Email </label>
-                <input type="email" id="email" name="email">
-                <span class="error-email" id="email-error"></span>
-
-            </div>
-
-            <div class="campo">
-                <label for="contraseña"> Contraseña </label>
-                <input type="password" id="contraseña" name="contraseña">
-                <span class="error-contraseña" id="contraseña-error"></span>
-
-            </div>
-
-            <div class="campo">
-                <label for="genero">Género </label>
-                <select id="genero" name="genero">
-                    <option value="">Seleccione...</option>
-                    <option value="hombre">Masculino</option>
-                    <option value="mujer">Femenino</option>
-                    <option value="otro">Prefiero no decirlo</option>
-                </select>
-                <span class="error" id="genero-error"></span>
-            </div>
-
-            <div class="campo">
-                <label>
-                    Acepto los términos y condiciones
-                    <input type="checkbox" id="terminos">
-                </label>
-            </div>
-
-            <div class="botones">
-                <button type="submit">Enviar</button>
-                <button type="reset" class="reset">Restablecer</button>
-            </div>
-
-        </form>
-    </div>
-
-    <script src="script.js"></script>
-
+  <script src="../JS/script.js"></script>
 </body>
-
 </html>

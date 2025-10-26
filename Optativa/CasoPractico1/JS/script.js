@@ -1,96 +1,245 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('formulario').addEventListener('submit', function(e) {
-        e.preventDefault();
-        let valido = true;
+document.addEventListener('DOMContentLoaded', function () {
+    const formulario = document.getElementById('formulario');
 
-        // Nombre
-        let nombre = document.getElementById('nombre').value.trim();
-        let nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,20}$/;
-        if (!nombreRegex.test(nombre)) {
-            document.getElementById('nombre-error').textContent = 'Solo letras y espacios (3-20 caracteres)';
-            valido = false;
-        } else { document.getElementById('nombre-error').textContent = ''; }
-
-        // Apellidos
-        let apellidos = document.getElementById('apellidos').value.trim();
-        let apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,30}$/;
-        if (!apellidosRegex.test(apellidos)) {
-            document.getElementById('apellidos-error').textContent = 'Solo letras y espacios (3-30 caracteres)';
-            valido = false;
-        } else { document.getElementById('apellidos-error').textContent = ''; }
-
-        // DNI
-        let dni = document.getElementById('dni').value.trim();
-        let dniRegex = /^\d{8}[A-Za-z]$/;
-        if (!dniRegex.test(dni)) {
-            document.getElementById('dni-error').textContent = 'DNI inválido (8 números + letra)';
-            valido = false;
-        } else { document.getElementById('dni-error').textContent = ''; }
-
-        // Fecha
-        let fecha = document.getElementById('fecha').value;
-        if (!fecha || new Date(fecha) >= new Date()) {
-            document.getElementById('fecha-error').textContent = 'Fecha inválida';
-            valido = false;
-        } else { document.getElementById('fecha-error').textContent = ''; }
-
-        // Dirección
-        let direccion = document.getElementById('direccion').value.trim();
-        if (direccion.length < 5) {
-            document.getElementById('direccion-error').textContent = 'Dirección demasiado corta';
-            valido = false;
-        } else { document.getElementById('direccion-error').textContent = ''; }
-
-        // Código postal
-        let codigo = document.getElementById('codigo').value.trim();
-        let codigoRegex = /^\d{5}$/;
-        if (!codigoRegex.test(codigo)) {
-            document.getElementById('codigo-error').textContent = 'Código postal inválido (5 números)';
-            valido = false;
-        } else { document.getElementById('codigo-error').textContent = ''; }
-
-        // Teléfono
-        let telefono = document.getElementById('telefono').value.trim();
-        let telefonoRegex = /^\d{9}$/;
-        if (!telefonoRegex.test(telefono)) {
-            document.getElementById('telefono-error').textContent = 'Teléfono inválido (9 números)';
-            valido = false;
-        } else { document.getElementById('telefono-error').textContent = ''; }
-
-        // Email
-        let email = document.getElementById('email').value.trim();
-        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            document.getElementById('email-error').textContent = 'Correo inválido';
-            valido = false;
-        } else { document.getElementById('email-error').textContent = ''; }
-
-        // Contraseña
-        let contraseña = document.getElementById('contraseña').value;
-        let contraseñaRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,10}$/;
-        if (!contraseñaRegex.test(contraseña)) {
-            document.getElementById('contraseña-error').textContent = 'Contraseña inválida (6-10 caracteres, 1 mayúscula, 1 número, 1 símbolo)';
-            valido = false;
-        } else { document.getElementById('contraseña-error').textContent = ''; }
-
-        // Género
-        let genero = document.getElementById('genero').value;
-        if (!genero) {
-            document.getElementById('genero-error').textContent = 'Seleccione un género';
-            valido = false;
-        } else { document.getElementById('genero-error').textContent = ''; }
-
-        // Términos
-        if (!document.getElementById('terminos').checked) {
-            document.getElementById('terminos-error').textContent = 'Debe aceptar los términos y condiciones';
-            valido = false;
-        } else { document.getElementById('terminos-error').textContent = ''; }
-
-        
-        if (valido) {
-            this.submit();
+    function validarNombre() {
+        const nombreInput = document.getElementById('nombre');
+        const errorSpan = document.getElementById('nombre-error');
+        const valor = nombreInput.value.trim();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,20}$/;
+        if (!regex.test(valor)) {
+            errorSpan.textContent = 'Solo letras y espacios (3-20 caracteres)';
+            nombreInput.classList.add('invalid');
+            nombreInput.classList.remove('valid');
+            return false;
         } else {
-            console.log("Formulario con errores, no se envía");
+            errorSpan.textContent = '';
+            nombreInput.classList.add('valid');
+            nombreInput.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarApellidos() {
+        const input = document.getElementById('apellidos');
+        const error = document.getElementById('apellidos-error');
+        const val = input.value.trim();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,30}$/;
+        if (!regex.test(val)) {
+            error.textContent = 'Solo letras y espacios (3-30 caracteres)';
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarDNI() {
+        const input = document.getElementById('dni');
+        const error = document.getElementById('dni-error');
+        const val = input.value.trim();
+        const regex = /^\d{8}[A-Za-z]$/;
+        if (!regex.test(val)) {
+            error.textContent = 'DNI inválido (8 números + letra)';
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarFecha() {
+        const input = document.getElementById('fecha');
+        const error = document.getElementById('fecha-error');
+        const val = input.value;
+        const hoy = new Date();
+        const fechaNac = new Date(val);
+        if (!val || fechaNac >= hoy) {
+            error.textContent = 'Fecha inválida (no puede ser posterior al día de hoy)';
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarDireccion() {
+        const input = document.getElementById('direccion');
+        const error = document.getElementById('direccion-error');
+        const val = input.value.trim();
+        if (val.length < 5) {
+            error.textContent = 'Dirección demasiado corta';
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarCodigo() {
+        const input = document.getElementById('codigo');
+        const error = document.getElementById('codigo-error');
+        const val = input.value.trim();
+        const regex = /^\d{5}$/;
+        if (!regex.test(val)) {
+            error.textContent = 'Código postal inválido (5 números)';
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarTelefono() {
+        const input = document.getElementById('telefono');
+        const error = document.getElementById('telefono-error');
+        const val = input.value.trim();
+        const regex = /^\d{9}$/;
+        if (!regex.test(val)) {
+            error.textContent = 'Teléfono inválido (9 números)';
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarEmail() {
+        const input = document.getElementById('email');
+        const error = document.getElementById('email-error');
+        const val = input.value.trim();
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(val)) {
+            error.textContent = 'Correo inválido';
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarContraseña() {
+        const input = document.getElementById('contraseña');
+        const error = document.getElementById('contraseña-error');
+        const val = input.value;
+        const errores = [];
+        if (val.length < 6 || val.length > 10) errores.push("debe tener entre 6 y 10 caracteres");
+        if (!/[A-Z]/.test(val)) errores.push("falta una mayúscula");
+        if (!/\d/.test(val)) errores.push("falta un número");
+        if (!/[!@#$%^&*]/.test(val)) errores.push("falta un símbolo (!@#$%^&*)");
+        if (errores.length > 0) {
+            error.textContent = "Contraseña inválida: " + errores.join(", ");
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarGenero() {
+        const select = document.getElementById('genero');
+        const error = document.getElementById('genero-error');
+        if (!select.value) {
+            error.textContent = 'Seleccione un género';
+            select.classList.add('invalid');
+            select.classList.remove('valid');
+            return false;
+        } else {
+            error.textContent = '';
+            select.classList.add('valid');
+            select.classList.remove('invalid');
+            return true;
+        }
+    }
+
+    function validarTerminos() {
+        const checkbox = document.getElementById('terminos');
+        const error = document.getElementById('terminos-error');
+        if (!checkbox.checked) {
+            error.textContent = 'Debe aceptar los términos y condiciones';
+            return false;
+        } else {
+            error.textContent = '';
+            return true;
+        }
+    }
+
+    document.getElementById('mostrar-contraseña').addEventListener('change', function() {
+        const contraseñaInput = document.getElementById('contraseña');
+        contraseñaInput.type = this.checked ? 'text' : 'password';
+    });
+
+    function añadirValidacion(id, validador) {
+        const campo = document.getElementById(id);
+        campo.addEventListener('input', validador);
+        campo.addEventListener('blur', validador);
+    }
+
+    añadirValidacion('nombre', validarNombre);
+    añadirValidacion('apellidos', validarApellidos);
+    añadirValidacion('dni', validarDNI);
+    añadirValidacion('fecha', validarFecha);
+    añadirValidacion('direccion', validarDireccion);
+    añadirValidacion('codigo', validarCodigo);
+    añadirValidacion('telefono', validarTelefono);
+    añadirValidacion('email', validarEmail);
+    añadirValidacion('contraseña', validarContraseña);
+    document.getElementById('genero').addEventListener('change', validarGenero);
+    document.getElementById('terminos').addEventListener('change', validarTerminos);
+
+    formulario.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const validaciones = [
+            validarNombre(),
+            validarApellidos(),
+            validarDNI(),
+            validarFecha(),
+            validarDireccion(),
+            validarCodigo(),
+            validarTelefono(),
+            validarEmail(),
+            validarContraseña(),
+            validarGenero(),
+            validarTerminos()
+        ];
+        if (validaciones.every(v => v === true)) {
+            alert('Formulario enviado correctamente.');
+            this.reset();
+            const inputs = this.querySelectorAll('input, select');
+            inputs.forEach(input => input.classList.remove('valid', 'invalid'));
+            const errores = this.querySelectorAll('.error');
+            errores.forEach(span => span.textContent = '');
         }
     });
 });
