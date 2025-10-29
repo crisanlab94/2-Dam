@@ -1,0 +1,5 @@
+<empleado identificador="E001">
+    <nombreApellido>Juan Haro</nombreApellido>
+    <edad>30</edad>
+    <empresa>OpenAI</empresa>
+</empleado>

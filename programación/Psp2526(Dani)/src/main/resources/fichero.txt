@@ -1,0 +1,10 @@
+Java es un lenguaje de programación orientado a objetos que permite desarrollar software modular y reutilizable.
+Es multiplataforma gracias a la Máquina Virtual de Java, lo que garantiza la portabilidad del código.
+Su sintaxis es clara y parecida a la de C++, lo que facilita su aprendizaje.
+Java es un lenguaje seguro porque gestiona la memoria automáticamente y evita accesos no autorizados.
+Incluye un recolector de basura que libera memoria sin intervención del programador.
+También es robusto, ya que maneja las excepciones para mantener la estabilidad del programa.
+Permite la programación multihilo, posibilitando la ejecución simultánea de varios procesos.
+Cuenta con una amplia biblioteca estándar que simplifica el desarrollo de aplicaciones.
+Es independiente del hardware y del sistema operativo, cumpliendo el lema “escribe una vez, ejecuta en cualquier lugar.
+Además, su comunidad activa y constante actualización lo mantienen vigente en el mundo del software moderno.
