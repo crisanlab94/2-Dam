@@ -1,0 +1,2 @@
+InteraccionAgente [identificador=0, tipo=HUMANO, peticion=¿Qué es Java?, respuesta=Un lenguaje de programación, tiempoEjecucion=3.5, numValoracionesPositivas=6, porcentajeAcierto=95.0]
+InteraccionAgente [identificador=1, tipo=IA, peticion=Explica herencia, respuesta=La herencia permite..., tiempoEjecucion=2.0, numValoracionesPositivas=4, porcentajeAcierto=95.0]
