@@ -1,4 +1,4 @@
-Artículo	NumUnidades	Importe	NumRerefencia	Dirección	Provincia	FechaPedido
+Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido
 Cortina	#3	#300	#0000005	#c/Calle Granada, 5	#Granada	#02/03/2021
 Alexa	#2	#50	#0000006	#c/Calle 4	#Granada	#02/03/2021
 Toallas	#2	#40	#0000007	#c/Calle 5	#Granada	#07/03/2021

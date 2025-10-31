@@ -22,11 +22,30 @@ public class LanzadorProvincias {
 		 // Compila la clase Provincia antes de lanzar los procesos
 		lp.compilaClase("dam/simulacro/Hijo/Provincia.java");
 		
-	     // Lanza un proceso por cada provincia
-		Process[] procesoslp = lp.lanzarProcesos(provincias, lp);
+	     /* Lanza un proceso por cada provincia
+		  //anterior para lanzar proceso por provincia
+		   Process[] procesoslp = lp.lanzarProcesos(provincias, lp);
+		   */
+		
+		 /* Lanzar los procesos hijos(antiguos)
+        for (int i = 0; i < provincias.length; i++) {
+            pedidosPorProvincia[i] = lp.ejecutaProceso(provincias[i]);
+            totalPedidos += pedidosPorProvincia[i];
+        }
+        
+        // Mostrar los resultados
+        System.out.println("Nº total de Pedidos : " + totalPedidos);
+        for (int i = 0; i < provincias.length; i++) {
+            System.out.println(provincias[i] + ": " + pedidosPorProvincia[i]);
+        }
+        System.out.println("Nº total de Pedidos : " + totalPedidos);
+    } */
 		
         // Espera a que todos los procesos terminen
-		int[] salidas = lp.esperarProcesos(procesoslp);
+		//anterior
+	   //int[] salidas = lp.esperarProcesos(procesoslp);
+		
+		 lp.lanzarProcesosYMostrarTotales(provincias);
 	}
 		
 		public void muestraContenidoFich(String rutaYNombre) throws FileNotFoundException {
@@ -44,10 +63,11 @@ public class LanzadorProvincias {
 			}
 		}
 
-		public Process[] lanzarProcesos(String [] provincias, LanzadorProvincias lp) {
+		/*public Process[] lanzarProcesos(String [] provincias, LanzadorProvincias lp) {
 			Process[] procesos = new Process[provincias.length];
 			for (int i = 0; i < provincias.length; i++) {
-				procesos[i] = lp.ejecutaProceso(provincias[i]);
+				//procesos[i] = lp.ejecutaProceso(provincias[i]);
+				procesos[i] = lp.lanzarProcesosYMostrarTotales(provincias[i]);
 			}
 			return procesos;
 		}
@@ -64,7 +84,7 @@ public class LanzadorProvincias {
 			}
 			return salidas;
 		}
-
+*/
 		public void compilaClase(String ruta) {
 			// Compilar el archivo fuente y generar el .class en el directorio target
 			String[] comando = { "javac", "-d", directorioGenerarClasses, rutaSource + ruta };
@@ -73,7 +93,9 @@ public class LanzadorProvincias {
 				pb.redirectErrorStream(true);
 				pb.inheritIO();
 				int exit = pb.start().waitFor();
-				System.out.println(exit);
+				 if (exit != 0) {
+		                System.err.println("Error compilando la clase Provincia");
+		            }
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (InterruptedException e) {
@@ -81,14 +103,16 @@ public class LanzadorProvincias {
 			}
 		}
 
-		public Process ejecutaProceso(String provincia) {
+		/*public Process ejecutaProceso(String provincia) {
 			Process proceso = null;
 			String[] comando = { "java", "-cp", "target/classes", "dam.simulacro.Hijo.Provincia",provincia};
 					
 			ProcessBuilder pb = new ProcessBuilder(comando);
+			int numPedidos=0;
 
 			try {
 				proceso = pb.start();
+				//Espera que termine
 				int exit = proceso.waitFor();
 				//System.out.println("Proceso terminado con código: " + exit);
 
@@ -113,6 +137,58 @@ public class LanzadorProvincias {
 
 			return proceso;
 		}
+		*/
+		
+		public void lanzarProcesosYMostrarTotales(String[] provincias) {
+		    int totalPedidos = 0;
+		 
+		    // Primero recorremos todas las provincias para calcular el total
+		    for (String provincia : provincias) {
+		        String[] comando = { "java", "-cp", "target/classes", "dam.simulacro.Hijo.Provincia", provincia };
+		        ProcessBuilder pb = new ProcessBuilder(comando);
+
+		        try {
+		            Process proceso = pb.start();
+
+		            BufferedReader reader = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
+		            
+		            String linea;
+		            String ultimaLinea = null;
+
+		            // Leer TODA la salida del hijo (por si imprime más de una línea)
+		            while ((linea = reader.readLine()) != null) {
+		                ultimaLinea = linea.trim();
+		            }
+		            // Imprime solo 1 linea
+		            //String linea = reader.readLine(); // El hijo imprime el número de pedidos
+		            reader.close();
+
+		            if (ultimaLinea != null && !ultimaLinea.isEmpty()) {
+		            //Muestra cada provincia y su número
+		            System.out.println(ultimaLinea); 
+
+		            // sumamos solo el número final (sin mostrarlo aparte)
+	                String soloNumero = ultimaLinea.replaceAll("[^0-9]", "").trim();
+	                if (!soloNumero.isEmpty()) {
+	                    totalPedidos += Integer.parseInt(soloNumero);
+	                }
+	            } else {
+	                System.out.println(provincia + ": (sin datos)");
+	            }
 
 
+		            proceso.waitFor();
+
+		        } catch (IOException | InterruptedException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    // Mostrar el total  arriba
+		    System.out.println("Nº total de Pedidos : " + totalPedidos);
+		}
+
+
+
+		
 }

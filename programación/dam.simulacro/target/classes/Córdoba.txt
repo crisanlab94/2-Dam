@@ -1,4 +1,4 @@
-Artículo	NumUnidades	Importe	NumRerefencia	Dirección	Provincia	FechaPedido
+Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido
 Cojines	#6	#90	#0000010	#c/Calle Córdoba, 7	#Córdoba	#05/03/2021
 Armario	#1	#450	#0000016	#c/Calle Córdoba, 18	#Córdoba	#11/03/2021
 Ropa de cama	#4	#200	#0000024	#c/Calle Córdoba, 29	#Córdoba	#19/03/2021

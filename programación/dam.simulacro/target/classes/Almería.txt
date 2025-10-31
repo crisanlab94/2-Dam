@@ -1,4 +1,4 @@
-Artículo	NumUnidades	Importe	NumRerefencia	Dirección	Provincia	FechaPedido
+Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido
 Lámpara de techo	#2	#200	#0000012	#c/Calle Almería, 8	#Almería	#07/03/2021
 Lámpara de mesa	#3	#90	#0000018	#c/Calle Almería, 21	#Almería	#13/03/2021
 Mesa auxiliar	#1	#90	#0000026	#c/Calle Almería, 31	#Almería	#21/03/2021

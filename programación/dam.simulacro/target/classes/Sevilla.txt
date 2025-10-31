@@ -1,4 +1,4 @@
-Artículo	NumUnidades	Importe	NumRerefencia	Dirección	Provincia	FechaPedido
+Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido
 Mesa exterior	#1	#500	#0000001	#c/Calle Jamaica, 1	#Sevilla	#01/03/2021
 Silla	#2	#60	#0000002	#c/Calle Ebro, 2	#Sevilla	#01/03/2021
 Nintendo	#1	#400	#0000003	#c/Calle Sebastián, 4	#Sevilla	#02/03/2021

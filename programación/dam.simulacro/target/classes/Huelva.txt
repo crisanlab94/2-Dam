@@ -1,4 +1,4 @@
-Artículo	NumUnidades	Importe	NumRerefencia	Dirección	Provincia	FechaPedido
+Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido
 Lámpara	#2	#175	#0000004	#c/Calle Sevilla 1	#Huelva	#01/03/2021
 Mueble TV	#1	#350	#0000013	#c/Calle Huelva, 9	#Huelva	#08/03/2021
 Estantería pequeña	#2	#80	#0000021	#c/Calle Huelva, 26	#Huelva	#16/03/2021

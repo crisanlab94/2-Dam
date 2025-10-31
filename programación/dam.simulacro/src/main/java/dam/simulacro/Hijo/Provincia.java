@@ -20,13 +20,17 @@ public class Provincia {
 		Provincia p = new Provincia();
 		try {
 			 // Analiza el fichero y obtiene las líneas de la provincia
+			 // Filtra los pedidos de la provincia
 			String contenidoProvincia=p.analizaProvincia(rutaResources + "pedidos.txt",nombreProvincia);
 			   
-			// Escribe el contenido en un fichero con el nombre de la provincia
+			// Escribe el contenido en un fichero con el nombre de la provincia (por ejemplo "Sevilla.txt")
             p.escribirProvincia(contenidoProvincia, rutaResources + nombreProvincia + ".txt");
             
-            System.out.println(p.devuelveNumProvincia(rutaResources + nombreProvincia +".txt"));
+            // Calcula el número de pedidos y lo imprime
+            int numPedidos=p.devuelveNumProvincia(rutaResources + nombreProvincia +".txt");
  
+            // Esta línea es la única salida que leerá el padre
+            System.out.println(nombreProvincia + ": " + numPedidos);
           
           // apartados anteriores
             //System.out.println("Fichero generado: " + nombreProvincia + ".txt");
@@ -73,7 +77,8 @@ public class Provincia {
 		FileWriter ficheroSalida = null;
 		try {
 			ficheroSalida = new FileWriter(rutaFichero);
-			String encabezado ="Artículo\tNumUnidades\tImporte\tNumRerefencia\tDirección\tProvincia\tFechaPedido\n";
+			//Para que salga con #, como el fichero txt
+			String encabezado = "Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido\n";
 			ficheroSalida.write(encabezado);
 			ficheroSalida.write(contenido);
 
@@ -95,11 +100,13 @@ public class Provincia {
 
 		int provincia =0;
 
-	    File archivo = new File(ruta);
 
-	    try (FileReader fichero = new FileReader(archivo);
+	    try (FileReader fichero = new FileReader(ruta);
 
 	         Scanner in = new Scanner(fichero)) {
+	    	
+	    	  // Saltar la primera línea (encabezado)
+	        if (in.hasNextLine()) in.nextLine();
 
 	        while (in.hasNextLine()) {
 
@@ -125,8 +132,7 @@ public class Provincia {
 
 	}
 	
-	//public int devuelveTotalPedidos(String ruta) {
-		
-	//}
+	
+	}
 
-}
+

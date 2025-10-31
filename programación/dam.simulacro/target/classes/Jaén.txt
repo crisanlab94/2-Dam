@@ -1,4 +1,4 @@
-Artículo	NumUnidades	Importe	NumRerefencia	Dirección	Provincia	FechaPedido
+Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido
 Espejo	#1	#150	#0000011	#c/Calle Jaén, 2	#Jaén	#06/03/2021
 Escritorio	#2	#220	#0000017	#c/Calle Jaén, 20	#Jaén	#12/03/2021
 Alfombra	#2	#150	#0000025	#c/Calle Jaén, 30	#Jaén	#20/03/2021

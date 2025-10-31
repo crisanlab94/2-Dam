@@ -1,4 +1,4 @@
-Artículo	NumUnidades	Importe	NumRerefencia	Dirección	Provincia	FechaPedido
+Artículo#NumUnidades#Importe#NumReferencia#Dirección#Provincia#FechaPedido
 Sofá	#1	#700	#0000008	#c/Avenida Andalucía, 3	#Málaga	#03/03/2021
 Reloj de pared	#3	#75	#0000014	#c/Calle Málaga, 12	#Málaga	#09/03/2021
 Cojines decorativos	#5	#100	#0000022	#c/Calle Málaga, 27	#Málaga	#17/03/2021
