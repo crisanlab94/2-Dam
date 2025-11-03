@@ -1,0 +1,6 @@
+Andalucía;Aceite;12
+Madrid;Vino;4
+Galicia;Marisco;20
+Andalucía;Jamón;6
+Valencia;Naranja;3
+Madrid;Queso;10

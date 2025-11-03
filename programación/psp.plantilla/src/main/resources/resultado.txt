@@ -1,0 +1,8 @@
+===== RESULTADOS DEL ANÁLISIS ESTADÍSTICO =====
+Números analizados: 10
+Mínimo: 10.0
+Máximo: 100.0
+Media: 55.0
+Mediana: 55.0
+Desviación estándar: 28.722813232690143
+===============================================

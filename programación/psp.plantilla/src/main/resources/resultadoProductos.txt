@@ -1,0 +1,29 @@
+===== LISTA DE PRODUCTOS =====
+Andalucía   | Aceite     |  12
+Andalucía   | Jamón     |   6
+Galicia      | Marisco    |  20
+Valencia     | Naranja    |   3
+Madrid       | Queso      |  10
+Madrid       | Vino       |   4
+
+===== PRODUCTOS CON CANTIDAD > 5 =====
+Andalucía   | Aceite     |  12
+Andalucía   | Jamón     |   6
+Galicia      | Marisco    |  20
+Madrid       | Queso      |  10
+
+===== ORDENADOS POR CANTIDAD (MAYOR A MENOR) =====
+Galicia      | Marisco    |  20
+Andalucía   | Aceite     |  12
+Madrid       | Queso      |  10
+Andalucía   | Jamón     |   6
+Madrid       | Vino       |   4
+Valencia     | Naranja    |   3
+
+===== ORDENADOS POR CANTIDAD (MENOR A MAYOR) =====
+Valencia     | Naranja    |   3
+Madrid       | Vino       |   4
+Andalucía   | Jamón     |   6
+Madrid       | Queso      |  10
+Andalucía   | Aceite     |  12
+Galicia      | Marisco    |  20
