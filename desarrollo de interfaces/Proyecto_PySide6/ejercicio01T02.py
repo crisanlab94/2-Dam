@@ -16,7 +16,7 @@ class VentanaPrincipal (QMainWindow):
         # Establecer el widget central de la ventana
         self.setCentralWidget(boton)
        # self.setFixedSize(QSize(800,400))
-       #El tamaño de la ventama lo quiero con rango no con tamaño fijo
+       #El tamaño de la ventana lo quiero con rango no con tamaño fijo
         self.setMaximumSize(800,600)
         self.setMinimumSize(500,400)
 

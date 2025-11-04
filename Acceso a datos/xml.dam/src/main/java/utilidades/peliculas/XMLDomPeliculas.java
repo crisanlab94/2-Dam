@@ -1,4 +1,6 @@
-package xml.dam;
+package utilidades.peliculas;
+
+
 
 import java.io.File;
 
@@ -35,19 +37,21 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
 import org.w3c.dom.Element;
+
 import org.w3c.dom.Node;
+
 import org.w3c.dom.NodeList;
+
 import org.w3c.dom.Text;
 
+import modelo.peliculas.Pelicula;
 import xml.dam.modelo.Empleado;
 
+public class XMLDomPeliculas {
 
-
-public class XMLDomEmpleados {
-	
 	public final static String rutaResources = "src/main/resources/";
 
-	private static final Logger logger = LogManager.getLogger(XMLDomEmpleados.class);
+	private static final Logger logger = LogManager.getLogger(XMLDomPeliculas.class);
 
 
 
@@ -57,43 +61,143 @@ public class XMLDomEmpleados {
 
 	}
 
-/*
 
-	public List<Empleado> getEmpleadosFromXML(String nombreFichero, String nombreRaiz) {
 
-		List<Empleado> modelos = new ArrayList<Empleado>();
+	/*
 
-			Document documento = getDocumentFromXML(nombreFichero);
+	 * public List<Empleado> getEmpleadosFromXML(String nombreFichero, String
 
-			NodeList nodoRaiz = documento.getElementsByTagName(nombreRaiz);
+	 * nombreRaiz) { List<Empleado> modelos = new ArrayList<Empleado>(); Document
 
-			Node raiz = nodoRaiz.item(0); // obtengo el nodo raíz
+	 * documento = getDocumentFromXML(nombreFichero); NodeList nodoRaiz =
 
-			if (raiz.getNodeType() == Node.ELEMENT_NODE) {
+	 * documento.getElementsByTagName(nombreRaiz); Node raiz = nodoRaiz.item(0); //
 
-				Element elemento = (Element) raiz;
+	 * obtengo el nodo raíz if (raiz.getNodeType() == Node.ELEMENT_NODE) { Element
 
-				if (elemento.hasChildNodes()) { // cada hijo es un empleado
+	 * elemento = (Element) raiz; if (elemento.hasChildNodes()) { // cada hijo es un
 
-					NodeList nodosHijos = elemento.getChildNodes();
+	 * empleado NodeList nodosHijos = elemento.getChildNodes(); for (int j = 0; j <
 
-					for (int j = 0; j < nodosHijos.getLength(); j++) {
+	 * nodosHijos.getLength(); j++) { Node modeloNodo = nodosHijos.item(j); if
 
-						Node modeloNodo = nodosHijos.item(j);
+	 * (modeloNodo.getNodeType() == Node.ELEMENT_NODE) { T e =
 
-						if (modeloNodo.getNodeType() == Node.ELEMENT_NODE) {
+	 * this.getModeloFromElement((Element) modeloNodo); modelos.add(e); } } } }
 
-							T e = this.getModeloFromElement((Element) modeloNodo);
+	 * return modelos; }
 
-							modelos.add(e);
+	 */
 
-						}	}	}			}
 
-		return modelos;  }
 
-*/
+	public List<Pelicula> leerPelissDesdeXML(String rutaFichero) throws Exception {
 
-	
+		List<Pelicula> listaPeliculas = new ArrayList<Pelicula>();
+
+		// 1. Calcula el dom
+
+		Document doc = getDocumentFromXML(rutaFichero);
+
+		// 2. Obtener todos los nodos con etiqueta empleados
+
+		NodeList nodosPeliculas = doc.getElementsByTagName("Pelicula");
+
+
+
+		// 3. Recorro la lista de los nodos empleado
+
+		for (int j = 0; j < nodosPeliculas.getLength(); j++) {
+
+			Node modeloNodo = nodosPeliculas.item(j);
+
+			if (modeloNodo.getNodeType() == Node.ELEMENT_NODE) {
+
+				Pelicula e = this.getPeliculasFromElement((Element) modeloNodo);
+
+				listaPeliculas.add(e);
+
+			}
+
+		}
+
+
+
+		return listaPeliculas;
+
+	}
+
+
+
+	private List<String> leerActoresDesdeElemento(Element elemento) {
+
+		List<String> listaActores = new ArrayList<String>();
+
+
+
+		// 1. Obtener todos los nodos con etiqueta Actor dentro del elemento Pelicula
+
+		NodeList nodosActores = elemento.getElementsByTagName("Actor");
+
+
+
+		// 2. Recorro la lista de los nodos Actor
+
+		for (int j = 0; j < nodosActores.getLength(); j++) {
+
+			Node modeloNodo = nodosActores.item(j);
+
+			if (modeloNodo.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element hijo = (Element) modeloNodo;
+
+				listaActores.add(hijo.getTextContent());
+
+			}
+
+		}
+
+
+
+		return listaActores;
+
+	}
+
+
+
+	// Único método a modificar
+
+	private Pelicula getPeliculasFromElement(Element elemento) {
+
+		Pelicula e = new Pelicula();
+
+		List<String> actoresLista = leerActoresDesdeElemento(elemento);
+
+
+
+		String titulo = elemento.getElementsByTagName("Titulo").item(0).getTextContent();
+
+		int anyo = Integer.parseInt(elemento.getElementsByTagName("Fecha").item(0).getTextContent());
+
+		String director = elemento.getElementsByTagName("Director").item(0).getTextContent();
+
+
+
+		e.setTitulo(titulo);
+
+		e.setAnyo(anyo);
+
+		e.setDirector(director);
+
+		e.setListaActores(actoresLista);
+
+
+
+		return e;
+
+	}
+
+
 
 	private Document getDocumentFromXML(String nombrefichero) {
 
@@ -121,60 +225,18 @@ public class XMLDomEmpleados {
 
 
 
-	public Empleado leerEmpleadoDesdeXML(String rutaFichero) throws Exception {
+	// Único método a modificar
+
+	public Pelicula leerPeliculaDesdeXML(String rutaFichero) throws Exception {
 
 		Document doc = getDocumentFromXML(rutaFichero);
 
 		Element elementoEmpleado = doc.getDocumentElement();
 
-		return getEmpleadoFromElement(elementoEmpleado);
+		return getPeliculasFromElement(elementoEmpleado);
 
 	}
 
-
-
-	//Unico metodo que cambia porque se tiene que adaptar a lo que se pida 
-	private Empleado getEmpleadoFromElement(Element elemento) {
-
-		Empleado e = new Empleado();
-
-		String nombre = elemento.getElementsByTagName("nombreApellido").item(0).getTextContent();
-
-		int edad = Integer.parseInt(elemento.getElementsByTagName("edad").item(0).getTextContent());
-
-		String empresa = elemento.getElementsByTagName("empresa").item(0).getTextContent();
-
-		String id = elemento.getAttribute("identificador"); // La etiqueta empleado tiene el atributo identificador
-
-		e.setEdad(edad);
-
-		e.setNombreApellido(nombre);
-
-		e.setIdentificador(id);
-
-		e.setEmpresa(empresa);
-
-		return e;
-
-	}
-
-	
-	public List<Empleado> leerEmpleadosDesdeXML(String rutaFichero) throws Exception {
-		List<Empleado> empleados = new ArrayList<Empleado>();
-		// 1. Calcula el dom
-		Document doc = getDocumentFromXML(rutaFichero);
-		// 2. Obtener todos los nodos con etiqueta empleados
-		NodeList nodosEmpleados = doc.getElementsByTagName("empleado");
- // 3. Recorro la lista de los nodos empleado
-		for (int j = 0; j < nodosEmpleados.getLength(); j++) {
-			Node modeloNodo = nodosEmpleados.item(j);
-			if (modeloNodo.getNodeType() == Node.ELEMENT_NODE) {
-				Empleado e = this.getEmpleadoFromElement((Element) modeloNodo);
-				empleados.add(e);
-			}
-		}
-		return empleados;
-	}
 
 
 	private Document construyoObjetoDocumento(String nombreRaiz) throws ParserConfigurationException {
@@ -284,4 +346,3 @@ public class XMLDomEmpleados {
 
 
 }
-
