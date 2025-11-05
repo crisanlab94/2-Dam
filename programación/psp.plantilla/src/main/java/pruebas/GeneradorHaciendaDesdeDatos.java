@@ -28,8 +28,10 @@ public class GeneradorHaciendaDesdeDatos {
         int totalDNIs = gh.ejecutarYObtenerSalida("pruebas.GeneraDNIFichero", ficheroEntrada);
         int totalNSSs = gh.ejecutarYObtenerSalida("pruebas.GeneraNSSFichero", ficheroEntrada);
 
+        
+        int totalContribuyentes = totalDNIs + totalNSSs;
         // Imprimimos en consola el resumen final
-        System.out.println("Número total de contribuyentes tratados:");
+        System.out.println("Número total de contribuyentes tratados:" + totalContribuyentes);
         System.out.println("DNIs tratados: " + totalDNIs);
         System.out.println("NSSs tratados: " + totalNSSs);
 

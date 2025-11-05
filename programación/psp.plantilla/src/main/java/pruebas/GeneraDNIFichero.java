@@ -42,6 +42,7 @@ public class GeneraDNIFichero {
         System.exit(0);
     }
 
+    
     // Analiza el fichero de entrada y filtra las líneas que contienen un DNI válido
     public String analizaDNI(String rutaFichero) throws FileNotFoundException {
         File archivo = new File(rutaFichero);
@@ -69,6 +70,7 @@ public class GeneraDNIFichero {
 
         return contenido;
     }
+
 
     // Escribe el contenido filtrado en un fichero de salida
     public void escribirDNI(String contenido, String rutaFichero) {
@@ -117,16 +119,23 @@ public class GeneraDNIFichero {
         return total;
     }
 
+    
     // Comprueba si un código es un DNI válido
     // Formatos:
     // - 8 dígitos + letra final (ej: 12345678A)
-    // - letra inicial + 8 dígitos (ej: X12345678)
+    // - letra inicial + 8 dígitos (ej: X12345678J)
     public boolean esDNIValido(String codigo) {
         boolean valido = false;
+        codigo = codigo.trim(); // eliminar espacios
+
+        if (codigo.length() == 0) {
+            return false; // línea vacía
+        }
+
         int len = codigo.length();
 
-        // Caso 1: 8 dígitos + letra final
         if (len == 9) {
+            // Español: 8 dígitos + letra
             boolean correcto = true;
             for (int i = 0; i < 8; i++) {
                 if (!Character.isDigit(codigo.charAt(i))) {
@@ -136,23 +145,58 @@ public class GeneraDNIFichero {
             if (correcto && Character.isLetter(codigo.charAt(8))) {
                 valido = true;
             }
-        }
-     // Caso 2: letra inicial + 8 dígitos + letra final
-        else if (len == 10) {
-            boolean correcto = true;
+            // Extranjero: letra + 7 dígitos + letra
+            else if (Character.isLetter(codigo.charAt(0)) && Character.isLetter(codigo.charAt(8))) {
+                boolean digitosCorrectos = true;
+                for (int i = 1; i <= 7; i++) {
+                    if (!Character.isDigit(codigo.charAt(i))) {
+                        digitosCorrectos = false;
+                    }
+                }
+                if (digitosCorrectos) valido = true;
+            }
+        } else if (len == 10) {
+            // Extranjero: letra + 8 dígitos + letra
             if (Character.isLetter(codigo.charAt(0)) && Character.isLetter(codigo.charAt(9))) {
-                for (int i = 1; i < 9; i++) {
+                boolean correcto = true;
+                for (int i = 1; i <= 8; i++) {
                     if (!Character.isDigit(codigo.charAt(i))) {
                         correcto = false;
                     }
                 }
-                if (correcto) {
-                    valido = true;
-                }
+                if (correcto) valido = true;
             }
         }
 
         return valido;
     }
-        
+
+    /*
+    //Sin validacion usamos otro analizaDNI
+    ///tambien eliminamos esDNIValido
+       public String analizaDNI(String rutaFichero) throws IOException {
+        File archivo = new File(rutaFichero);
+        FileReader fichero = new FileReader(archivo);
+        Scanner in = new Scanner(fichero);
+        StringBuilder contenido = new StringBuilder();
+
+        while (in.hasNextLine()) {
+            String linea = in.nextLine().trim();
+            if (linea.isEmpty()) continue; // saltar líneas vacías
+
+            // Obtenemos la primera parte de la línea antes de la coma
+            String primerCampo = linea.split(",", 2)[0].trim();
+
+            // Si NO empieza por AN, es DNI
+            if (!primerCampo.startsWith("AN")) {
+                contenido.append(linea).append("\n");
+            }
+        }
+
+        in.close();
+        fichero.close();
+
+        return contenido.toString();
+    }
+     */
 }

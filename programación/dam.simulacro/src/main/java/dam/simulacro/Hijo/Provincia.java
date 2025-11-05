@@ -21,7 +21,7 @@ public class Provincia {
 		try {
 			 // Analiza el fichero y obtiene las líneas de la provincia
 			 // Filtra los pedidos de la provincia
-			String contenidoProvincia=p.analizaProvincia(rutaResources + "pedidos.txt",nombreProvincia);
+			String contenidoProvincia=p.analizaProvincia(rutaResources + "Sevilla.txt",nombreProvincia);
 			   
 			// Escribe el contenido en un fichero con el nombre de la provincia (por ejemplo "Sevilla.txt")
             p.escribirProvincia(contenidoProvincia, rutaResources + nombreProvincia + ".txt");

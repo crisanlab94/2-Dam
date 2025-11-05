@@ -70,6 +70,7 @@ public class GeneraDNIFichero {
 
 			if (lista != null && !lista.isEmpty()) {
 				for (String nss : lista) {
+					//para listas porque pasa de una linea a otra
 					pw.println(nss);
 				}
 			}

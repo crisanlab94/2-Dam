@@ -2,8 +2,8 @@ var http = require('http')
 
 function webServer(req, res)
 {
-    res.writeHead(200, {'Content-Type' : 'text/html'}).end ('<h1>Hola Node.js</h1>')
-
+    res.writeHead(200, {'Content-Type' : 'text/html'})
+    res.end('<h1>Hola Node.js</h1>')
 }
 http
     .createServer(webServer)

@@ -1,3 +1,4 @@
+#Cristina Sandoval Laborde 2ºDAM
 from PySide6.QtWidgets import QApplication,QMainWindow,QCheckBox
 from PySide6.QtCore import Qt
 

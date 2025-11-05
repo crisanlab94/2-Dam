@@ -1,3 +1,4 @@
+#Cristina Sandoval Laborde 2ºDAM
 import os
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QLabel

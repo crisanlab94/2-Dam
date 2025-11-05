@@ -31,6 +31,12 @@ public class GeneradorHacienda {
         int totalDNIs = gh.ejecutarYObtenerSalida("pruebas.GeneraDNIFichero", ficheroEntrada);
         int totalNSSs = gh.ejecutarYObtenerSalida("pruebas.GeneraNSSFichero", ficheroEntrada);
 
+        int totalContribuyentes = totalDNIs + totalNSSs;
+        // Imprimimos en consola el resumen final
+        System.out.println("Número total de contribuyentes tratados:" + totalContribuyentes);
+        System.out.println("DNIs tratados: " + totalDNIs);
+        System.out.println("NSSs tratados: " + totalNSSs);
+
         // Escribimos el resumen final con los totales
         gh.escribirResumen(ficheroResumen, totalDNIs, totalNSSs);
     }
@@ -38,7 +44,7 @@ public class GeneradorHacienda {
     // Método que compila una clase Java usando javac
     public void compilaClase(String rutaRelativa) {
         // Construimos el comando de compilación con la versión Java 17
-        String[] comando = {"javac", "--release", "17", "-d", DIRECTORIO_GENERAR_CLASSES, RUTA_SOURCE + rutaRelativa};
+        String[] comando = {"javac", "-d", DIRECTORIO_GENERAR_CLASSES, RUTA_SOURCE + rutaRelativa};
 
         try {
             ProcessBuilder pb = new ProcessBuilder(comando);
@@ -58,24 +64,23 @@ public class GeneradorHacienda {
         }
     }
 
+    //Clase que queremos ejecutar (en este caso se refiere a las clases hijas)
+    //ficheroEntrada es el path del archivo que la clase hija va a leer.
+    //ficheroEntrada = ruta del archivo que tu clase hija va a procesar.
+    
+    //se puede sacar tb de aqui Archivo externo
+
+	//Puede ser cualquier archivo en tu disco. Solo asegúrate de pasar la ruta correcta al método:
+	//int resultado = ejecutarYObtenerSalida("MiClaseHija", "C:/misDatos/entrada.txt");
+   
+    
     public int ejecutarYObtenerSalida(String clase, String ficheroEntrada) {
         int resultado = 0;
 
         try {
             // Comando para ejecutar la clase hija
-           //En clase asi
-        	//String[] comando = {"java", "-cp", "target/classes", clase, ficheroEntrada};
+        	String[] comando = {"java", "-cp", "target/classes", clase, ficheroEntrada};
             
-        	//Para a casa
-        	// Obtiene la ruta del JDK 17 desde JAVA_HOME
-        	String javaHome = System.getenv("JAVA_HOME"); 
-        	String javaCmd = javaHome + "/bin/java"; // En Windows sería "\\bin\\java"
-
-        	// Construye el comando usando la JVM correcta
-        	String[] comando = {javaCmd, "-cp", "target/classes", clase, ficheroEntrada};
-
-        	//A partir de aqui igual en clase
-        	
         	ProcessBuilder pb = new ProcessBuilder(comando);
             pb.redirectErrorStream(true); // errores y salida estándar juntos
 
