@@ -21,7 +21,8 @@ function webServer(req, res) {
                 //Texto concatenado con el valor de la variable ${dataString}
                 var dataObjetc = querystring.parse(dataString),
                 dataJSON=util.inspect(dataObjetc),
-                templateString= `Los datos que enviaste por Post como string son ${dataString}
+                templateString= `
+                Los datos que enviaste por Post como string son ${dataString}
                 Los datos que enviaste por Post como JSON son ${dataJSON}
                 `
                 
