@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<empleados>
+    <empleado identificador="E001">
+        <nombreApellido>Juan Haro</nombreApellido>
+        <edad>30</edad>
+        <empresa>OpenAI</empresa>
+    </empleado>
+    <empleado identificador="E002">
+        <nombreApellido>María López</nombreApellido>
+        <edad>25</edad>
+        <empresa>Google</empresa>
+    </empleado>
+</empleados>
+
+
