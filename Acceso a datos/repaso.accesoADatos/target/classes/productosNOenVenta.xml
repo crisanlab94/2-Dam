@@ -1,0 +1,10 @@
+<ListaProductos>
+  <Producto id="1" enVenta="false">
+    <Nombre>Producto 1</Nombre>
+    <Stock>3</Stock>
+  </Producto>
+  <Producto id="3" enVenta="false">
+    <Nombre>Producto 3</Nombre>
+    <Stock>0</Stock>
+  </Producto>
+</ListaProductos>

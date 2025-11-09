@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "nombre": "Bulbasaur",
+  "tipo": "Planta",
+  "altura_m": 0.7,
+  "peso_kg": 6.9,
+  "habilidadPrincipal": "Clorofila",
+  "evoluciona_a": "Ivysaur"
+}
