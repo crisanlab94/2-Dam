@@ -11,6 +11,7 @@ public class ServicioProducto {
 	 private RepositorioProducto repositorio;
 
 	    public ServicioProducto() {
+	    	super();
 	        repositorio = new RepositorioProducto(); 
 	    }
 
