@@ -14,6 +14,12 @@ app.get('/contacto', (req, res) => {
   res.send('Estas en contactos')
 })
 
+
+app.use((req,res) => {
+  res.status(404).sendFile(__dirname + "/public/html/404.html")
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
