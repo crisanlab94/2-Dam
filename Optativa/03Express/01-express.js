@@ -2,11 +2,15 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.use(express.static(__dirname +'/public'));
+app.set('view engine', 'ejs')
+app.use('views', express.static(__dirname + '/views'))
+app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
+app.get('/pruebas', (req, res) => {
   //console.log(__dirname) //ruta donde estamos
-  res.send('Ya somos unos crack en Node+Express')
+  //res.send('Ya somos unos crack en Node+Express')
+  //pasa un json con un titulo
+  res.render('pruebas', { titulo: 'mi titulo dinámico' })
 })
 
 app.get('/contacto', (req, res) => {
@@ -15,7 +19,7 @@ app.get('/contacto', (req, res) => {
 })
 
 
-app.use((req,res) => {
+app.use((req, res) => {
   res.status(404).sendFile(__dirname + "/public/html/404.html")
 })
 
