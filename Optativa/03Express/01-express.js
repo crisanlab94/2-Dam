@@ -10,7 +10,14 @@ app.get('/pruebas', (req, res) => {
   //console.log(__dirname) //ruta donde estamos
   //res.send('Ya somos unos crack en Node+Express')
   //pasa un json con un titulo
-  res.render('pruebas', { titulo: 'mi titulo dinámico' })
+  res.render('pruebas', { titulo: 'mi titulo dinámico', Descripcion:'Esto es una descripcion'})
+})
+
+app.get('/pruebas2', (req, res) => {
+  //console.log(__dirname) //ruta donde estamos
+  //res.send('Ya somos unos crack en Node+Express')
+  //pasa un json con un titulo
+  res.render('pruebas2', { titulo: 'mi titulo dinámico 2', Descripcion:'Esto es una descripcion 2'})
 })
 
 app.get('/contacto', (req, res) => {
