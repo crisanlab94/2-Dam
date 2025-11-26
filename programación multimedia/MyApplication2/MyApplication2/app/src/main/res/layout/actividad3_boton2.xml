@@ -1,0 +1,44 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esto es un texto de prueba"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:id="@+id/botonesAbajo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/botonCambiar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cambiar Color"
+            android:onClick="cambiarColor"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/botonVolver"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Anterior Color"
+            android:onClick="volverColor"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</RelativeLayout>
+

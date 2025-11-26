@@ -1,0 +1,28 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esto es un texto de prueba"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/Boton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Boton"
+        android:onClick="cambiarColor"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"/>
+
+</RelativeLayout>
+
