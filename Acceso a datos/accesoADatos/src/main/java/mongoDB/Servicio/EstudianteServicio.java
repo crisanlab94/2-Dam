@@ -24,6 +24,12 @@ public class EstudianteServicio {
 	       return repo.read();
 	   }
 	//TODO Agregar resto de operaciones del CRUD
+	   public EstudianteRepositorio getRepo() {
+		   return repo;
+	   }
+	   
+	   
+	   
 	}
 
 

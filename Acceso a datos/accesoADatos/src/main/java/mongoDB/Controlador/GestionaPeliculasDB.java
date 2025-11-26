@@ -15,9 +15,9 @@ public class GestionaPeliculasDB {
 		
 		EstudianteServicio  estudianteS= new EstudianteServicio(db);
 		
-		Estudiante e1 = new Estudiante(1, "Maria Pelaez", 7.78, List.of("leer","nadar"));
+		Estudiante e1 = new Estudiante();
 		estudianteS.save(e1);
-		List<Estudiante> estudiantes = estudianteS.read();
+		List<Estudiante> estudiantes = estudianteS.getRepo().getEstudiantes();
 		for(Estudiante e : estudiantes)
 		{
 			System.out.println(e);

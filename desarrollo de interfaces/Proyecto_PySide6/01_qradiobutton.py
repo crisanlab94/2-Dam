@@ -6,16 +6,23 @@ class VentanaPrincipal(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("QRadioButton")
-        self.texto=texto
+        
         #Aparece predeterminado y setText(para modificar esa información)
-        texto =QRadioButton("Activar función") 
-        self.setCentralWidget(texto)
-        texto.toggle()
-        texto.connect(self.toggle)
+        self.texto =QRadioButton("Activar función") 
+        self.setCentralWidget(self.texto)
+
+         # Activarlo por defecto
+        self.texto.setChecked(True)
+        
+         # Conectar señal correctamente
+        self.texto.toggled.connect(self.toggle)
 
 
-    def toggle(self):
-        self.setWindowTitle("Funcion")
+    def toggle(self, checked):
+        if checked:
+            self.setWindowTitle("Función activada")
+        else:
+            self.setWindowTitle("Función desactivada")
 
 
 app =QApplication([])
