@@ -138,6 +138,7 @@ class VentanaPrincipal(QMainWindow):
         self.addToolBar(toolbar)
         toolbar.addAction(self.accion_imprimir)
         toolbar.addAction(self.accion_limpiar)
+        toolbar.addSeparator
 
     # ----------------------------
     # CREAR STATUSBAR
