@@ -7,7 +7,8 @@ from PySide6.QtWidgets import (
 class VentanaPrincipal(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Ejercicio 9")
+        self.setWindowTitle("Encuesta de satisfación - Compañía de telefonía móvil")
+        self.setMinimumSize(800, 600)
 
         #Layout horizontal
         layout_principal = QHBoxLayout()
