@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Esto apila uno debajo de otro -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- TextView: muestra texto fijo en pantalla -->
+<TextView
+android:id="@+id/texto"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Texto inicial"
+android:textSize="20sp"/>
+
+    <!-- EditText: caja de texto para escribir -->
+<EditText
+android:id="@+id/miEditText"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Escribe aquí"/>
+
+    <!-- Button: botón que ejecuta una acción al pulsarlo -->
+<Button
+android:id="@+id/miBoton"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Mostrar texto"/>
+
+    <!-- Spinner: lista desplegable de opciones -->
+<Spinner
+android:id="@+id/miSpinner"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"/>
+
+    <!-- CheckBox: casilla para marcar/desmarcar -->
+<CheckBox
+android:id="@+id/miCheckBox"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Aceptar condiciones"/>
+
+    <!-- RadioGroup: agrupa varios RadioButtons -->
+<RadioGroup
+android:id="@+id/miGrupo"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal">
+
+<!-- RadioButton: botón circular de selección -->
+<RadioButton
+    android:id="@+id/radio1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Radio 1"/>
+
+<RadioButton
+    android:id="@+id/radio2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Radio 2"/>
+</RadioGroup>
+
+    </LinearLayout>

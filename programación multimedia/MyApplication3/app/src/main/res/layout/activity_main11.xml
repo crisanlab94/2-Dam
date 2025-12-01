@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondoGeneral">
+
+
+    <TextView
+        android:id="@+id/textoArribaIzquierda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Arriba Izquierda"
+        android:textSize="18sp"
+        android:textColor="@color/textoPrincipal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <!-- Imagen arriba a la derecha -->
+    <ImageView
+        android:id="@+id/imagenArribaDerecha"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/mi_imagen"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"/>
+
+    <!-- EditText en el centro -->
+    <EditText
+        android:id="@+id/entradaCentro"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Escribe aquí"
+        android:layout_centerInParent="true"/>
+
+    <!-- Spinner abajo a la izquierda -->
+    <Spinner
+        android:id="@+id/spinnerAbajoIzquierda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"/>
+
+    <!-- SeekBar abajo a la derecha -->
+    <SeekBar
+        android:id="@+id/seekAbajoDerecha"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="50"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
+    <!-- Botón debajo del EditText, centrado -->
+    <Button
+        android:id="@+id/btnCentroAbajo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Animar Texto"
+        android:layout_below="@id/entradaCentro"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+</RelativeLayout>

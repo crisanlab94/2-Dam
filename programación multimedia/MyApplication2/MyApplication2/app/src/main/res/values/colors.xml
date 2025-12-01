@@ -3,11 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="principal">#0000FF</color>
-    <color name="rojo">#F44336</color>
-    <color name="rosa">#DE21D7</color>
-
-
-
+    <color name="calido">#F44336</color>
 
 
 </resources>

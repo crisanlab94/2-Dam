@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="fondoPrincipal">#FFF9C4</color> <!-- Amarillo claro -->
+    <color name="fondoSecundario">#C8E6C9</color> <!-- Verde claro -->
+    <color name="fondoFormulario">#BBDEFB</color> <!-- Azul claro -->
+    <color name="textoAzul">#0D47A1</color> <!-- Azul oscuro -->
+    <color name="fondoGeneral">#E1F5FE</color> <!-- Azul muy claro -->
+    <color name="textoPrincipal">#0D47A1</color> <!-- Azul oscuro -->
+    <color name="fondoGrid">#F3E5F5</color> <!-- Lila claro -->
+    <color name="textoGrid">#4A148C</color> <!-- Morado oscuro -->
+    <color name="fondoFrame">#E0F7FA</color> <!-- Azul claro -->
+    <color name="textoFrame">#004D40</color> <!-- Verde oscuro -->
+</resources>

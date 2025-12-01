@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondoFrame"
+    android:padding="16dp">
+
+
+    <ImageView
+        android:id="@+id/imagenFondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mi_imagen"
+        android:scaleType="centerCrop"/>
+
+    <!-- Texto superpuesto en el centro -->
+    <TextView
+        android:id="@+id/textoCentral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FrameLayout Demo"
+        android:textSize="22sp"
+        android:textColor="@color/textoFrame"
+        android:layout_gravity="center"/>
+
+    <!-- Campo de texto arriba -->
+    <EditText
+        android:id="@+id/entradaUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce tu nombre"
+        android:layout_gravity="top"/>
+
+    <!-- Spinner abajo a la izquierda -->
+    <Spinner
+        android:id="@+id/spinnerOpciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"/>
+
+    <!-- Barra de progreso abajo a la derecha -->
+    <ProgressBar
+        android:id="@+id/progresoDemo"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="40"
+        android:layout_gravity="bottom|end"/>
+
+    <!-- Botón flotante en el centro-abajo -->
+    <Button
+        android:id="@+id/btnAccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acción"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="50dp"/>
+</FrameLayout>

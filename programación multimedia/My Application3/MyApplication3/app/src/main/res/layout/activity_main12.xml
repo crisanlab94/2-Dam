@@ -1,0 +1,65 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:rowCount="3"
+    android:columnCount="2"
+    android:background="@color/fondoGrid"
+    android:padding="16dp">
+
+    <!-- Texto arriba izquierda -->
+    <TextView
+        android:id="@+id/textoTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejemplo GridLayout"
+        android:textSize="20sp"
+        android:textColor="@color/textoGrid"
+        android:layout_row="0"
+        android:layout_column="0"/>
+
+
+    <ImageView
+        android:id="@+id/imagenDemo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/mi_imagen"
+        android:layout_row="0"
+        android:layout_column="1"/>
+
+    <!-- Campo de texto -->
+    <EditText
+        android:id="@+id/entradaNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Introduce tu nombre"
+        android:layout_row="1"
+        android:layout_column="0"/>
+
+    <!-- CheckBox -->
+    <CheckBox
+        android:id="@+id/checkActivar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activar opción"
+        android:layout_row="1"
+        android:layout_column="1"/>
+
+    <!-- SeekBar -->
+    <SeekBar
+        android:id="@+id/seekControl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="50"
+        android:layout_row="2"
+        android:layout_column="0"/>
+
+    <!-- Botón -->
+    <Button
+        android:id="@+id/btnAccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Haz algo"
+        android:layout_row="2"
+        android:layout_column="1"/>
+</GridLayout>
