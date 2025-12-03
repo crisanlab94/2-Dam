@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.label3)
         layout.addWidget(self.input_correo)
 
-        #Ubucacion
+        #Ubicacion
         layout.addWidget(QLabel("Selecciona la ubicacion de la academia:"))
         layout.addWidget(self.combo_ciudad)
 

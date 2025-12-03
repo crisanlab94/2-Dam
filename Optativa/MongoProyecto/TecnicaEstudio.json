@@ -1,0 +1,6 @@
+{
+    "_id": "TEC001",
+    "Nombre_Tecnica": "Pomodoro",
+    "Descripcion_TecnicaEstudio": "Estudiar en intervalos de 25 minutos con 5 minutos de descanso.",
+    "Tipo_TecnicaEstudio": "Concentración"
+}

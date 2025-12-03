@@ -1,61 +1,61 @@
 QLabel#titulo {
     font-size: 20px;
     font-weight: bold;
-     
+
 }
 
 
 QLineEdit {
-    border: 2px solid #8AB6F9;
+    border: 2px solid rgb(128, 24, 160);
     border-radius: 8px;
     padding: 6px;
-    background-color: #E8F0FE;
+    background-color: #d5b4e2;
 }
 
 QLineEdit:focus {
-    border: 2px solid #3D7BDB;
+    border: 2px solid rgb(188, 124, 207);
     background-color: #FFFFFF;
 }
 
-/* Botón Enviar */
+
 QPushButton#btnEnviar {
-    background-color: #4CAF50;   
-    color: white;                 
-    padding: 6px 12px;            
-    border: 2px solid #388E3C;    
-    border-radius: 8px;           
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: 2px solid #388E3C;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: bold;
 }
 
 QPushButton#btnEnviar:hover {
-    background-color: #66BB6A;   
+    background-color: #66BB6A;
     border-color: #2E7D32;
 }
 
 QPushButton#btnEnviar:pressed {
-    background-color: #388E3C;   
+    background-color: #388E3C;
     border-color: #1B5E20;
 }
 
 
 QPushButton#btnBorrar {
-    background-color: #a86ec4ff;    
+    background-color: rgb(16, 119, 30);
     color: white;
     padding: 6px 12px;
-    border: 2px solid #720fb4ff;
+    border: 2px solid rgb(12, 109, 3);
     border-radius: 8px;
     font-size: 14px;
     font-weight: bold;
 }
 
 QPushButton#btnBorrar:hover {
-    background-color: #E57373;  
+    background-color: #E57373;
     border-color: #C62828;
 }
 
 QPushButton#btnBorrar:pressed {
-    background-color: #C62828;   
+    background-color: #C62828;
     border-color: #B71C1C;
 }
 
@@ -63,7 +63,7 @@ QPushButton#btnBorrar:pressed {
 QCheckBox {
     font-size: 14px;
     padding-top: 12px;
-    background: transparent;  
+    background: transparent;
 }
 
 
@@ -82,14 +82,14 @@ QCheckBox::indicator:hover {
 
 
 QCheckBox::indicator:checked {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
     border: 2px solid #388E3C;
 }
 
 
 
 QCheckBox#newsletterCheck {
-   
+
     padding-bottom: 14px;
 }
 
@@ -117,28 +117,28 @@ QRadioButton::indicator:checked {
 
 QComboBox {
     background-color: #E8F0FE;
-    border: 2px solid #8AB6F9;
+    border: 2px solid #f98af0;
     border-radius: 8px;
     padding: 6px;
 }
 
 QComboBox:hover {
-    border-color: #3D7BDB;
+    border-color: #711baa;
 }
 
 QComboBox::drop-down {
     width: 25px;
-    border-left: 1px solid #8AB6F9;
+    border-left: 1px solid #b73dbb;
 }
 
 QComboBox::down-arrow {
-    image: url(none);  /* sin imagen obligatoria */
+
     border: 6px solid transparent;
-    border-top: 8px solid #5C8ED8;  /* triangulito */
+    border-top: 8px solid #bb96dd;
 }
 
 QComboBox QAbstractItemView {
     background: white;
     selection-background-color: #D6E4FF;
-    border: 1px solid #8AB6F9;
+    border: 1px solid #c395e2;
 }

@@ -1,0 +1,11 @@
+{
+    "_id": "METR001",
+    "ID_Usuario": "USR001",
+    "Horas_De_Estudio": 3.5,
+    "Tiempo_De_Concentración": 210,
+    "Uso_De_Tecnicas": [
+        "TEC001",
+        "TEC003"
+    ],
+    "Fecha_Registro": "2025-12-02"
+}

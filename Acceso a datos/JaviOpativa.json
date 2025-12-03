@@ -1,0 +1,14 @@
+{
+    "_id": "USR001",
+    "ID_Entidad": "ENT001",
+    "Nombre": "Cristina Sandoval",
+    "Fecha_De_Nacimiento": "2002-04-06",
+    "Email": "cristina@example.com",
+    "Contraseña": "hashed_password_123",
+    "Fecha_De_Registro": "2025-12-01",
+    "Asignaturas": [
+        "ASG001",
+        "ASG002",
+        "ASG003"
+    ]
+}
