@@ -7,6 +7,7 @@ import java.util.concurrent.Semaphore;
 
 public class GestionaMenuCompartido {
 	public static void main(String[] args) {
+		
 		//Empiezan en 0, porque el cocinero no cocina hasta que no hay clientes
 		//Hasta que no hay un plato no se come
 		Semaphore hayClientes = new Semaphore(0);
