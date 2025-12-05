@@ -1,0 +1,50 @@
+<%- include("template/cabecera", { tituloWeb: 'Peques' }) %>
+
+
+    <div class="container mt-4">
+        <% if (arrayPeques && arrayPeques.length> 0) { %>
+            <h1>
+                <caption> Información de los peques </caption>
+            </h1>
+            <table class="table table-bordered table-striped">
+                <br>
+                <br>
+
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Identificador</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Escuela</th>
+                        <th scope="col">Edad</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% arrayPeques.forEach((peques, index)=> { %>
+
+                        <tr>
+                            <th scope="row">
+                                <%= peques.id %>
+                            </th>
+                            <td>
+                                <%= peques.nombre %>
+                            </td>
+                            <td>
+                                <%= peques.Escuela %>
+                            </td>
+                            <td>
+                                <%= peques.edad %>
+                            </td>
+
+                        </tr>
+
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+
+                <p>No hay peques para mostrar.</p>
+                <% } %>
+    </div>
+
+    <%- include("template/cierre") %>

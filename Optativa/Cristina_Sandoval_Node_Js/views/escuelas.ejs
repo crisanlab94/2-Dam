@@ -1,0 +1,48 @@
+<%- include("template/cabecera", { tituloWeb: 'Escuelas' }) %>
+
+    <div class="container mt-4">
+        <% if (arrayEscuelas && arrayEscuelas.length> 0) { %>
+            <h1>
+                <caption> Información de las escuelas </caption>
+            </h1>
+            <br>
+            <br>
+            <table class="table table-bordered table-striped">
+                <thead class="table-info">
+                    <tr>
+                        <th scope="col">Identificador</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Ubicación</th>
+                        <th scope="col">Descripción</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% arrayEscuelas.forEach((escuelas, index)=> { %>
+                        <!-- Inicio del bucle forEach -->
+                        <tr>
+                            <th scope="row">
+                                <%= escuelas.id %>
+                            </th>
+                            <td>
+                                <%= escuelas.nombre %>
+                            </td>
+                            <td>
+                                <%= escuelas.Ubicacion %>
+                            </td>
+                            <td>
+                                <%= escuelas.descripcion %>
+                            </td>
+
+                        </tr>
+
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+
+                <p>No hay escuelas para mostrar.</p>
+                <% } %>
+    </div>
+
+    <%- include("template/cierre") %>
