@@ -3,6 +3,8 @@ package mongoDB.Repositorio;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 
 import com.mongodb.client.FindIterable;
@@ -10,6 +12,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.UpdateResult;
+import com.mongodb.client.result.DeleteResult;
 
 import mongoDB.Modelo.Entidad;
 import mongoDB.Modelo.Estudiante;
@@ -20,6 +23,8 @@ import mongoDB.Modelo.Curso;
 
 public class EstudianteRepositorio {
     
+    private static final Logger logger = LogManager.getLogger(EstudianteRepositorio.class);
+
     private static final String NOMBRE_COLECCION = "estudiantes";
     private final MongoCollection<Document> coleccion;
     private List<Estudiante> estudiantes;
@@ -41,44 +46,14 @@ public class EstudianteRepositorio {
             throw new IdException("El ID " + e.getId_Estudiante() + " ya está registrado en la base de datos.");
         }
         
-        Document estudiantes = new Document("Id_Estudiante", e.getId_Estudiante())
-                .append("Nombre", e.getNombre())
-                .append("Fecha_De_Nacimiento", e.getFecha_de_nacimiento())
-                .append("Email", e.getEmail())
-                .append("Edad", e.getEdad())
-                .append("Nota", e.getNota())
-                .append("turnoMañana", e.isTurnoManana())
-                .append("Curso", e.getCurso() != null ? e.getCurso().name() : null);
-
-        // Documento Entidad
-        if (e.getEntidad() != null) {
-            Document entidadDoc = new Document("Tipo", e.getEntidad().getTipo() != null ? e.getEntidad().getTipo().name() : null)
-                    .append("Nombre", e.getEntidad().getNombre())
-                    .append("Direccion", e.getEntidad().getDireccion());
-            
-            estudiantes.append("Entidad", entidadDoc);
-        } else {
-            estudiantes.append("Entidad", null);
-        }
-
-        // Lista de asignaturas
-        List<Document> listaAsignaturas = new ArrayList<Document>();
-        if (e.getAsignatura() != null) {
-            for (Asignatura asig : e.getAsignatura()) {
-                Document asigDoc = new Document("Nombre", asig.getNombre())
-                        .append("Codigo", asig.getCodigo())
-                        .append("Profesor", asig.getProfesor());
-                listaAsignaturas.add(asigDoc);
-            }
-        }
-        estudiantes.append("Asignaturas", listaAsignaturas);
+        Document estudiantesDoc = crearDocumento(e);
         
-        coleccion.insertOne(estudiantes);
+        coleccion.insertOne(estudiantesDoc);
         
         // Añadimos a la lista local
         this.estudiantes.add(e);
         
-        System.out.println("Estudiante guardado correctamente.");
+        logger.info("Estudiante guardado correctamente.");
     }
 
     //Select * Leer todo con el .find
@@ -117,39 +92,12 @@ public class EstudianteRepositorio {
                 estudiantes.set(i, e); 
 
                 // Actualizamos base de datos
-                Document docNuevo = new Document("Id_Estudiante", e.getId_Estudiante())
-                        .append("Nombre", e.getNombre())
-                        .append("Fecha_De_Nacimiento", e.getFecha_de_nacimiento())
-                        .append("Email", e.getEmail())
-                        .append("Edad", e.getEdad())
-                        .append("Nota", e.getNota())
-                        .append("turnoMañana", e.isTurnoManana())
-                        .append("Curso", e.getCurso() != null ? e.getCurso().name() : null);
+                Document docNuevo = crearDocumento(e);
 
-                if (e.getEntidad() != null) {
-                    Document entidadDoc = new Document("Tipo", e.getEntidad().getTipo() != null ? e.getEntidad().getTipo().name() : null)
-                            .append("Nombre", e.getEntidad().getNombre())
-                            .append("Direccion", e.getEntidad().getDireccion());
-                    docNuevo.append("Entidad", entidadDoc);
-                } else {
-                    docNuevo.append("Entidad", null);
-                }
-
-                List<Document> listaAsignaturas = new ArrayList<Document>();
-                if (e.getAsignatura() != null) {
-                    for (Asignatura asig : e.getAsignatura()) {
-                        Document asigDoc = new Document("Nombre", asig.getNombre())
-                                .append("Codigo", asig.getCodigo())
-                                .append("Profesor", asig.getProfesor());
-                        listaAsignaturas.add(asigDoc);
-                    }
-                }
-                docNuevo.append("Asignaturas", listaAsignaturas);
-
-               UpdateResult resultado = coleccion.replaceOne(new Document("Id_Estudiante", e.getId_Estudiante()), docNuevo);
-              long numModificados =  resultado.getModifiedCount();
-              if (numModificados > 0)
-            	  System.out.println("Estudiante actualizado correctamente en MongoDB. Documentos modificados: " + numModificados);
+                UpdateResult resultado = coleccion.replaceOne(new Document("Id_Estudiante", e.getId_Estudiante()), docNuevo);
+                long numModificados =  resultado.getModifiedCount();
+                if (numModificados > 0)
+                    logger.info("Estudiante actualizado correctamente en MongoDB. Documentos modificados: " + numModificados);
                 
                 encontrado = true;
             }
@@ -174,7 +122,11 @@ public class EstudianteRepositorio {
                 estudiantes.remove(i);
                 
                 Document busqueda = new Document("Id_Estudiante", idEstudiante);
-                coleccion.deleteOne(busqueda);
+                DeleteResult resultado = coleccion.deleteOne(busqueda);
+                long numBorrados = resultado.getDeletedCount();
+                
+                if (numBorrados > 0)
+                    logger.info("Estudiante borrado correctamente en MongoDB. Documentos borrados: " + numBorrados);
                 
                 encontrado = true;
             }
@@ -203,8 +155,17 @@ public class EstudianteRepositorio {
     
     
     //filtro por id
+    public Estudiante buscarPorId(String idEstudiante) {
+        Document query = new Document("Id_Estudiante", idEstudiante);
+        Document doc = coleccion.find(query).first();
+        
+        if (doc != null) {
+            return mapearEstudiante(doc);
+        }
+        return null;
+    }
     
- // Filtro repositorio rango de Notas (Usando $gte y $lte)
+    // Filtro repositorio rango de Notas (Usando $gte y $lte)
     public List<Estudiante> buscarPorRangoDeNota(double notaMinima, double notaMaxima) {
         List<Estudiante> resultado = new ArrayList<Estudiante>();
         
@@ -222,7 +183,7 @@ public class EstudianteRepositorio {
         return resultado;
     }
 
- // Filtro campo Anidado por Dirección de Entidad 
+    // Filtro campo Anidado por Dirección de Entidad 
     public List<Estudiante> buscarPorDireccionEntidad(String direccion) {
         List<Estudiante> resultado = new ArrayList<Estudiante>();
         
@@ -252,7 +213,7 @@ public class EstudianteRepositorio {
         return resultado;
     }
 
- // Ordenación por Nombre de Entidad Ascendente (Campo Anidado)
+    // Ordenación por Nombre de Entidad Ascendente (Campo Anidado)
     public List<Estudiante> leerOrdenadoPorNombreEntidad() {
         List<Estudiante> resultado = new ArrayList<Estudiante>();
         // 1 es Ascendente. Usamos Dot Notation en el sort.
@@ -266,10 +227,10 @@ public class EstudianteRepositorio {
         return resultado;
     }
     
- // Ordenación  por Fecha de Nacimiento Ascendente (Más jóvenes primero)
+    // Ordenación  por Fecha de Nacimiento Ascendente (Más jóvenes primero)
     public List<Estudiante> leerOrdenadoPorFechaNacimientoAscendente() {
         List<Estudiante> resultado = new ArrayList<Estudiante>();
-        // 1 es Ascendente. Si la fecha es un String, se ordena alfabéticamente (no ideal para fechas, pero demuestra el sort).
+        // 1 es Ascendente. La fecha es un String, se ordena alfabéticamente (no ideal para fechas, pero demuestra el sort).
         Document sort = new Document("Fecha_De_Nacimiento", 1); 
         
         FindIterable<Document> docs = coleccion.find().sort(sort);
@@ -296,7 +257,42 @@ public class EstudianteRepositorio {
         return resultado;
     }
  
-    
+    // Metodo auxiliar para convertir Estudiante a Document y no repetir ese trozo de codigo
+    private Document crearDocumento(Estudiante e) {
+        Document doc = new Document("Id_Estudiante", e.getId_Estudiante())
+                .append("Nombre", e.getNombre())
+                .append("Fecha_De_Nacimiento", e.getFecha_de_nacimiento())
+                .append("Email", e.getEmail())
+                .append("Edad", e.getEdad())
+                .append("Nota", e.getNota())
+                .append("turnoMañana", e.isTurnoManana())
+                .append("Curso", e.getCurso() != null ? e.getCurso().name() : null);
+
+        // Documento Entidad
+        if (e.getEntidad() != null) {
+            Document entidadDoc = new Document("Tipo", e.getEntidad().getTipo() != null ? e.getEntidad().getTipo().name() : null)
+                    .append("Nombre", e.getEntidad().getNombre())
+                    .append("Direccion", e.getEntidad().getDireccion());
+            
+            doc.append("Entidad", entidadDoc);
+        } else {
+            doc.append("Entidad", null);
+        }
+
+        // Lista de asignaturas
+        List<Document> listaAsignaturas = new ArrayList<Document>();
+        if (e.getAsignatura() != null) {
+            for (Asignatura asig : e.getAsignatura()) {
+                Document asigDoc = new Document("Nombre", asig.getNombre())
+                        .append("Codigo", asig.getCodigo())
+                        .append("Profesor", asig.getProfesor());
+                listaAsignaturas.add(asigDoc);
+            }
+        }
+        doc.append("Asignaturas", listaAsignaturas);
+        
+        return doc;
+    }
     
     // Metodo auxiliar para convertir Document a Estudiante y no repetir ese trozo de codigo
     private Estudiante mapearEstudiante(Document doc) {

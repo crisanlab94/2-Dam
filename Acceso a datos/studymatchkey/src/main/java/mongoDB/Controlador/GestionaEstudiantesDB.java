@@ -3,6 +3,9 @@ package mongoDB.Controlador;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager; 
+import org.apache.logging.log4j.Logger;     
+
 import com.mongodb.client.MongoDatabase;
 
 import mongoDB.Config.MongoDBConexion;
@@ -16,13 +19,14 @@ import mongoDB.Servicio.EstudianteServicio;
 
 public class GestionaEstudiantesDB {
     
+    // Declaración del Logger
+    private static final Logger logger = LogManager.getLogger(GestionaEstudiantesDB.class);
+    
     public static void main(String[] args) {
         
-      
-      
         GestionaEstudiantesDB programa = new GestionaEstudiantesDB();
         
-        System.out.println("--- PRUEBA DE CONEXIÓN ---");
+        logger.info("--- PRUEBA DE CONEXIÓN ---");
         
         //Conexión y servicio
         MongoDBConexion conexion = new MongoDBConexion();
@@ -31,12 +35,12 @@ public class GestionaEstudiantesDB {
         EstudianteServicio estudianteS = new EstudianteServicio(db);
          
         // Leer la base de datos como estaba (Read)
-        System.out.println("\n--- ESTADO INICIAL DE LA BASE DE DATOS ---");
+        logger.info("\n--- ESTADO INICIAL DE LA BASE DE DATOS ---");
         // Llamamos al método usando 'programa.'
         programa.mostrarLista(estudianteS);
 
         // Crear estudiante (Create)
-        System.out.println("\n--- CREANDO NUEVO ESTUDIANTE ---");
+        logger.info("\n--- CREANDO NUEVO ESTUDIANTE ---");
         
         Estudiante e1 = new Estudiante();
         e1.setId_Estudiante("E1235"); 
@@ -61,18 +65,18 @@ public class GestionaEstudiantesDB {
         
         try {
             estudianteS.save(e1);
-            System.out.println("Estudiante creado con éxito");
+            logger.info("Estudiante creado con éxito");
 
         } catch (IdException e) {
-            System.err.println("ERROR: " + e.getMessage());
+            logger.error("ERROR: " + e.getMessage());
         }
         
         // Imprimir de nuevo la base de datos para ver que se ha añadido
-        System.out.println("\n--- COMPROBANDO AÑADIDO ---");
+        logger.info("\n--- COMPROBANDO AÑADIDO ---");
         programa.mostrarLista(estudianteS);
 
         // Intentar añadirlo de nuevo para que no se pueda (ID Duplicado)
-        System.out.println("\n--- INTENTANDO AÑADIR DUPLICADO ---");
+        logger.info("\n--- INTENTANDO AÑADIR DUPLICADO ---");
         
         Estudiante e2 = new Estudiante();
         e2.setId_Estudiante("E1235"); // IMPORTANTE: Ponemos el MISmo ID 
@@ -84,11 +88,11 @@ public class GestionaEstudiantesDB {
             // Intentamos guardar e2 (mismo ID para que de error)
             estudianteS.save(e2);
         } catch (IdException ex) {
-            System.out.println("Error esperado: No se puede añadir, el ID ya existe.");
+            logger.info("Error esperado: No se puede añadir, el ID ya existe.");
         }
 
         //Modificar ese estudiante (Update)
-        System.out.println("\n--- MODIFICANDO ESTUDIANTE ---");
+        logger.info("\n--- MODIFICANDO ESTUDIANTE ---");
         
         // Cambiamos datos
         e1.setNombre("PRUEBA MODIFICADA"); 
@@ -96,117 +100,114 @@ public class GestionaEstudiantesDB {
         
         // Llamamos al método update 
         try {
-			estudianteS.update(e1);
-		} catch (IdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        System.out.println("Estudiante modificado.");
+            estudianteS.update(e1);
+        } catch (IdException e) {
+            logger.error(e.getMessage());
+        }
+        logger.info("Estudiante modificado.");
         
         // Imprimir de nuevo la lista para ver la modificación
-        System.out.println("\n--- COMPROBANDO MODIFICACIÓN ---");
+        logger.info("\n--- COMPROBANDO MODIFICACIÓN ---");
         programa.mostrarLista(estudianteS);
        
         
      // PRUEBAS DE FILTROS Y ORDENACIÓN 
-        System.out.println("\n---PRUEBAS DE FILTROS Y ORDENACIÓN ---");
+        logger.info("\n---PRUEBAS DE FILTROS Y ORDENACIÓN ---");
 
         // Filtro Repositorio (MONGO QUERY) buscar por curso
-        System.out.println("\nFILTRO MONGO: Estudiantes de CURSO SEGUNDO:");
+        logger.info("\nFILTRO MONGO: Estudiantes de CURSO SEGUNDO:");
         List<Estudiante> cursoSegundo = estudianteS.buscarPorCursoMongo(Curso.SEGUNDO);
-        for(Estudiante e : cursoSegundo) System.out.println("   - " + e.getNombre() + ", Curso: " + e.getCurso());
+        for(Estudiante e : cursoSegundo) logger.info("   - " + e.getNombre() + ", Curso: " + e.getCurso());
         
         // Filtro Repositorio (MONGO QUERY) buscar por Rango de Nota
-        System.out.println("\nFILTRO MONGO: Estudiantes con Nota entre 5.0 y 7.5:");
+        logger.info("\nFILTRO MONGO: Estudiantes con Nota entre 5.0 y 7.5:");
         List<Estudiante> rangoNotas = estudianteS.buscarPorRangoDeNota(5.0, 7.5);
-        for(Estudiante e : rangoNotas) System.out.println("   - " + e.getNombre() + ", Nota: " + e.getNota());
+        for(Estudiante e : rangoNotas) logger.info("   - " + e.getNombre() + ", Nota: " + e.getNota());
         
         // Filtro Repositorio (MONGO QUERY) buscar por Dirección de Entidad (Campo Anidado)
-        System.out.println("\nFILTRO MONGO: Estudiantes de la Entidad en 'Calle Letras 4':");
+        logger.info("\nFILTRO MONGO: Estudiantes de la Entidad en 'Calle Letras 4':");
         List<Estudiante> porDireccion = estudianteS.buscarPorDireccionEntidad("Calle Letras 4");
         for(Estudiante e : porDireccion) {
              String direccion = e.getEntidad() != null ? e.getEntidad().getDireccion() : "N/A";
-             System.out.println("   - " + e.getNombre() + ", Dirección: " + direccion);
+             logger.info("   - " + e.getNombre() + ", Dirección: " + direccion);
         }
 
         //Ordenación Repositorio (MONGO QUERY) ordenar por nota, solo salen las 10 mejores notas
-        System.out.println("\nORDEN MONGO: Por Nota (Mayor a menor, DESCENDENTE):");
+        logger.info("\nORDEN MONGO: Por Nota (Mayor a menor, DESCENDENTE):");
         List<Estudiante> mejoresNotas = estudianteS.leerOrdenadoPorNotaMongo();
         int limite = Math.min(mejoresNotas.size(), 10);
-        for(Estudiante e : mejoresNotas.subList(0, limite)) System.out.println("   - " + e.getNombre() + ": " + e.getNota());
+        for(Estudiante e : mejoresNotas.subList(0, limite)) logger.info("   - " + e.getNombre() + ": " + e.getNota());
         
      // Ordenación Repositorio (MONGO QUERY) ordenar por Nombre de Entidad
-        System.out.println("\nORDEN MONGO: Por Nombre de Entidad (A-Z):");
+        logger.info("\nORDEN MONGO: Por Nombre de Entidad (A-Z):");
         List<Estudiante> porEntidad = estudianteS.leerOrdenadoPorNombreEntidad();
         for(Estudiante e : porEntidad) {
             String nombreEntidad = e.getEntidad() != null ? e.getEntidad().getNombre() : "SIN ENTIDAD ASIGNADA";
-            System.out.println("   - " + e.getNombre() + ", Entidad: " + nombreEntidad);
+            logger.info("   - " + e.getNombre() + ", Entidad: " + nombreEntidad);
         }
         
         // Ordenación Repositorio (MONGO QUERY) ordenar por Fecha de Nacimiento (Más jóvenes primero)
-        System.out.println("\nORDEN MONGO: Por Fecha de Nacimiento (Ascendente):");
+        logger.info("\nORDEN MONGO: Por Fecha de Nacimiento (Ascendente):");
         List<Estudiante> porFechaNac = estudianteS.leerOrdenadoPorFechaNacimientoAscendente();
-        for(Estudiante e : porFechaNac) System.out.println("   - " + e.getNombre() + ", Fecha: " + e.getFecha_de_nacimiento());
+        for(Estudiante e : porFechaNac) logger.info("   - " + e.getNombre() + ", Fecha: " + e.getFecha_de_nacimiento());
         
         // Ordenación Repositorio (MONGO QUERY) Ordenación Combinada (Entidad A-Z, luego Edad DESC)
-        System.out.println("\nORDEN MONGO: Por Entidad (A-Z) y luego Edad (Descendente):");
+        logger.info("\nORDEN MONGO: Por Entidad (A-Z) y luego Edad (Descendente):");
         List<Estudiante> porEntidadYEdad = estudianteS.leerOrdenadoPorEntidadYEdad();
         for(Estudiante e : porEntidadYEdad) {
-            // 🔥 CORRECCIÓN 3: Null Check para Entidad en Ordenación Combinada
             String entidadNombre = e.getEntidad() != null ? e.getEntidad().getNombre() : "N/A";
-            System.out.println("   - " + e.getNombre() + ", Entidad: " + entidadNombre + ", Edad: " + e.getEdad());
+            logger.info("   - " + e.getNombre() + ", Entidad: " + entidadNombre + ", Edad: " + e.getEdad());
         }
         
         // Filtro Servicio (JAVA) filtro por edad 
-        System.out.println("\nFILTRO JAVA: Estudiantes de 20 años o más:");
+        logger.info("\nFILTRO JAVA: Estudiantes de 20 años o más:");
         List<Estudiante> mayores = estudianteS.filtrarPorEdadJava(20);
-        for(Estudiante e : mayores) System.out.println("   - " + e.getNombre() + ", Edad: " + e.getEdad());
+        for(Estudiante e : mayores) logger.info("   - " + e.getNombre() + ", Edad: " + e.getEdad());
 
         // Ordenación Servicio (JAVA) ordenacion alfabetica por nombre
-        System.out.println("\nORDEN JAVA: Por Nombre Alfabético:");
+        logger.info("\nORDEN JAVA: Por Nombre Alfabético:");
         List<Estudiante> nombresOrdenados = estudianteS.ordenarPorNombreJava();
-        for(Estudiante e : nombresOrdenados) System.out.println("   - " + e.getNombre());
+        for(Estudiante e : nombresOrdenados) logger.info("   - " + e.getNombre());
         
         // Filtro Servicio (JAVA) por Nota y Turno de Mañana
-        System.out.println("\nFILTRO JAVA: Nota >= 8.0 Y Turno de Mañana:");
+        logger.info("\nFILTRO JAVA: Nota >= 8.0 Y Turno de Mañana:");
         List<Estudiante> notaTurno = estudianteS.filtrarPorNotaYTurnoManana(8.0);
-        for(Estudiante e : notaTurno) System.out.println("   - " + e.getNombre() + ", Nota: " + e.getNota() + ", Turno Mañana: " + e.isTurnoManana());
+        for(Estudiante e : notaTurno) logger.info("   - " + e.getNombre() + ", Nota: " + e.getNota() + ", Turno Mañana: " + e.isTurnoManana());
 
         // Ordenación Servicio (JAVA) por Longitud del Nombre
-        System.out.println("\nORDEN JAVA: Por Longitud de Nombre (Más corto primero):");
+        logger.info("\nORDEN JAVA: Por Longitud de Nombre (Más corto primero):");
         List<Estudiante> porLongitud = estudianteS.ordenarPorLongitudNombreJava();
-        for(Estudiante e : porLongitud) System.out.println("   - " + e.getNombre() + " (Longitud: " + e.getNombre().length() + ")");
+        for(Estudiante e : porLongitud) logger.info("   - " + e.getNombre() + " (Longitud: " + e.getNombre().length() + ")");
         
         // Borrar estudiante (Delete)
-        System.out.println("\n--- BORRANDO ESTUDIANTE ---");
+        logger.info("\n--- BORRANDO ESTUDIANTE ---");
         
         // Borramos usando el ID
         try {
-			estudianteS.delete("E1235");
-			estudianteS.delete("123"); //Intento borrar uno que no existe
-		} catch (IdException e3) {
-			System.out.println("Error no se puede borrar ese estudiante porque no está registrado");
-		}
-        System.out.println("Estudiante E1235 borrado");
+            estudianteS.delete("E1235");
+            estudianteS.delete("123"); //Intento borrar uno que no existe
+        } catch (IdException e3) {
+            logger.error("Error no se puede borrar ese estudiante porque no está registrado");
+        }
+        logger.info("Estudiante E1235 borrado");
         
         // Imprimir la lista para ver que se ha borrado
-        System.out.println("\n--- COMPROBANDO BORRADO (LISTA FINAL) ---");
+        logger.info("\n--- COMPROBANDO BORRADO (LISTA FINAL) ---");
         programa.mostrarLista(estudianteS);
         
-        System.out.println("\n--- FIN DE LAS PRUEBAS ---");
+        logger.info("\n--- FIN DE LAS PRUEBAS ---");
     }
         
 
     // Método auxiliar 
-    // Solo porque imprim 4 veces para hacer las comprobaciones
     private void mostrarLista(EstudianteServicio servicio) {
         List<Estudiante> lista = servicio.read();
         
         if (lista.isEmpty()) {
-            System.out.println("No se han encontrado estudiantes");
+            logger.info("No se han encontrado estudiantes");
         } else {
             for(Estudiante e : lista) {
-                System.out.println(e); 
+                logger.info(e); 
             }
         }
     }
