@@ -9,6 +9,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 
 import mongoDB.Modelo.Entidad;
 import mongoDB.Modelo.Estudiante;
@@ -134,7 +135,7 @@ public class EstudianteRepositorio {
                     docNuevo.append("Entidad", null);
                 }
 
-                List<Document> listaAsignaturas = new ArrayList<>();
+                List<Document> listaAsignaturas = new ArrayList<Document>();
                 if (e.getAsignatura() != null) {
                     for (Asignatura asig : e.getAsignatura()) {
                         Document asigDoc = new Document("Nombre", asig.getNombre())
@@ -145,7 +146,10 @@ public class EstudianteRepositorio {
                 }
                 docNuevo.append("Asignaturas", listaAsignaturas);
 
-                coleccion.replaceOne(new Document("Id_Estudiante", e.getId_Estudiante()), docNuevo);
+               UpdateResult resultado = coleccion.replaceOne(new Document("Id_Estudiante", e.getId_Estudiante()), docNuevo);
+              long numModificados =  resultado.getModifiedCount();
+              if (numModificados > 0)
+            	  System.out.println("Estudiante actualizado correctamente en MongoDB. Documentos modificados: " + numModificados);
                 
                 encontrado = true;
             }
@@ -196,6 +200,9 @@ public class EstudianteRepositorio {
         }
         return resultado;
     }
+    
+    
+    //filtro por id
     
  // Filtro repositorio rango de Notas (Usando $gte y $lte)
     public List<Estudiante> buscarPorRangoDeNota(double notaMinima, double notaMaxima) {

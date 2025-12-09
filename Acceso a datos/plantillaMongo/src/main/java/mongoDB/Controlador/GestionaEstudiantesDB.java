@@ -90,7 +90,8 @@ public class GestionaEstudiantesDB {
         
         // Cambiamos datos
         e1.setNombre("PRUEBA MODIFICADA"); 
-        e1.setNota(5.0);                     
+        e1.setNota(5.0);     
+        e1.getEntidad().setNombre("Mates");
         
         // Llamamos al método update 
         try {
@@ -166,7 +167,7 @@ public class GestionaEstudiantesDB {
         
         // Borramos usando el ID
         try {
-			estudianteS.delete("E1235");
+			estudianteS.delete("E1236");
 		} catch (IdException e3) {
 			// TODO Auto-generated catch block
 			e3.printStackTrace();

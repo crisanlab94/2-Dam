@@ -3,12 +3,15 @@ package mongoDB.Repositorio;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 
 import mongoDB.Modelo.Entidad;
 import mongoDB.Modelo.Estudiante;
@@ -18,6 +21,8 @@ import mongoDB.Modelo.Asignatura;
 import mongoDB.Modelo.Curso;
 
 public class EstudianteRepositorio {
+	private static final Logger logger = LogManager.getLogger(EstudianteRepositorio.class);
+	
 	//Donde salga la llave tiene que estar escrito igual que en el Json (Base de datos)
     
     // ✨ CONSTANTE: Define el nombre de la colección a la que nos conectamos.
@@ -131,8 +136,14 @@ public class EstudianteRepositorio {
                 // 2. Actualizar en base de datos (Usando el mapeador inverso)
                 // Reemplazamos el documento viejo por el nuevo
                 Document docNuevo = crearDocumentoDeEstudiante(e); // <-- Mapeo ocurre aquí
+                
+                
 
-                coleccion.replaceOne(new Document("Id_Estudiante", e.getId_Estudiante()), docNuevo); // 🔑 CLAVE BD: Id_Estudiante
+                UpdateResult resultado =coleccion.replaceOne(new Document("Id_Estudiante", e.getId_Estudiante()), docNuevo); // 🔑 CLAVE BD: Id_Estudiante
+                long numModificados =  resultado.getModifiedCount();
+                if (numModificados > 0)
+              	  logger.info("Estudiante actualizado correctamente en MongoDB. Documentos modificados: " + numModificados);
+                
                 
                 encontrado = true; // Paramos el bucle, ya encontramos el elemento
             }

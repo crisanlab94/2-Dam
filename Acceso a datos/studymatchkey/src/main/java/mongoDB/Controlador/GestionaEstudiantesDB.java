@@ -53,7 +53,7 @@ public class GestionaEstudiantesDB {
         e1.setEntidad(miEntidad);
 
         // Asignaturas de prueba 
-        List<Asignatura> listaAsig = new ArrayList<>();
+        List<Asignatura> listaAsig = new ArrayList<Asignatura>();
         listaAsig.add(new Asignatura("Programación", "PR1", "Prof. Code"));
         listaAsig.add(new Asignatura("Bases de Datos", "BD1", "Prof. Data"));
         listaAsig.add(new Asignatura("Entornos", "ENT1", "Prof. Dev"));
