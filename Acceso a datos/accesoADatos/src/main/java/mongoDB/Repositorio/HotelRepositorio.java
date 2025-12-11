@@ -172,7 +172,7 @@ public class HotelRepositorio {
     //admite mascotas y madrid
  // Método en HotelRepositorio
     public List<Hotel> recuperarHotelesMadridFiltro() {
-        List<Hotel> resultado = new ArrayList<>();
+        List<Hotel> resultado = new ArrayList<Hotel>();
         
         // Filtro OR: Estrellas=5 O AdmiteMascotas=true
         Document orFilter = new Document("$or", Arrays.asList(
@@ -204,7 +204,7 @@ public class HotelRepositorio {
      * Utiliza $elemMatch para asegurar que la condición del precio se aplica solo a la habitación "Doble Estándar".
      */
     public List<Hotel> buscarHotelesFiltroComplejo() {
-        List<Hotel> resultado = new ArrayList<>();
+        List<Hotel> resultado = new ArrayList<Hotel>();
 
         // 1. Condición del Precio Máximo (Para la parte OR)
         // Busca si existe AL MENOS una habitación que sea 'DOBLE_ESTÁNDAR' Y su precio sea <= 115.0
@@ -246,7 +246,7 @@ public class HotelRepositorio {
     //que tengan 3 estrellas O 4 estrellas.
     
    public List<Hotel> buscarHotelesPor3O4Estrellas() {
-       List<Hotel> resultado = new ArrayList<>();
+       List<Hotel> resultado = new ArrayList<Hotel>();
 
        // Construcción del filtro: (Estrellas == 3) OR (Estrellas == 4)
        Document query = new Document("$or", Arrays.asList(
@@ -393,70 +393,70 @@ public class HotelRepositorio {
     	    return resultado;
     	}
     
- // Actualizacion masiva aupdateMany
- // Actualizar el código postal de todos los hoteles en la calle "Gran Vía" a "28013".
- public UpdateResult actualizarCPGranVia() {
-     
-     Document filter = new Document("ubicacion.calle", "Gran Vía");
-     
-     // $set: Establece el nuevo valor en el campo anidado
-     Document update = new Document("$set", new Document("ubicacion.codigoPostal", "28013"));
-     
-     // 1. Ejecutar la actualización masiva
-     UpdateResult resultado = coleccion.updateMany(filter, update);
-
-     // 2. Loguear el resultado
-     long modificados = resultado.getModifiedCount();
-     long coincidentes = resultado.getMatchedCount();
-
-     if (modificados > 0) {
-         logger.info("Actualización masiva de CP en la calle 'Gran Vía' completada. Hoteles modificados: {}", modificados);
-     } else if (coincidentes > 0) {
-         logger.warn("Hoteles de la calle 'Gran Vía' encontrados ({} coincidentes), pero el CP ya era '28013' y no se requirió modificación.", coincidentes);
-     } else {
-         logger.error(" ERROR: No se encontró ningún hotel en la calle 'Gran Vía' para actualizar (0 documentos coincidentes).");
-     }
-     
-     return resultado;
- }
-    
-//Actualizacion posicion en array($)
-//Localiza el hotel con ID dado y actualiza el precio de la habitación de tipo "Individual" al nuevoPrecio.
-
-public UpdateResult actualizarPrecioHabitacionIndividual(String idHotel, double nuevoPrecio) {
-  
-  // Usamos el Enum para asegurar la coincidencia exacta con el tipo guardado en la BD
-  String tipoHabitacion = Tipo.INDIVIDUAL.name(); 
-  
-  // 1. Filtro: Localiza el documento (por ID) Y nos aseguramos de que exista una habitación de tipo INDIVIDUAL
-  Document filter = new Document("idHotel", idHotel)
-                    .append("habitaciones.tipo", tipoHabitacion);
-
-  // 2. Usamos el operador posicional '$' para actualizar el campo 'precio'
-  // $set: Indica la operación de establecer un nuevo valor.
-  // Dólar ($): Se refiere a la posición dentro del array que coincidió con el filtro ('Individual').
-  Document update = new Document("$set", new Document("habitaciones.$.precio", nuevoPrecio));
-  
-  logger.info("Intentando actualizar el precio de la habitación '{}' en el hotel ID: {} al precio: {}", 
-      tipoHabitacion, idHotel, nuevoPrecio);
-
-  // 3. Ejecutar la actualización
-  UpdateResult resultado = coleccion.updateOne(filter, update);
-  
-  // 4. Loguear el resultado (Inspeccionando el UpdateResult)
-  if (resultado.getModifiedCount() > 0) {
-      logger.info("Precio de la habitación '{}' en Hotel ID {} actualizado con éxito. Precio modificado a {}", 
-          tipoHabitacion, idHotel, nuevoPrecio);
-  } else if (resultado.getMatchedCount() > 0) {
-      logger.warn("Hotel ID {} encontrado, pero el precio de '{}' ya era {}. No se requirió modificación.", 
-          idHotel, tipoHabitacion, nuevoPrecio);
-  } else {
-      logger.error("ERROR al actualizar. No se encontró el hotel con ID {} O la habitación tipo '{}' no existe en su array.", 
-          idHotel, tipoHabitacion);
-  }
-  
-  return resultado;
-	}
+	 // Actualizacion masiva aupdateMany
+	 // Actualizar el código postal de todos los hoteles en la calle "Gran Vía" a "28013".
+	 public UpdateResult actualizarCPGranVia() {
+	     
+	     Document filter = new Document("ubicacion.calle", "Gran Vía");
+	     
+	     // $set: Establece el nuevo valor en el campo anidado
+	     Document update = new Document("$set", new Document("ubicacion.codigoPostal", "28013"));
+	     
+	     // 1. Ejecutar la actualización masiva
+	     UpdateResult resultado = coleccion.updateMany(filter, update);
+	
+	     // 2. Loguear el resultado
+	     long modificados = resultado.getModifiedCount();
+	     long coincidentes = resultado.getMatchedCount();
+	
+	     if (modificados > 0) {
+	         logger.info("Actualización masiva de CP en la calle 'Gran Vía' completada. Hoteles modificados: {}", modificados);
+	     } else if (coincidentes > 0) {
+	         logger.warn("Hoteles de la calle 'Gran Vía' encontrados ({} coincidentes), pero el CP ya era '28013' y no se requirió modificación.", coincidentes);
+	     } else {
+	         logger.error(" ERROR: No se encontró ningún hotel en la calle 'Gran Vía' para actualizar (0 documentos coincidentes).");
+	     }
+	     
+	     return resultado;
+	 }
+	    
+		//Actualizacion posicion en array($)
+		//Localiza el hotel con ID dado y actualiza el precio de la habitación de tipo "Individual" al nuevoPrecio.
+		
+		public UpdateResult actualizarPrecioHabitacionIndividual(String idHotel, double nuevoPrecio) {
+		  
+		  // Usamos el Enum para asegurar la coincidencia exacta con el tipo guardado en la BD
+		  String tipoHabitacion = Tipo.INDIVIDUAL.name(); 
+		  
+		  // 1. Filtro: Localiza el documento (por ID) Y nos aseguramos de que exista una habitación de tipo INDIVIDUAL
+		  Document filter = new Document("idHotel", idHotel)
+		                    .append("habitaciones.tipo", tipoHabitacion);
+		
+		  // 2. Usamos el operador posicional '$' para actualizar el campo 'precio'
+		  // $set: Indica la operación de establecer un nuevo valor.
+		  // Dólar ($): Se refiere a la posición dentro del array que coincidió con el filtro ('Individual').
+		  Document update = new Document("$set", new Document("habitaciones.$.precio", nuevoPrecio));
+		  
+		  logger.info("Intentando actualizar el precio de la habitación '{}' en el hotel ID: {} al precio: {}", 
+		      tipoHabitacion, idHotel, nuevoPrecio);
+		
+		  // 3. Ejecutar la actualización
+		  UpdateResult resultado = coleccion.updateOne(filter, update);
+		  
+		  // 4. Loguear el resultado (Inspeccionando el UpdateResult)
+		  if (resultado.getModifiedCount() > 0) {
+		      logger.info("Precio de la habitación '{}' en Hotel ID {} actualizado con éxito. Precio modificado a {}", 
+		          tipoHabitacion, idHotel, nuevoPrecio);
+		  } else if (resultado.getMatchedCount() > 0) {
+		      logger.warn("Hotel ID {} encontrado, pero el precio de '{}' ya era {}. No se requirió modificación.", 
+		          idHotel, tipoHabitacion, nuevoPrecio);
+		  } else {
+		      logger.error("ERROR al actualizar. No se encontró el hotel con ID {} O la habitación tipo '{}' no existe en su array.", 
+		          idHotel, tipoHabitacion);
+		  }
+		  
+		  return resultado;
+			}
 
 
 	//Eliminar todas las habitaciones con precio superior a 300.00 en el "Grand Hotel Central".

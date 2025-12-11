@@ -4,10 +4,12 @@ from PySide6.QtWidgets import (
     QWidget,
     QMainWindow,
     QVBoxLayout,
-    QPushButton
+    QPushButton,
+    QLabel
 )
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtCore import QRect, Qt
+from PySide6.QtCore import Signal
 
 
 class IndicadorSimple(QWidget):
@@ -31,7 +33,7 @@ class IndicadorSimple(QWidget):
         painter.setRenderHint(QPainter.Antialiasing)
 
         # Configuramos el color de relleno del círculo (verde).
-        painter.setBrush(QColor("#4CAF50"))
+        painter.setBrush(QColor("#F9F9F9"))
 
         # Borde del círculo en color negro.
         painter.setPen(QPen(Qt.black))
@@ -52,42 +54,92 @@ class IndicadorSimple(QWidget):
         painter.drawEllipse(recto)
 
         # Cambiamos el lápiz para dibujar texto en blanco.
-        painter.setPen(QPen(Qt.white))
+        painter.setPen(QPen(Qt.black))
 
         # Dibujamos el texto centrado dentro del círculo mediante AlignCenter.
         painter.drawText(recto, Qt.AlignCenter, self._texto)
+
+
+class BotonContador(QPushButton):
+
+    # Señal personalizada que enviará un entero (snake_case)
+    contador_actualizado = Signal(int)
+ 
+      
+    def __init__(self, parent=None):
+        super().__init__("Añadir incidencia", parent)
+        self.__contador = 0
+
+        # Cuando se pulsa el botón estándar de Qt
+        self.clicked.connect(self.__incrementar)
+
+    def __incrementar(self):
+        self.__contador = self.__contador + 1
+       
+        self.contador_actualizado.emit(self.__contador)  
+    
+    def contador(self):
+        return self.__contador
+    
         
         
 class VentanaPrincipal(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Ejemplo 2: Indicador con Texto")
-        self.resize(800, 400)
+        self.setWindowTitle("Panel de incidencias")
+        self.resize(300, 400)
 
         contenedor = QWidget(self)
         layout = QVBoxLayout(contenedor)
+        self.botonContador = BotonContador()
 
-        
+        self.etiqueta = QLabel("Incidencias Abiertas: 0")
+        self.botonContador.contador_actualizado.connect(self.actualizar_etiqueta)
 
         # Nuestro widget personalizado
         self.indicador = IndicadorSimple(self)
 
         # Botón opcional para cambiar el texto
-        boton = QPushButton("Cambiar texto")
+        boton = QPushButton("Añadir incidencia")
+        boton_reset=QPushButton("Reset")
         boton.clicked.connect(self.cambiar_texto)
+        boton_reset.clicked.connect(self.limpiar_incidencias)
 
         layout.addWidget(self.indicador)
-        layout.addWidget(boton)
-
+        layout.addWidget(self.etiqueta)
+        layout.addWidget(self.botonContador)
+        layout.addWidget(boton_reset)
+       
+        contenedor.setLayout(layout)
         self.setCentralWidget(contenedor)
 
+      
+     
+
+    def actualizar_etiqueta(self, valor):
+        self.etiqueta.setText("Incidencias Abiertas:  " + str(valor))
+
+    
+
     def cambiar_texto(self):
-        # Cambiamos el texto para demostrar el update()
-        self.indicador.setTexto("READY")
+     self.indicador.setTexto("2222")
+       
+
+       
+    def limpiar_incidencias(self):
+        self.etiqueta.clear() 
+        self.botonContador.contador_actualizado.clear()
+        
+        self.etiqueta.setText("Incidencias Abiertas: 0")
 
 
-app = QApplication([])
-ventana = VentanaPrincipal()
+
+app =QApplication()
+
+with open("Sandoval_Cristina_estilos.qss", "r") as f:
+    app.setStyleSheet(f.read())
+
+ventana= VentanaPrincipal()
 ventana.show()
 app.exec()

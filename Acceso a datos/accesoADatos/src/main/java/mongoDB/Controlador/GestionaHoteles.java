@@ -24,6 +24,8 @@ public class GestionaHoteles {
     private static final Logger logger = LogManager.getLogger(GestionaHoteles.class);
     
     public static void main(String[] args) {
+    	
+    	GestionaHoteles gh = new GestionaHoteles();
         
         // 1. Conexión y Servicio
         // Inicializa la conexión a MongoDB y obtiene la instancia de la base de datos.
@@ -35,7 +37,7 @@ public class GestionaHoteles {
         // --- SECUENCIA DE PRUEBA: CRUD BÁSICO (Mantenido) ---
         
         // PRUEBA 1: READ ALL (Estado Inicial)
-        mostrarLista(hotelS);
+         gh. mostrarLista(hotelS);
         
         // PRUEBA 2: CREATE/SAVE (Crear un hotel complejo - ID: H1234)
         logger.info("\n--- PRUEBA 2: CREATE/SAVE (H1234) ---");
@@ -49,7 +51,7 @@ public class GestionaHoteles {
         }
         
         // PRUEBA 3: READ ALL (Comprobar que se añadió)
-        mostrarLista(hotelS);
+        gh.mostrarLista(hotelS);
 
         // PRUEBA 4: UPDATE (Modificar H1234: Bajar estrellas y cambiar nombre)
         logger.info("\n--- PRUEBA 4: UPDATE (H1234) ---");
@@ -70,7 +72,7 @@ public class GestionaHoteles {
         }
         
         // PRUEBA 5: READ ALL (Comprobar la actualización)
-        mostrarLista(hotelS);
+        gh.mostrarLista(hotelS);
 
 
         // PRUEBA 6: READ ONE (Buscar un ID específico)
@@ -194,7 +196,7 @@ public class GestionaHoteles {
         logger.info("Limpieza final completada.");
         
         // PRUEBA 21: READ ALL (Estado Final)
-        mostrarLista(hotelS);
+        gh.mostrarLista(hotelS);
         
        
     }
@@ -220,13 +222,13 @@ public class GestionaHoteles {
         habitaciones.add(new Habitaciones(Tipo.SUITE_JUNIOR, 300.0, 4, false));
 
         h.setUbicacion(ubicacion);
-        h.setHabitaciones(habitaciones);
+        
         
         return h;
     }
     
  // Método auxiliar para imprimir la lista de hoteles (utilizado en READ ALL)
-    private static void mostrarLista(HotelServicio servicio) {
+    private  void mostrarLista(HotelServicio servicio) {
         List<Hotel> lista = servicio.read();
         logger.info("\n--- LISTADO COMPLETO DE HOTELES ({}) ---", lista.size());
         

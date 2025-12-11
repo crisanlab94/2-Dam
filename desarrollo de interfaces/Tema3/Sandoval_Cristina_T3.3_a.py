@@ -6,11 +6,12 @@ from PySide6.QtWidgets import (
     QWidget,
     QMainWindow,
     QVBoxLayout,
+    QHBoxLayout, 
     QPushButton,
-    QLabel
+    QLabel 
 )
 from PySide6.QtGui import QPainter, QColor, QPen, QBrush
-from PySide6.QtCore import QRect, Qt
+from PySide6.QtCore import QRect, Qt, QTimer 
 
 class semaforo(QWidget):
     # Colores del semaforo
@@ -31,6 +32,20 @@ class semaforo(QWidget):
         # Conecto el boton cambiar a la logica
         self.__boton_cambiar.clicked.connect(self.__cambiar_estado)
 
+        # AMPLIACIÓN: Implementación de QTimer
+        # Añade un QTimer como atributo del componente 
+        self.__timer = QTimer(self) 
+        
+        # Configura el temporizador para 1000 ms (1 segundo) 
+        self.__timer.setInterval(1000) 
+        
+        # Conecta la señal timeout al método de cambio de estado 
+        self.__timer.timeout.connect(self.__cambiar_estado) 
+        
+        # Iniciar el temporizador al crear el componente
+        self.__timer.start()
+        
+
         # Diseño de un QVBoxLayout
         layout = QVBoxLayout(self) 
 
@@ -43,18 +58,18 @@ class semaforo(QWidget):
         
     # Métodos públicos obligatorios
     def estado(self):
-        # Devuelve el color actual
         return self.__estado_actual
     
     def reiniciar(self):
-        # Vuelve al estado 'rojo'.
+        # Vuelve al estado 'rojo'
         if self.__estado_actual != self.colores[0]:
             self.__estado_actual = self.colores[0]
-            self.update() # actualizar
+            self.update() 
 
     # Logica
     def __cambiar_estado(self):
-        # Implementa el ciclo rojo -> amarillo -> verde -> rojo.
+        
+        # Este método se llama tanto por el botón como por el QTimer 
         indice_actual=self.colores.index(self.__estado_actual)
         indice_siguiente =(indice_actual + 1) % len(self.colores)
 
@@ -63,12 +78,11 @@ class semaforo(QWidget):
 
     # Metodo que dibuja
     def paintEvent(self, event):
-    
-        # QPainter es el objeto que permite dibujar dentro del widget.
+        # QPainter es el objeto que permite dibujar dentro del widget
         painter = QPainter(self)
 
         # suavizar
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.Antialiasing) 
 
         
         # Cuerpo del semaforo centrado
@@ -82,7 +96,7 @@ class semaforo(QWidget):
         
         
         # Dibujar el cuerpo gris oscuro
-        painter.setBrush(QColor("#272626"))
+        painter.setBrush(QColor("#272626")) 
         painter.setPen(Qt.NoPen) 
         painter.drawRect(cuerpo_rect) 
 
@@ -102,8 +116,8 @@ class semaforo(QWidget):
                                 
         ]
         
-        color_apagado =QColor("#5c5c5c") 
-        painter.setPen(QPen(QColor("#7f8c8d"),1))
+        color_apagado =QColor("#5c5c5c") # Luces apagadas en gris
+        painter.setPen(QPen(QColor("#7f8c8d"),1)) 
 
 
         # Iterar para cada luz
@@ -113,13 +127,13 @@ class semaforo(QWidget):
             luz_x = centro_x - luz_radio
             luz_y = centro_y - luz_radio
             
-            # Solo una luz encendida en cada momento 
-            if nombre_estado == self.__estado_actual:
-                painter.setBrush(color_luz) # Color encendido
-            else:
-                painter.setBrush(color_apagado) # Luces apagadas en gris 
             
-            # Dibujar el círculo usando drawEllipse 
+            if nombre_estado == self.__estado_actual:
+                painter.setBrush(color_luz) 
+            else:
+                painter.setBrush(color_apagado) 
+            
+            
             painter.drawEllipse(luz_x, luz_y, luz_diametro, luz_diametro)
 
         # Finalizar la pintura
@@ -127,14 +141,11 @@ class semaforo(QWidget):
 
         
 class VentanaPrincipal(QMainWindow):
-    # Aseguramos el import de sys
-    if 'sys' not in globals():
-        import sys
-        
+  
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("TAREA 3.3 - Semaforo")
+        self.setWindowTitle("TAREA 3.3 Ampliación - Semaforo Automático")
         self.resize(300, 450)
 
         # Creamos una instancia del componente
@@ -142,13 +153,15 @@ class VentanaPrincipal(QMainWindow):
 
         # Etiqueta para mostrar el estado actual
         self.label_estado = QLabel(f"Estado: {self.semaforo.estado()}")
+        self.label_estado.setAlignment(Qt.AlignCenter) # Centrar texto en la label
 
         # Botón dedicado para llamar al método reiniciar()
         self.boton_reiniciar = QPushButton("Reiniciar (Volver a Rojo)")
 
-        # Conexión: Al pulsar el botón "Cambiar" del semáforo, actualizamos el estado en la etiqueta
+        # Conexión: El timer y el botón interno llaman a la actualización de la interfaz externa
+        self.semaforo._semaforo__timer.timeout.connect(self.__actualizar_interfaz_externa) 
         self.semaforo._semaforo__boton_cambiar.clicked.connect(self.__actualizar_interfaz_externa)
-        
+
         # Conexión: Al pulsar el botón de reinicio, llamamos al método reiniciar() del semáforo
         self.boton_reiniciar.clicked.connect(self.__reiniciar_semaforo)
 
@@ -160,10 +173,10 @@ class VentanaPrincipal(QMainWindow):
         layout.addWidget(self.semaforo, alignment=Qt.AlignCenter)
         
         # Añadimos la etiqueta de estado DEBAJO (vertical)
-        layout.addWidget(self.label_estado, alignment=Qt.AlignCenter)
+        layout.addWidget(self.label_estado)
         
         # Añadimos el botón de reinicio DEBAJO (vertical)
-        layout.addWidget(self.boton_reiniciar, alignment=Qt.AlignCenter)
+        layout.addWidget(self.boton_reiniciar)
 
         self.setCentralWidget(central_widget)
 

@@ -32,9 +32,11 @@ public class Cliente implements Runnable {
 			System.out.println("Estoy comiendo..."+ nombre);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			
 		} finally {
 			
 			System.out.println(nombre + " He comido");
+			
 		}
 		}
 		

@@ -10,6 +10,23 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', require('./router/rutas'));
 app.use('/pokemon', require('./router/pokemon'));
 
+const mongoose = require('mongoose');
+
+// --- TUS VARIABLES (Credenciales) ---
+// Asegúrate de que este usuario y contraseña son los correctos para entrar en ese cluster
+const user = 'csanlab631_db_user';
+const password = 'DeborlaB20';
+const dbname = 'pokemon';
+
+// --- LA URL ADAPTADA ---
+// Fíjate que aquí usamos la dirección 'cristina.rxmgmup.mongodb.net' que pediste
+const uri = `mongodb+srv://${user}:${password}@cristina.rxmgmup.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+
+// --- CONEXIÓN ---
+mongoose.connect(uri)
+  .then(() => console.log('Conectado a MongoDB en el cluster de Cristina '))
+  .catch(e => console.log('Error de conexión: ', e));
+
 app.get('/pruebas', (req, res) => {
   //console.log(__dirname) //ruta donde estamos
   //res.send('Ya somos unos crack en Node+Express')

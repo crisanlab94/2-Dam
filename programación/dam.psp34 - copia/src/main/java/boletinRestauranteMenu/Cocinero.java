@@ -27,14 +27,14 @@ public class Cocinero implements Runnable {
 	public void cocinar() {
 		while(true) {
 		try {
-			hayClientes.acquire(1);
+			hayClientes.acquire();
 			System.out.println("Estoy cocinando");
 			 Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			System.out.println(nombre + " Hay plato");
-			hayPlato.release(); 
+			hayPlato.release(3); 
 			
 		}
 		}

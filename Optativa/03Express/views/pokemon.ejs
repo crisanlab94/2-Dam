@@ -34,10 +34,19 @@
                     <!--Haremos el foreach para recorrer el array-->
                     <% arrayPokemon.forEach(pokemon=> { %>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th scope="row">
+                                <%= pokemon.id %>
+                            </th>
+                            <td>
+                                <%= pokemon.nombre %>
+                            </td>
+                            <td>
+                                <%= pokemon.tipo %>
+                            </td>
+                            <td>
+                                <%= pokemon.descripcion %>
+                            </td>
+                            <td>Aciones</td>
                         </tr>
                         <% }) %>
                             <% } %>

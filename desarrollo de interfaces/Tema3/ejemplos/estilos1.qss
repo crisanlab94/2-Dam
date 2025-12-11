@@ -1,0 +1,49 @@
+/* --- Estilo del Marco (Tarjeta) --- */
+QFrame#marcoTarjeta {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+}
+
+/* --- Estilo de los Textos --- */
+QLabel#lblNombre {
+    font-size: 14px;
+    font-weight: bold;
+    color: #111827;
+}
+
+QLabel#lblEmail {
+    font-size: 12px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* --- ESTADOS DEL BOTÓN BORRAR --- */
+
+/* 1. Estado Normal */
+QPushButton#btnBorrar {
+    background-color: #fee2e2;  /* Rojo muy pálido */
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    color: #dc2626;             /* Texto rojo */
+    font-weight: bold;
+    font-family: Arial;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+/* 2. Estado Hover (Ratón encima) - [cite: 673] */
+QPushButton#btnBorrar:hover {
+    background-color: #fca5a5;  /* Se oscurece un poco */
+    border-color: #f87171;
+}
+
+/* 3. Estado Pressed (Clic pulsado) - [cite: 691] */
+QPushButton#btnBorrar:pressed {
+    background-color: #dc2626;  /* Rojo intenso */
+    color: #ffffff;             /* Texto blanco */
+    border: none;
+    /* Efecto de hundimiento */
+    padding-top: 2px;
+    padding-left: 2px;
+}
