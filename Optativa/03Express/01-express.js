@@ -1,6 +1,13 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+require('dotenv').config()
+
+const port = process.env.PORT || 3000
 
 app.set('view engine', 'ejs')
 app.use('views', express.static(__dirname + '/views'))
@@ -14,13 +21,11 @@ const mongoose = require('mongoose');
 
 // --- TUS VARIABLES (Credenciales) ---
 // Asegúrate de que este usuario y contraseña son los correctos para entrar en ese cluster
-const user = 'csanlab631_db_user';
-const password = 'DeborlaB20';
-const dbname = 'pokemon';
+
 
 // --- LA URL ADAPTADA ---
 // Fíjate que aquí usamos la dirección 'cristina.rxmgmup.mongodb.net' que pediste
-const uri = `mongodb+srv://${user}:${password}@cristina.rxmgmup.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cristina.rxmgmup.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 
 // --- CONEXIÓN ---
 mongoose.connect(uri)
