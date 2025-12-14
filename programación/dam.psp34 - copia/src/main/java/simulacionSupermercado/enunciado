@@ -1,0 +1,19 @@
+🔹 Ejemplo 1: Cajero en un supermercado
+Apartado A
+
+Hay un único cajero que atiende a los clientes.
+
+Cada cliente tarda 3 segundos en ser atendido.
+
+Los clientes llegan uno tras otro (20 en total).
+
+El cajero solo puede atender a un cliente a la vez.
+
+Queremos calcular cuánto tarda en atender a todos.
+
+Apartado B
+
+Se contrata un segundo cajero, pero este es más lento (5 segundos por cliente).
+Los clientes se reparten entre ambos cajeros.
+
+Debemos sincronizar para que no se atienda a más de un cliente por cajero a la vez y calcular el tiempo total.

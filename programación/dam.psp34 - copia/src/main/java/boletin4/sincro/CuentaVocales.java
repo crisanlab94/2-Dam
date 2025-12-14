@@ -1,34 +1,17 @@
-package boletin4.sincro;
 
-public class CuentaVocales  {
-	private String texto;
-	private int numTotalVocales;
-	
-	
-	public CuentaVocales(String texto, int numTotalVocales) {
-		super();
-		this.texto = texto;
-		this.numTotalVocales = numTotalVocales;
-	}
+	package boletin4.sincro;
 
+	class ContadorVocales {
+	    private int vocalesTotales = 0;
 
-	public String getTexto() {
-		return texto;
-	}
+	    // Método sincronizado para evitar condiciones de carrera
+	    public synchronized void sumar(int cantidad) {
+	        vocalesTotales += cantidad;
+	    }
 
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
-
-	public int getNumTotalVocales() {
-		return numTotalVocales;
-	}
-
-
-	public void setNumTotalVocales(int numTotalVocales) {
-		this.numTotalVocales = numTotalVocales;
+	    public int getVocalesTotales() {
+	        return vocalesTotales;
+	    }
 	}
 	
 	
@@ -38,7 +21,5 @@ public class CuentaVocales  {
 	
 	
 	
-	
-	
 
-}
+
