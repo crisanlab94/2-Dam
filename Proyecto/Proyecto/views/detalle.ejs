@@ -1,0 +1,116 @@
+<%- include("template/cabecera", {tituloWeb: 'Detalles del Estudiante' }) %>
+    <div class="container">
+        <h1>Detalles del Estudiante</h1>
+
+        <% if (!error) { %>
+            <form id="editar" data-id="<%= estudiante.id %>">
+
+                <label class="mt-2">ID Entidad</label>
+                <input type="text" value="<%= estudiante.id_entidad ? estudiante.id_entidad : 'Sin asignar' %>"
+                    class="form-control" name="id_entidad" readonly>
+
+                <label class="mt-2">Nombre</label>
+                <input type="text" value="<%= estudiante.nombre %>" class="form-control" name="nombre" id="nombreInput"
+                    required>
+
+                <label class="mt-2">Fecha de Nacimiento</label>
+                <input type="date"
+                    value="<%= estudiante.fecha_nacimiento ? estudiante.fecha_nacimiento.toISOString().split('T')[0] : '' %>"
+                    class="form-control" name="fecha_nacimiento" id="fechaInput" required>
+
+                <label class="mt-2">Email</label>
+                <input type="email" value="<%= estudiante.email %>" class="form-control" name="email" id="emailInput"
+                    required>
+
+                <label class="mt-2">Contraseña</label>
+                <input type="text" value="<%= estudiante.clave %>" class="form-control" name="clave" id="claveInput"
+                    required>
+
+                <label class="mt-2">Fecha de Registro</label>
+                <input type="text"
+                    value="<%= estudiante.fecha_registro ? new Date(estudiante.fecha_registro).toLocaleString() : '' %>"
+                    class="form-control" readonly> <button class="btn btn-warning btn-sm mt-3" type="submit">
+                    Editar Estudiante
+                </button>
+            </form>
+
+            <hr>
+
+            <button class="btn btn-danger btn-sm" data-id="<%= estudiante.id %>">
+                Eliminar Estudiante
+            </button>
+            <% } %>
+    </div>
+
+    <%- include("template/cierre") %>
+        <script>
+            const btnEliminar = document.querySelector('.btn-danger');
+
+            if (btnEliminar) {
+                btnEliminar.addEventListener('click', async () => {
+                    const id = btnEliminar.dataset.id;
+                    console.log('1. Click detectado. Intentando borrar ID:', id);
+
+                    if (!id) {
+                        alert("Error: No se detecta el ID del estudiante.");
+                        return;
+                    }
+
+                    // Confirmación de seguridad
+                    const confirmacion = confirm("¿Seguro que quieres eliminar este estudiante?");
+                    if (!confirmacion) return;
+
+                    try {
+                        // Enviamos la petición DELETE
+                        const data = await fetch(`/estudiantes/${id}`, {
+                            method: 'delete'
+                        });
+
+                        const res = await data.json();
+                        console.log('2. Respuesta del servidor:', res);
+
+                        if (res.estado) {
+                            // Si todo ha ido bien, volvemos a la lista
+                            window.location.href = '/estudiantes';
+                        } else {
+                            alert("Error al eliminar: " + res.mensaje);
+                        }
+                    } catch (error) {
+                        console.log(error);
+                        alert("Hubo un error de conexión con el servidor.");
+                    }
+                });
+            }
+            //Logica de editar
+            const formEditar = document.querySelector('#editar');
+
+            if (formEditar) {
+                formEditar.addEventListener('submit', async (e) => {
+                    e.preventDefault()
+                    const nombre = formEditar.elements['nombre'].value
+                    const fecha_nacimiento = formEditar.elements['fecha_nacimiento'].value
+                    const email = formEditar.elements['email'].value
+                    const clave = formEditar.elements['clave'].value
+
+                    const id = formEditar.dataset.id
+                    try {
+                        const data = await fetch(`/estudiantes/${id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ nombre, fecha_nacimiento, email, clave })
+                        })
+
+                        const res = await data.json()
+                        if (res.estado) {
+                            window.location.href = '/estudiantes'
+                        } else {
+                            console.log(res)
+                        }
+                    } catch (error) {
+                        console.log(error)
+                    }
+                })
+            }
+        </script>

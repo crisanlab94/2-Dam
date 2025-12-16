@@ -13,7 +13,7 @@
 
 	        try {
 	            hayClientes.acquire(); // ponerlo en 0
-	            hayTurno.acquire();    // ponerlo en 0
+	            //hayTurno.acquire();    // ponerlo en 0
 	        } catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }

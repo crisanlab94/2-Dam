@@ -16,9 +16,18 @@ package simulacionSupermercado;
 	    @Override
 	    public void run() {
 	        try {
-	            hayTurno.acquire(); // esperar turno
+	        	// 1. Coger el turno (cerrar la puerta detrás de mí)
+	            hayTurno.acquire(); 
+	            
+	            // 2. Imprimir
 	            System.out.println(nombre + " está en la cola");
-	            hayClientes.release(); // avisar al cajero
+	            
+	            // 3. Avisar al cajero de que estoy listo
+	            hayClientes.release(); 
+	            
+	            // ¡OJO! NO hacemos hayTurno.release() aquí.
+	            // Si soltamos el turno ahora, el siguiente cliente entraría
+	            // antes de que el cajero me haya atendido.
 	        } catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }

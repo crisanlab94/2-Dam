@@ -13,7 +13,8 @@
 
 	        try {
 	            hayPedidos.acquire(); // ponerlo en 0
-	            hayTurno.acquire();   // ponerlo en 0
+	            hayTurno.acquire();  
+	            
 	        } catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }

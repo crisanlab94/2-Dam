@@ -11,11 +11,7 @@
 	        Semaphore hayPlazas = new Semaphore(plazas); // 20 plazas disponibles
 	        Semaphore hayTurno  = new Semaphore(1);
 
-	        try {
-	            hayTurno.acquire(); // ponerlo en 0 al inicio
-	        } catch (InterruptedException e) {
-	            e.printStackTrace();
-	        }
+	     
 
 	        System.out.println("--- INSCRIPCIÓN POR ORDEN DE LLEGADA (20 plazas) ---");
 

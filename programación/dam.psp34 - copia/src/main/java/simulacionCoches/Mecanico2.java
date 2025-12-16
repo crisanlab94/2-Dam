@@ -4,52 +4,67 @@ import java.util.concurrent.Semaphore;
 
 public class Mecanico2 implements Runnable {
 	private String nombre;
-	private Semaphore hayCoches;
-	private Semaphore hayTurno;
-	private int tiempoReparacion;
-	
+    private Semaphore hayCoches;
+    private Semaphore hayTurno;
+    private int tiempoReparacion;
+    private int[] contadorCoches;
+    
+    // CORRECCIÓN 1: Declaramos la variable aquí, como atributo de la clase
+    private int maxCoches; 
 
-	public Mecanico2(String nombre, Semaphore hayCoches, Semaphore hayTurno, int tiempoReparacion) {
-		super();
-		this.nombre = nombre;
-		this.hayCoches = hayCoches;
-		this.hayTurno = hayTurno;
-		this.tiempoReparacion = tiempoReparacion;
-	}
+    // CORRECCIÓN 2: Añadimos 'int maxCoches' a los argumentos del constructor
+    public Mecanico2(String nombre, Semaphore hayCoches, Semaphore hayTurno, int tiempoReparacion, int[] contadorCoches, int maxCoches) {
+        this.nombre = nombre;
+        this.hayCoches = hayCoches;
+        this.hayTurno = hayTurno;
+        this.tiempoReparacion = tiempoReparacion;
+        this.contadorCoches = contadorCoches;
+        this.maxCoches = maxCoches; // Guardamos el valor
+    }
 
+    @Override
+    public void run() {
+        arreglarCoche();
+    }
 
-	@Override
-	public void run() {
-		arreglarCoche();
-		
-		}
-	
+    public void arreglarCoche() {
+        boolean tallerAbierto = true;
 
-	public void arreglarCoche() {
-		// Bucle infinito: el mecanico siempre intenta trabajar. 
-        // Se bloqueará en hayCoches.acquire() cuando ya no quede trabajo.
-        while(true) {
-		try {
-			// Bloquea hasta que un coche llega
-			hayCoches.acquire(); //Llega un coche
-			System.out.println(nombre + "Estoy arreglando coche");
-			 Thread.sleep(tiempoReparacion);
-			 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			System.out.println(nombre + " ha terminado la repacion . Listo para el siguiente coche");
-			//Da turno al siguiente coche esperando
-			 hayTurno.release();
-			
-			
-		}
-		
-		
-	}
+        while (tallerAbierto) {
+            try {
+                // 1. Esperar trabajo
+                hayCoches.acquire();
 
-	}
+                int cocheActual = 0;
+                boolean tengoTrabajo = false;
+
+                // 2. Coger ticket (Synchronized)
+                synchronized (contadorCoches) {
+                    cocheActual = contadorCoches[0];
+
+                    if (cocheActual <= maxCoches) {
+                        contadorCoches[0]++; 
+                        tengoTrabajo = true;
+                    } else {
+                        tallerAbierto = false; 
+                        hayCoches.release(); // Avisar al otro mecánico para que salga
+                    }
+                }
+
+                // 3. Trabajar y LIBERAR TURNO
+                if (tengoTrabajo) {
+                    System.out.println("🔧 " + nombre + " está arreglando Coche " + cocheActual);
+                    Thread.sleep(tiempoReparacion);
+                    System.out.println("✅ " + nombre + " terminó con Coche " + cocheActual);
+                    
+                    // IMPORTANTE: El mecánico abre la puerta para el siguiente coche
+                    hayTurno.release(); 
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
-
-
-
+    

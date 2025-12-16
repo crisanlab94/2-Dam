@@ -18,9 +18,10 @@
 	    @Override
 	    public void run() {
 	        try {
+	        	hayPedidos.release(); // avisar al cocinero
+	        	  System.out.println(nombre + " ha hecho un pedido");
 	            hayTurno.acquire(); // esperar turno
-	            System.out.println(nombre + " ha hecho un pedido");
-	            hayPedidos.release(); // avisar al cocinero
+	          
 	        } catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }

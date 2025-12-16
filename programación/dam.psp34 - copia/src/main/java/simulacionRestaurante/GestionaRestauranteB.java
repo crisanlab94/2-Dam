@@ -9,11 +9,13 @@
 
 	        // Inicializamos en 1 y luego bajamos a 0
 	        Semaphore hayPedidos = new Semaphore(1);
-	        Semaphore hayTurno   = new Semaphore(1);
+	        //aqui pongo el numero en el que quiero que pasen
+	        //es decir, si quiero que vayan de 3 en 3 le pongo un 3 
+	        Semaphore hayTurno   = new Semaphore(3);
 
 	        try {
 	            hayPedidos.acquire(); // ponerlo en 0
-	            hayTurno.acquire();   // ponerlo en 0
+	            hayTurno.acquire(3);   
 	        } catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }

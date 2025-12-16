@@ -16,12 +16,14 @@ public class ClienteA  implements Runnable {
     @Override
     public void run() {
         try {
+        	hayClientes.release(); // avisar al cajero
+        	 System.out.println(nombre + " está en la cola");
             hayTurno.acquire(); // esperar turno
-            System.out.println(nombre + " está en la cola");
-            hayClientes.release(); // avisar al cajero
+       
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 }
+
 

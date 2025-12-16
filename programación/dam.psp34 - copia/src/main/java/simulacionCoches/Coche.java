@@ -38,7 +38,7 @@ public class Coche implements Runnable {
 		} finally {
 			
 			System.out.println(nombre + " Me voy, ya he sido arreglado");
-			
+			hayTurno.release();
 		
 		}
 		
