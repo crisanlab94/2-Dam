@@ -1,0 +1,46 @@
+Consultas CRUD para SandovalCristinaJugador
+
+Guardar (Jugador)
+Dar de alta un nuevo jugador y obtener inmediatamente su ID autogenerado para actualizar el objeto Java y la caché (this.lista).
+
+SQL = INSERT INTO SandovalCristinaJugador (nombre, email, nick, puntosTotales) VALUES (?, ?, ?, ?)
+Clave JDBC  conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+Se usa  para solicitar a la base de datos que devuelva el ID generado, permitiendo que el repositorio lo asigne al objeto Java (jugador.setId(idGenerado)).
+
+ListarTodos()
+Recuperar todos los jugadores de la base de datos para inicializar la caché (this.lista) y para las operaciones de listado en el servicio.
+
+SQL = SELECT * FROM SandovalCristinaJugador
+
+BuscarPorId(int id)
+Recuperar un único jugador de la base de datos basándose en su clave primaria (id).
+
+SQL = SELECT * FROM SandovalCristinaJugador WHERE id = ?
+
+ActualizarPuntos(int id, int nuevosPuntos)
+
+SQL = UPDATE SandovalCristinaJugador SET puntosTotales = ? WHERE id = ?
+Utilizo la sentencia UPDATE para actualizar el campo puntosTotales de forma eficiente, seleccionando el registro mediante la cláusula WHERE id = ?
+Después del UPDATE exitoso en la BD, se busca el jugador en la caché (this.lista) y se actualiza su campo puntosTotales en memoria para mantener la coherencia sin recargar toda la lista.
+
+
+
+Consultas CRUD para SandovalCristinaPartida
+
+
+Guardar (Partida)
+Dar de alta una nueva partida.
+
+SQL = INSERT INTO SandovalCristinaPartida (narrador_id, torneo_id, fecha, resultado) VALUES (?, ?, ?, ?)
+
+ListarTodas()
+SQL = SELECT p.*, j.nombre, j.email, j.nick, j.puntosTotales FROM SandovalCristinaPartida p JOIN SandovalCristinaJugador j ON p.narrador_id = j.id ORDER BY p.fecha ASC
+ 
+ JOIN: Se utiliza JOIN para enlazar la tabla Partida (p) con la tabla Jugador (j) a través de la clave foránea (p.narrador_id = j.id). Esto permite cargar los datos completos del narrador en una sola consulta.
+ SELECT: Selecciona todas las columnas de la partida (p.*) y solo las columnas relevantes del jugador (j.nombre, j.email, etc.).
+ORDER BY: Se añade ORDER BY p.fecha ASC para que la lista devuelta por la base de datos ya esté ordenada por fecha.
+
+borrarTodas()
+
+SQL = TRUNCATE TABLE SandovalCristinaPartida
+Utilizo TRUNCATE TABLE en lugar de DELETE FROM porque TRUNCATE es más rápido y automáticamente resetea el contador AUTO_INCREMENT de la tabla.

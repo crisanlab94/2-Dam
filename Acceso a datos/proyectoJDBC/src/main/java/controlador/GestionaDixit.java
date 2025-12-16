@@ -164,7 +164,8 @@ public class GestionaDixit {
             logger.info("\n-> LISTADO DE PARTIDAS (Ordenadas por Fecha ASC):");
             for (SandovalCristinaPartida partida : listadoPartidas) {
               
-                 SandovalCristinaJugador narradorPartida = servicio.buscarJugadorPorId(partida.getNarrador().getId());
+               
+                 SandovalCristinaJugador narradorPartida = partida.getNarrador();
                  String nickNarrador = (narradorPartida != null) ? narradorPartida.getNick() : "Desconocido";
 
                  logger.info("   - ID: " + partida.getId() + ", Fecha: " + partida.getFecha() + ", Narrador: " + nickNarrador + ", Resultado: " + partida.getResultado());

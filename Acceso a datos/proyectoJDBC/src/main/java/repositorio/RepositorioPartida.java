@@ -26,6 +26,7 @@ public class RepositorioPartida {
 
 	public RepositorioPartida(MysqlConector conector) {
 		this.conector = conector;
+		this.lista=new ArrayList<>(); //Para evitar NullPointer
 		try {
 			this.lista = this.listarTodas();
 		} catch (MiExcepcion e) {
@@ -50,6 +51,11 @@ public class RepositorioPartida {
 				stmt.executeUpdate();
 				logger.info("Partida guardada correctamente con fecha: " + partida.getFecha());
 
+				if (this.lista != null) {
+                    this.lista.add(partida);
+                    logger.debug("Partida añadida a la caché del repositorio.");
+                }
+				
 			} catch (SQLException e) {
 				logger.error("Error al guardar la partida", e);
                 throw new MiExcepcion("Error de base de datos al guardar la partida.");
@@ -62,7 +68,7 @@ public class RepositorioPartida {
 	}
 
 	public List<SandovalCristinaPartida> listarTodas() throws MiExcepcion { 
-		List<SandovalCristinaPartida> lista = new ArrayList<SandovalCristinaPartida>();
+		List<SandovalCristinaPartida> listaTemporal = new ArrayList<SandovalCristinaPartida>();
 
 		String sql = "SELECT p.*, j.nombre, j.email, j.nick, j.puntosTotales " +
 				"FROM SandovalCristinaPartida p " +
@@ -90,7 +96,7 @@ public class RepositorioPartida {
 					p.setFecha(rs.getDate("fecha").toLocalDate());
 					p.setResultado(Resultado.valueOf(rs.getString("resultado")));
 
-					lista.add(p);
+					listaTemporal.add(p);
 				}
 			} catch (SQLException e) {
 				logger.error("Error al listar partidas", e);
@@ -101,12 +107,20 @@ public class RepositorioPartida {
         } finally { 
             conector.release();
         }
-		return lista;
+		return listaTemporal;
 	}
 	
 	
 	
 	
+
+	public List<SandovalCristinaPartida> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<SandovalCristinaPartida> lista) {
+		this.lista = lista;
+	}
 
 	public void borrarTodas() throws MiExcepcion {
 	    // Usamos TRUNCATE TABLE para eliminar todas las filas Y resetear el AUTO_INCREMENT
@@ -120,6 +134,11 @@ public class RepositorioPartida {
 	            stmt.executeUpdate(); 
 	            logger.warn("Tabla SandovalCristinaPartida TRUNCADA y AUTO_INCREMENT reseteado.");
 
+	            if (this.lista != null) {
+                    this.lista.clear();
+                    logger.debug("Caché local de partidas vaciada.");
+                }
+	        
 	        } catch (SQLException e) {
 	            logger.error("Error al intentar truncar todas las partidas", e);
 	            throw new MiExcepcion("Error de base de datos al borrar partidas.");

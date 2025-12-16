@@ -966,3 +966,140 @@
 2025-12-16 12:01:35.727 [main] INFO  controlador.GestionaDixit -    - ID: 5, Fecha: 2025-12-05, Narrador: Lopez, Resultado: ALGUNOS
 2025-12-16 12:01:35.727 [main] INFO  controlador.GestionaDixit - 
 --- FIN DEL PROGRAMA ---
+2025-12-16 13:32:07.504 [main] INFO  controlador.GestionaDixit - --- 1. INICIANDO PROGRAMA ---
+2025-12-16 13:32:10.494 [main] ERROR repositorio.RepositorioPartida - Error al listar partidas
+java.sql.SQLException: Column 'torneo_id' not found.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129) ~[mysql-connector-java-8.0.30.jar:8.0.30]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.30.jar:8.0.30]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.30.jar:8.0.30]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.30.jar:8.0.30]
+	at com.mysql.cj.jdbc.result.ResultSetImpl.findColumn(ResultSetImpl.java:584) ~[mysql-connector-java-8.0.30.jar:8.0.30]
+	at com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:851) ~[mysql-connector-java-8.0.30.jar:8.0.30]
+	at repositorio.RepositorioPartida.listarTodas(RepositorioPartida.java:94) [classes/:?]
+	at repositorio.RepositorioPartida.<init>(RepositorioPartida.java:30) [classes/:?]
+	at servicio.DixitServicio.<init>(DixitServicio.java:30) [classes/:?]
+	at controlador.GestionaDixit.main(GestionaDixit.java:26) [classes/:?]
+2025-12-16 13:32:10.514 [main] INFO  controlador.GestionaDixit - --- 2. CONEXIÓN EXITOSA ---
+2025-12-16 13:32:10.514 [main] INFO  controlador.GestionaDixit - --- INICIO DEL TORNEO DIXIT  ---
+2025-12-16 13:32:10.515 [main] INFO  controlador.GestionaDixit - 
+=== FASE DE LIMPIEZA INICIAL ===
+2025-12-16 13:32:10.756 [main] WARN  repositorio.RepositorioPartida - Tabla SandovalCristinaPartida TRUNCADA y AUTO_INCREMENT reseteado.
+2025-12-16 13:32:10.821 [main] DEBUG repositorio.RepositorioJugadores - Caché local de jugadores vaciada.
+2025-12-16 13:32:10.897 [main] WARN  repositorio.RepositorioJugadores - Se han eliminado 4 jugadores de la tabla. AUTO_INCREMENT reseteado.
+2025-12-16 13:32:10.899 [main] INFO  controlador.GestionaDixit - Base de datos de partidas y jugadores limpia y AUTO_INCREMENT reseteado.
+2025-12-16 13:32:10.899 [main] INFO  controlador.GestionaDixit - 
+=== CREACIÓN DE 4 JUGADORES INICIALES ===
+2025-12-16 13:32:10.963 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: José Lopez con ID asignado: 1
+2025-12-16 13:32:10.963 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:32:11.022 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: Maria Moreno con ID asignado: 2
+2025-12-16 13:32:11.024 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:32:11.092 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: Jose Manuel Ruiz con ID asignado: 3
+2025-12-16 13:32:11.093 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:32:11.152 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: Sofia Jaen con ID asignado: 4
+2025-12-16 13:32:11.152 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:32:11.155 [main] INFO  controlador.GestionaDixit - 4 jugadores guardados exitosamente. IDs asignados: 1, 2, 3, 4.
+2025-12-16 13:32:11.156 [main] INFO  controlador.GestionaDixit - 
+=== INICIO DE LA SIMULACIÓN DE 5 PARTIDAS ===
+2025-12-16 13:32:11.156 [main] INFO  controlador.GestionaDixit - 
+-- [Partida 1: Narrador José Lopez (TODOS)] --
+2025-12-16 13:32:11.158 [main] INFO  controlador.GestionaDixit - 
+--- FIN DEL PROGRAMA ---
+2025-12-16 13:40:48.457 [main] INFO  controlador.GestionaDixit - --- 1. INICIANDO PROGRAMA ---
+2025-12-16 13:40:50.769 [main] INFO  controlador.GestionaDixit - --- 2. CONEXIÓN EXITOSA ---
+2025-12-16 13:40:50.769 [main] INFO  controlador.GestionaDixit - --- INICIO DEL TORNEO DIXIT  ---
+2025-12-16 13:40:50.769 [main] INFO  controlador.GestionaDixit - 
+=== FASE DE LIMPIEZA INICIAL ===
+2025-12-16 13:40:50.892 [main] WARN  repositorio.RepositorioPartida - Tabla SandovalCristinaPartida TRUNCADA y AUTO_INCREMENT reseteado.
+2025-12-16 13:40:50.893 [main] DEBUG repositorio.RepositorioPartida - Caché local de partidas vaciada.
+2025-12-16 13:40:50.948 [main] DEBUG repositorio.RepositorioJugadores - Caché local de jugadores vaciada.
+2025-12-16 13:40:50.990 [main] WARN  repositorio.RepositorioJugadores - Se han eliminado 0 jugadores de la tabla. AUTO_INCREMENT reseteado.
+2025-12-16 13:40:50.993 [main] INFO  controlador.GestionaDixit - Base de datos de partidas y jugadores limpia y AUTO_INCREMENT reseteado.
+2025-12-16 13:40:50.993 [main] INFO  controlador.GestionaDixit - 
+=== CREACIÓN DE 4 JUGADORES INICIALES ===
+2025-12-16 13:40:51.049 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: José Lopez con ID asignado: 1
+2025-12-16 13:40:51.049 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:40:51.095 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: Maria Moreno con ID asignado: 2
+2025-12-16 13:40:51.095 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:40:51.147 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: Jose Manuel Ruiz con ID asignado: 3
+2025-12-16 13:40:51.148 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:40:51.195 [main] INFO  repositorio.RepositorioJugadores - Jugador guardado correctamente: Sofia Jaen con ID asignado: 4
+2025-12-16 13:40:51.195 [main] DEBUG repositorio.RepositorioJugadores - Jugador añadido a la caché del repositorio.
+2025-12-16 13:40:51.196 [main] INFO  controlador.GestionaDixit - 4 jugadores guardados exitosamente. IDs asignados: 1, 2, 3, 4.
+2025-12-16 13:40:51.197 [main] INFO  controlador.GestionaDixit - 
+=== INICIO DE LA SIMULACIÓN DE 5 PARTIDAS ===
+2025-12-16 13:40:51.197 [main] INFO  controlador.GestionaDixit - 
+-- [Partida 1: Narrador José Lopez (TODOS)] --
+2025-12-16 13:40:51.274 [main] INFO  repositorio.RepositorioPartida - Partida guardada correctamente con fecha: 2025-12-01
+2025-12-16 13:40:51.275 [main] DEBUG repositorio.RepositorioPartida - Partida añadida a la caché del repositorio.
+2025-12-16 13:40:51.358 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 2
+2025-12-16 13:40:51.360 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 2 suma 2 puntos. Total: 2
+2025-12-16 13:40:51.440 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 3
+2025-12-16 13:40:51.441 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 3 suma 2 puntos. Total: 2
+2025-12-16 13:40:51.532 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 4
+2025-12-16 13:40:51.533 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 4 suma 2 puntos. Total: 2
+2025-12-16 13:40:51.534 [main] INFO  controlador.GestionaDixit - 
+-- [Partida 2: Narrador Maria Moreno (ALGUNOS)] --
+2025-12-16 13:40:51.590 [main] INFO  repositorio.RepositorioPartida - Partida guardada correctamente con fecha: 2025-12-02
+2025-12-16 13:40:51.590 [main] DEBUG repositorio.RepositorioPartida - Partida añadida a la caché del repositorio.
+2025-12-16 13:40:51.693 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 2
+2025-12-16 13:40:51.694 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 2 suma 3 puntos. Total: 5
+2025-12-16 13:40:51.789 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 1
+2025-12-16 13:40:51.791 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 1 suma 3 puntos. Total: 3
+2025-12-16 13:40:51.900 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 3
+2025-12-16 13:40:51.902 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 3 suma 3 puntos. Total: 5
+2025-12-16 13:40:51.903 [main] INFO  controlador.GestionaDixit - 
+-- [Partida 3: Narrador José Manuel (NADIE)] --
+2025-12-16 13:40:51.947 [main] INFO  repositorio.RepositorioPartida - Partida guardada correctamente con fecha: 2025-12-03
+2025-12-16 13:40:51.947 [main] DEBUG repositorio.RepositorioPartida - Partida añadida a la caché del repositorio.
+2025-12-16 13:40:52.032 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 1
+2025-12-16 13:40:52.033 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 1 suma 2 puntos. Total: 5
+2025-12-16 13:40:52.128 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 2
+2025-12-16 13:40:52.129 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 2 suma 2 puntos. Total: 7
+2025-12-16 13:40:52.220 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 4
+2025-12-16 13:40:52.222 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 4 suma 2 puntos. Total: 4
+2025-12-16 13:40:52.222 [main] INFO  controlador.GestionaDixit - 
+-- [Partida 4: Narrador Sofia Jaen (POCOS)] --
+2025-12-16 13:40:52.263 [main] INFO  repositorio.RepositorioPartida - Partida guardada correctamente con fecha: 2025-12-04
+2025-12-16 13:40:52.263 [main] DEBUG repositorio.RepositorioPartida - Partida añadida a la caché del repositorio.
+2025-12-16 13:40:52.341 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 4
+2025-12-16 13:40:52.343 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 4 suma 3 puntos. Total: 7
+2025-12-16 13:40:52.421 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 2
+2025-12-16 13:40:52.422 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 2 suma 3 puntos. Total: 10
+2025-12-16 13:40:52.422 [main] INFO  controlador.GestionaDixit - 
+-- [Partida 5: Narrador José Lopez (ALGUNOS)] --
+2025-12-16 13:40:52.461 [main] INFO  repositorio.RepositorioPartida - Partida guardada correctamente con fecha: 2025-12-05
+2025-12-16 13:40:52.461 [main] DEBUG repositorio.RepositorioPartida - Partida añadida a la caché del repositorio.
+2025-12-16 13:40:52.542 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 1
+2025-12-16 13:40:52.544 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 1 suma 3 puntos. Total: 8
+2025-12-16 13:40:52.615 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 2
+2025-12-16 13:40:52.617 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 2 suma 3 puntos. Total: 13
+2025-12-16 13:40:52.689 [main] INFO  repositorio.RepositorioJugadores - Puntos actualizados para el jugador ID 4
+2025-12-16 13:40:52.690 [main] INFO  servicio.DixitServicio - Puntuación actualizada: Jugador ID 4 suma 3 puntos. Total: 10
+2025-12-16 13:40:52.690 [main] INFO  controlador.GestionaDixit - 
+=== 5 PARTIDAS SIMULADAS Y GUARDADAS CON ÉXITO ===
+2025-12-16 13:40:52.691 [main] INFO  controlador.GestionaDixit - 
+=== INTENTO DE CREAR LA SEXTA PARTIDA (CONTROL DE EXCEPCIÓN) ===
+2025-12-16 13:40:52.691 [main] INFO  controlador.GestionaDixit - Control exitoso: Excepción capturada al intentar crear la 6ª partida: ERROR: Se ha alcanzado el límite de 5 partidas por defecto.
+2025-12-16 13:40:52.691 [main] INFO  controlador.GestionaDixit - 
+=== INTENTO DE CREAR PARTIDA CON Narrador EN FIN DE SEMANA ===
+2025-12-16 13:40:52.704 [main] INFO  controlador.GestionaDixit - Control exitoso: Excepción capturada para 'elNarrador' en fin de semana: ERROR: Se ha alcanzado el límite de 5 partidas por defecto.
+2025-12-16 13:40:52.705 [main] INFO  controlador.GestionaDixit - 
+===============================
+2025-12-16 13:40:52.705 [main] INFO  controlador.GestionaDixit - === RESULTADOS Y REPORTES FINALES ===
+2025-12-16 13:40:52.706 [main] INFO  controlador.GestionaDixit - ===============================
+2025-12-16 13:40:52.745 [main] INFO  controlador.GestionaDixit - -> JUGADOR GANADOR (Mayor Puntuación): Maria con 13 puntos.
+2025-12-16 13:40:52.779 [main] INFO  controlador.GestionaDixit - 
+-> RANKING DE JUGADORES (DESC):
+2025-12-16 13:40:52.780 [main] INFO  controlador.GestionaDixit -    - Nick: Maria, Puntos: 13
+2025-12-16 13:40:52.780 [main] INFO  controlador.GestionaDixit -    - Nick: Sofii, Puntos: 10
+2025-12-16 13:40:52.780 [main] INFO  controlador.GestionaDixit -    - Nick: Lopez, Puntos: 8
+2025-12-16 13:40:52.780 [main] INFO  controlador.GestionaDixit -    - Nick: Joselito, Puntos: 5
+2025-12-16 13:40:52.830 [main] INFO  controlador.GestionaDixit - 
+-> LISTADO DE PARTIDAS (Ordenadas por Fecha ASC):
+2025-12-16 13:40:52.830 [main] INFO  controlador.GestionaDixit -    - ID: 1, Fecha: 2025-12-01, Narrador: Lopez, Resultado: TODOS
+2025-12-16 13:40:52.830 [main] INFO  controlador.GestionaDixit -    - ID: 2, Fecha: 2025-12-02, Narrador: Maria, Resultado: ALGUNOS
+2025-12-16 13:40:52.831 [main] INFO  controlador.GestionaDixit -    - ID: 3, Fecha: 2025-12-03, Narrador: Joselito, Resultado: NADIE
+2025-12-16 13:40:52.831 [main] INFO  controlador.GestionaDixit -    - ID: 4, Fecha: 2025-12-04, Narrador: Sofii, Resultado: POCOS
+2025-12-16 13:40:52.831 [main] INFO  controlador.GestionaDixit -    - ID: 5, Fecha: 2025-12-05, Narrador: Lopez, Resultado: ALGUNOS
+2025-12-16 13:40:52.831 [main] INFO  controlador.GestionaDixit - 
+--- FIN DEL PROGRAMA ---

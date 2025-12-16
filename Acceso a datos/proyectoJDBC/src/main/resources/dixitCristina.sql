@@ -1,3 +1,4 @@
+CREATE DATABASE jdbcMySqlAcceso;
 USE jdbcMySqlAcceso;
 
 -- 1. LIMPIEZA: Borramos tablas antiguas para evitar errores
@@ -21,6 +22,7 @@ CREATE TABLE SandovalCristinaJugador (
 CREATE TABLE SandovalCristinaPartida (
     id INT AUTO_INCREMENT PRIMARY KEY,
     narrador_id INT,
+    torneo_id INT,
     fecha DATE NOT NULL,
     resultado ENUM('TODOS', 'NADIE', 'ALGUNOS', 'POCOS') NOT NULL,
     FOREIGN KEY (narrador_id) REFERENCES SandovalCristinaJugador(id)

@@ -54,6 +54,11 @@ public class RepositorioJugadores {
 	                    int idGenerado = rs.getInt(1);
 	                    jugador.setId(idGenerado); 
 	                    logger.info("Jugador guardado correctamente: " + jugador.getNombre() + " con ID asignado: " + idGenerado);
+	                
+	                    if (this.lista != null) {
+                            this.lista.add(jugador);
+                            logger.debug("Jugador añadido a la caché del repositorio.");
+                        }
 	                } else {
 	                    logger.warn("El INSERT fue exitoso pero no se pudo recuperar el ID autogenerado.");
 	                }
@@ -173,6 +178,11 @@ public class RepositorioJugadores {
 	            // Ejecutar DELETE (para que las partidas ya no sean un problema, ya que se borran antes)
 	            int filasBorradas = stmtDelete.executeUpdate();
 	            
+	            if (this.lista != null) {
+	            	 this.lista.clear();
+	            	 logger.debug("Caché local de jugadores vaciada.");
+	            	}
+	            
 	            // Ejecutar ALTER TABLE (Resetea el contador)
 	            stmtReset.executeUpdate(); 
 	            
@@ -188,4 +198,16 @@ public class RepositorioJugadores {
 	        conector.release();
 	    }
 	}
+
+	public List<SandovalCristinaJugador> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<SandovalCristinaJugador> lista) {
+		this.lista = lista;
+	}
+	
+	
+	
+	
 }

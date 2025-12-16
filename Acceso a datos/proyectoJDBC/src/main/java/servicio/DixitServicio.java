@@ -1,6 +1,7 @@
 package servicio;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,11 +43,11 @@ public class DixitServicio {
     }  
 	
     public List<SandovalCristinaPartida> listarPartidas() throws MiExcepcion {
-        return repoPartida.listarTodas();
+        return repoPartida.getLista();
     }
     
     public List<SandovalCristinaJugador> listarJugadores() throws MiExcepcion {
-        return repoJugador.listarTodos();
+        return repoJugador.getLista();
     }
     
     public void guardarJugador(SandovalCristinaJugador jugador) throws MiExcepcion {
@@ -68,7 +69,7 @@ public class DixitServicio {
     }
     
     public int contarPartidas() throws MiExcepcion {
-        return repoPartida.listarTodas().size();
+        return repoPartida.getLista().size();
     }
    
 	
@@ -195,15 +196,17 @@ public class DixitServicio {
      * Muestra nombre y puntos de cada jugador ordenados por puntos descendentemente.
      */
     public List<SandovalCristinaJugador> listarJugadoresOrdenadosPorPuntos() throws MiExcepcion {
-        // 1. Obtener la lista de la base de datos
-        List<SandovalCristinaJugador> jugadores = repoJugador.listarTodos();
+        // 1. Obtener la lista del cache
+        List<SandovalCristinaJugador> jugadores = repoJugador.getLista();
         
+     // 2. CREAR COPIA para ordenar y NO alterar la caché original
+        List<SandovalCristinaJugador> jugadoresCopia = new ArrayList<SandovalCristinaJugador>(jugadores);
       
         PuntosJugadorComparator comparador = new PuntosJugadorComparator();
         Collections.sort(jugadores, comparador);
         
         // 3. Devolver la lista ordenada
-        return jugadores;
+        return jugadoresCopia;
     }
 
     /**
