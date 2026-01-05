@@ -1,5 +1,0 @@
-El servicio es muy importante en cualquier hilo de ejecución. 
-Cada proceso debe gestionar correctamente los hilos para evitar problemas. 
-En sistemas multihilo, la concurrencia puede causar errores si no se controla. 
-El servicio siempre debe estar disponible. 
-La concurrencia en un proceso multihilo es compleja pero manejable.

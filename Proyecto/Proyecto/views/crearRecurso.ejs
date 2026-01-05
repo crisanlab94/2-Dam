@@ -1,0 +1,182 @@
+<%- include("template/cabecera", {tituloWeb: 'Asistente de Estudio IA'}) %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-end mb-4">
+        <a href="/estudiantes/mi-perfil/ver" class="btn btn-outline-primary fw-bold shadow-sm px-3" style="border-radius: 10px;">
+            Volver al Panel
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card p-4 shadow-sm border-0 bg-white" style="border-radius: 15px;">
+                <h5 class="fw-bold text-primary mb-3">Nuevo Material</h5>
+                
+                <label class="small fw-bold text-muted">1. Asignatura</label>
+                <select id="selectAsignatura" class="form-select mb-3" style="border-radius: 10px;">
+                    <option value="" disabled selected>Selecciona una...</option>
+                    <% estudiante.plan_estudio.forEach(plan => { %>
+                        <% if(plan.metodo_sugerido) { %>
+                            <option value="<%= plan._id %>"><%= plan.nombre_asignatura %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+
+                <label class="small fw-bold text-muted">2. Tema</label>
+                <input type="text" id="inputTema" class="form-control mb-4" placeholder="Ej: Tema 1. Las Células" style="border-radius: 10px;">
+
+                <button onclick="iniciarGuia()" id="btnIniciar" class="btn btn-primary w-100 fw-bold py-2" style="border-radius: 10px;">
+                    Hablar con mi Tutor
+                </button>
+                
+                <hr class="text-muted">
+                <small class="text-muted">La IA utilizará tu método sugerido para guiarte en la creación del material.</small>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 bg-white d-flex flex-column" style="border-radius: 15px; height: 600px;">
+                <div class="card-header bg-transparent border-bottom p-3">
+                    <h6 class="m-0 fw-bold text-primary"><i class="bi bi-robot me-2"></i> Tutor Inteligente</h6>
+                </div>
+                
+                <div id="chatBox" class="p-3 overflow-auto flex-grow-1" style="background-color: #f8f9fa; display: flex; flex-direction: column;">
+                    <div class="text-center text-muted mt-5">
+                        <i class="bi bi-chat-left-text fs-1"></i>
+                        <p class="mt-2">Indica la asignatura y el tema para comenzar tu sesión de estudio.</p>
+                    </div>
+                </div>
+
+                <div class="p-3 border-top bg-white" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                    <div class="input-group">
+                        <input type="text" id="preguntaAlumno" class="form-control border-primary" placeholder="Escribe aquí tu respuesta..." disabled style="border-radius: 10px 0 0 10px;">
+                        <button class="btn btn-primary px-4" onclick="enviarPregunta()" id="btnEnviar" disabled style="border-radius: 0 10px 10px 0;">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let historialIA = []; // Memoria de la sesión
+    let asignaturaId = "";
+    let tema = "";
+
+    async function iniciarGuia() {
+        asignaturaId = document.getElementById('selectAsignatura').value;
+        tema = document.getElementById('inputTema').value;
+
+        if(!asignaturaId || !tema) {
+            return Swal.fire('Faltan datos', 'Por favor, rellena asignatura y tema.', 'warning');
+        }
+
+        // Preparar UI
+        document.getElementById('btnIniciar').disabled = true;
+        const chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML = '<div class="text-center mt-5"><div class="spinner-border text-primary"></div><p class="mt-2">Llamando a tu tutor...</p></div>';
+
+        try {
+            const res = await fetch('/estudiantes/ia/iniciar-guia', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ asignaturaId, tema })
+            });
+
+            const data = await res.json();
+            if(data.estado) {
+                chatBox.innerHTML = '';
+                document.getElementById('preguntaAlumno').disabled = false;
+                document.getElementById('btnEnviar').disabled = false;
+                
+                agregarMensaje('IA', data.mensaje);
+                historialIA.push({ role: "user", parts: [{ text: `Hola, soy el estudiante. Quiero trabajar el tema ${tema}.` }] });
+                historialIA.push({ role: "model", parts: [{ text: data.mensaje }] });
+            }
+        } catch (error) {
+            Swal.fire('Error', 'No se pudo conectar con la IA', 'error');
+            document.getElementById('btnIniciar').disabled = false;
+        }
+    }
+
+    async function enviarPregunta() {
+        const input = document.getElementById('preguntaAlumno');
+        const mensaje = input.value.trim();
+        if(!mensaje) return;
+
+        agregarMensaje('Alumno', mensaje);
+        input.value = '';
+
+        const tempId = Date.now();
+        mostrarCargando(tempId);
+
+        try {
+            const res = await fetch('/estudiantes/ia/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    mensajeAlumno: mensaje, 
+                    historial: historialIA,
+                    asignaturaId: asignaturaId,
+                    tema: tema
+                })
+            });
+
+            const data = await res.json();
+            quitarCargando(tempId);
+
+            if(data.estado) {
+                agregarMensaje('IA', data.mensaje);
+                historialIA.push({ role: "user", parts: [{ text: mensaje }] });
+                historialIA.push({ role: "model", parts: [{ text: data.mensaje }] });
+
+                if(data.archivoDetectado) {
+                    Swal.fire({
+                        toast: true, position: 'top-end', icon: 'info',
+                        title: 'IA analizando tu documento...', showConfirmButton: false, timer: 3000
+                    });
+                }
+            }
+        } catch (error) {
+            quitarCargando(tempId);
+            agregarMensaje('IA', 'Lo siento, ha ocurrido un error de conexión.');
+        }
+    }
+
+    function agregarMensaje(autor, texto) {
+        const chatBox = document.getElementById('chatBox');
+        const div = document.createElement('div');
+        div.className = `mb-3 d-flex ${autor === 'IA' ? 'justify-content-start' : 'justify-content-end'}`;
+        
+        const burbujaColor = autor === 'IA' ? 'bg-white text-dark border' : 'bg-primary text-white';
+        const icono = autor === 'IA' ? '<i class="bi bi-robot me-2"></i>' : '';
+
+        div.innerHTML = `
+            <div class="p-3 shadow-sm" style="max-width: 85%; border-radius: 18px; ${autor === 'IA' ? 'border-bottom-left-radius: 2px;' : 'border-bottom-right-radius: 2px;'} ${burbujaColor}">
+                <small class="d-block fw-bold opacity-75 mb-1">${icono}${autor}</small>
+                <div style="white-space: pre-wrap;">${texto}</div>
+            </div>
+        `;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function mostrarCargando(id) {
+        const chatBox = document.getElementById('chatBox');
+        const div = document.createElement('div');
+        div.id = id;
+        div.className = 'mb-3 text-start';
+        div.innerHTML = `<div class="d-inline-block p-2 px-3 rounded-pill bg-light border shadow-sm small italic">El tutor está escribiendo...</div>`;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function quitarCargando(id) {
+        const el = document.getElementById(id);
+        if(el) el.remove();
+    }
+</script>
+<%- include("template/cierre") %>

@@ -1,0 +1,64 @@
+<%- include("template/cabecera", {tituloWeb: 'Iniciar Sesión'}) %>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="p-4 text-center" style="background-color: #1a3a5a;">
+                    <h2 class="text-white fw-bold mb-0">Acceso Estudiantes</h2>
+                </div>
+                
+                <div class="card-body p-5">
+                    <% if(mensaje) { %>
+                        <div class="alert alert-danger text-center fw-bold shadow-sm">
+                            <%= mensaje %>
+                        </div>
+                    <% } %>
+
+                    <form action="/estudiantes/login" method="POST">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Correo electrónico</label>
+                            <input type="email" name="email" class="form-control border-2 shadow-sm" placeholder="ejemplo@correo.com" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Contraseña</label>
+                            <div class="input-group">
+                                <input type="password" id="clave" name="clave" class="form-control border-2 border-end-0 shadow-sm" placeholder="Tu contraseña" required>
+                                <span class="input-group-text bg-white border-2 border-start-0 shadow-sm" style="cursor: pointer;" onclick="togglePassword('clave', 'ojo-clave')">
+                                    <i class="bi bi-eye-slash" id="ojo-clave"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn w-100 py-3 fw-bold text-white shadow" style="background-color: #1a3a5a;">
+                            ENTRAR
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <a href="/" class="btn-volver" style="text-decoration: none; color: #5a7d9a; font-weight: bold; border: 2px solid #5a7d9a; padding: 10px 20px; border-radius: 30px; display: inline-block;">
+                    Volver al Inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace("bi-eye-slash", "bi-eye");
+        } else {
+            input.type = "password";
+            icon.classList.replace("bi-eye", "bi-eye-slash");
+        }
+    }
+</script>
+
+<%- include("template/cierre") %>

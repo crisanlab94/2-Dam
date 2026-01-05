@@ -1,0 +1,140 @@
+<%- include("template/cabecera", {tituloWeb: 'Mis Métodos'}) %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #1a3a5a;">Mis Métodos de Estudio</h2>
+        <a href="/estudiantes/mi-perfil/ver" class="btn btn-outline-primary fw-bold shadow-sm">
+            Volver al Panel
+        </a>
+    </div>
+
+    <% if (estudiante.plan_estudio && estudiante.plan_estudio.length > 0) { %>
+        <div class="row">
+            <% estudiante.plan_estudio.forEach(plan => { %>
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm border-0 h-100" style="border-radius: 12px; border-left: 6px solid #0d6efd !important;">
+                        <div class="card-body">
+                            <h5 class="fw-bold text-primary"><%= plan.nombre_asignatura %></h5>
+                            <p class="small text-muted mt-2"><%= plan.justificacion %></p>
+                            <hr>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button class="btn btn-sm btn-outline-info fw-bold" 
+                                        onclick="abrirEditor('<%= plan._id %>', '<%= plan.nombre_asignatura %>', '<%= plan.metodo_sugerido %>', '<%= plan.justificacion %>')">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="eliminarMetodo('<%= plan._id %>')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <div class="text-center py-5">
+            <p class="text-muted">No tienes planes guardados [cite: 15-12-2015].</p>
+        </div>
+    <% } %>
+</div>
+
+<div class="modal fade" id="modalEditarMetodo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fw-bold">Actualizar Método</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formUpdateMetodo">
+                    <input type="hidden" id="edit_id">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Asignatura</label>
+                        <input type="text" id="edit_asignatura" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Método Principal</label>
+                        <input type="text" id="edit_metodo" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Justificación</label>
+                        <textarea id="edit_justificacion" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">GUARDAR CAMBIOS</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let myModal;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalElement = document.getElementById('modalEditarMetodo');
+        if (modalElement) {
+            myModal = new bootstrap.Modal(modalElement);
+        }
+    });
+
+    function abrirEditor(id, asignatura, metodo, razon) {
+        if (!myModal) return console.error("Bootstrap no cargado correctamente");
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_asignatura').value = asignatura;
+        document.getElementById('edit_metodo').value = metodo;
+        document.getElementById('edit_justificacion').value = razon;
+        myModal.show();
+    }
+
+    document.getElementById('formUpdateMetodo').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('edit_id').value;
+        const body = {
+            nombre_asignatura: document.getElementById('edit_asignatura').value,
+            metodo_sugerido: document.getElementById('edit_metodo').value,
+            justificacion: document.getElementById('edit_justificacion').value
+        };
+
+        try {
+            const res = await fetch('/estudiantes/editar-metodo/' + id, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            const data = await res.json();
+            if(data.estado) {
+                myModal.hide();
+                Swal.fire('¡Éxito!', 'Método actualizado', 'success').then(() => location.reload());
+            } else {
+                Swal.fire('Error', 'No se pudo actualizar', 'error');
+            }
+        } catch (error) { console.error("Error en PUT:", error); }
+    });
+
+    async function eliminarMetodo(id) {
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0d6efd',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const res = await fetch('/estudiantes/eliminar-metodo/' + id, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.estado) {
+                    Swal.fire('Eliminado', 'El plan ha sido borrado', 'success').then(() => location.reload());
+                } else {
+                    Swal.fire('Error', 'No se pudo eliminar del servidor', 'error');
+                }
+            } catch (error) { console.error("Error en DELETE:", error); }
+        }
+    }
+</script>
+<%- include("template/cierre") %>

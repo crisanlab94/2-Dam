@@ -1,0 +1,174 @@
+<%- include("template/cabecera", {tituloWeb: 'Ficha Detallada del Estudiante'}) %>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="btn-azul-oscuro text-white p-4 d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0"><i class="bi bi-person-lines-fill me-2"></i> Gestión de Estudiante</h2>
+                    <span class="badge bg-light text-dark fs-5 fw-bold">ID: #<%= estudiante.id_estudiante %></span>
+                </div>
+
+                <div class="card-body p-4 bg-light">
+                    <% if (error) { %>
+                        <div class="alert alert-danger shadow-sm border-0">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i> <%= mensaje %>
+                            <hr>
+                            <a href="/estudiantes" class="btn btn-outline-danger btn-sm">Volver a la lista</a>
+                        </div>
+                    <% } else { %>
+                        
+                        <div id="mensaje-error" class="alert alert-danger" style="display: none;"></div>
+
+                        <form id="formEditar" data-id="<%= estudiante.id_estudiante %>">
+                            
+                            <h5 class="text-azul-oscuro fw-bold mb-3 border-bottom pb-2">Información Personal</h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nombre Completo</label>
+                                    <input type="text" name="nombre" class="form-control border-2" value="<%= estudiante.nombre %>" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento" class="form-control border-2" 
+                                           value="<%= estudiante.fecha_nacimiento ? estudiante.fecha_nacimiento.toISOString().split('T')[0] : '' %>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Correo Electrónico</label>
+                                    <input type="email" name="email" class="form-control border-2" value="<%= estudiante.email %>" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Teléfono / Móvil</label>
+                                    <input type="text" name="telefono" class="form-control border-2" value="<%= estudiante.telefono %>" required>
+                                </div>
+                            </div>
+
+                            <h5 class="text-azul-oscuro fw-bold mb-3 border-bottom pb-2">Datos Académicos</h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Tipo de Entidad</label>
+                                    <select name="tipo_entidad" class="form-select border-2">
+                                        <option value="Instituto" <%= estudiante.tipo_entidad === 'Instituto' ? 'selected' : '' %>>Instituto</option>
+                                        <option value="Academia" <%= estudiante.tipo_entidad === 'Academia' ? 'selected' : '' %>>Academia</option>
+                                        <option value="Otro" <%= estudiante.tipo_entidad === 'Otro' ? 'selected' : '' %>>Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Curso</label>
+                                    <input type="text" name="curso" class="form-control border-2" value="<%= estudiante.curso %>">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Modalidad</label>
+                                    <input type="text" name="modalidad" class="form-control border-2" value="<%= estudiante.modalidad %>">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold">Asignaturas (separadas por coma)</label>
+                                    <input type="text" name="asignaturas" class="form-control border-2" value="<%= estudiante.asignaturas ? estudiante.asignaturas.join(', ') : '' %>">
+                                    <small class="text-muted">Ejemplo: Matemáticas, Historia, Lengua</small>
+                                </div>
+                            </div>
+
+                            <h5 class="text-danger fw-bold mb-3 border-bottom pb-2">Seguridad</h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-danger">Clave de Acceso</label>
+                                    <input type="text" name="clave" class="form-control border-2 bg-white" value="<%= estudiante.clave %>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-muted">Fecha de Registro</label>
+                                    <input type="text" class="form-control bg-light" value="<%= estudiante.fecha_registro.toLocaleString() %>" readonly disabled>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <div class="d-flex justify-content-between">
+                                <a href="/estudiantes" class="btn btn-outline-secondary px-4 fw-bold shadow-sm" style="border-radius: 30px;">
+                                    <i class="bi bi-arrow-left"></i> Volver a Gestión
+                                </a>
+                                <div>
+                                    <button type="button" id="btnEliminar" class="btn btn-danger px-4 fw-bold shadow-sm me-2" style="border-radius: 30px;">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </button>
+                                    <button type="submit" class="btn btn-azul-oscuro px-5 fw-bold shadow-sm" style="border-radius: 30px;">
+                                        <i class="bi bi-save"></i> Actualizar Ficha
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const formEditar = document.querySelector('#formEditar');
+    const divError = document.getElementById('mensaje-error');
+
+    if (formEditar) {
+       
+        formEditar.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            divError.style.display = 'none';
+
+            const id = formEditar.dataset.id; 
+            
+            const datos = {
+                nombre: formEditar.elements['nombre'].value,
+                fecha_nacimiento: formEditar.elements['fecha_nacimiento'].value,
+                email: formEditar.elements['email'].value,
+                telefono: formEditar.elements['telefono'].value,
+                tipo_entidad: formEditar.elements['tipo_entidad'].value,
+                curso: formEditar.elements['curso'].value,
+                modalidad: formEditar.elements['modalidad'].value,
+                asignaturas: formEditar.elements['asignaturas'].value.split(',').map(s => s.trim()),
+                clave: formEditar.elements['clave'].value
+            };
+
+            try {
+                const response = await fetch(`/estudiantes/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+
+                const res = await response.json();
+                
+                if (res.estado) {
+                    window.location.href = '/estudiantes';
+                } else {
+                    divError.textContent = "Error al actualizar: " + (res.mensaje || "inténtalo de nuevo.");
+                    divError.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            } catch (error) {
+                divError.textContent = "Fallo crítico de conexión con el servidor.";
+                divError.style.display = 'block';
+            }
+        });
+
+      
+        const btnEliminar = document.querySelector('#btnEliminar');
+        btnEliminar.addEventListener('click', async () => {
+            const id = formEditar.dataset.id;
+            if (!confirm("¿Deseas eliminar definitivamente este perfil de estudiante?")) return;
+            
+            try {
+                const res = await fetch(`/estudiantes/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+                
+                if (data.estado) {
+                    window.location.href = '/estudiantes';
+                } else {
+                    alert("No se pudo procesar la eliminación.");
+                }
+            } catch (error) {
+                alert("Error de red al intentar eliminar.");
+            }
+        });
+    }
+</script>
+
+<%- include("template/cierre") %>

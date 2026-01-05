@@ -1,0 +1,17 @@
+# --- ANDROID (Multimedia) ---
+.gradle/
+build/
+app/build/
+*.iml
+local.properties
+
+# --- JAVA / MAVEN (Acceso a Datos) ---
+target/
+.factorypath
+*.class
+
+# --- GENERAL / LOGS ---
+*.log
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,164 @@
+<%- include("template/cabecera", {tituloWeb: 'Mis Materiales'}) %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-end mb-4">
+        <a href="/estudiantes/mi-perfil/ver" class="btn btn-outline-primary fw-bold shadow-sm px-3" style="border-radius: 10px;">
+            Volver al Panel
+        </a>
+    </div>
+
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <div>
+            <h2 class="fw-bold m-0" style="color: #1a3a5a;">Biblioteca de Materiales</h2>
+            <p class="text-muted small mb-0">Gestiona tus recursos de estudio, <%= estudiante.nombre %></p>
+        </div>
+    </div>
+
+    <div class="card p-4 shadow-sm border-0 mb-4 bg-white" style="border-radius: 15px;">
+        <h6 class="fw-bold text-primary mb-3">
+            <i class="bi bi-cloud-arrow-up-fill me-2"></i> Añadir nuevo recurso
+        </h6>
+        <form id="formSubirArchivo" enctype="multipart/form-data">
+            <div class="input-group">
+                <input type="file" class="form-control" name="archivoMaterial" id="archivoInput" required>
+                <button class="btn btn-primary fw-bold px-4" type="submit">Subir</button>
+            </div>
+            <small class="text-muted mt-2 d-block">Formatos: PDF, Word e Imágenes (Máx. 10MB)</small>
+        </form>
+    </div>
+
+    <div class="card p-4 shadow-sm border-0 bg-white" style="border-radius: 15px;">
+        <h6 class="fw-bold text-dark mb-4 border-bottom pb-2">Tus archivos guardados</h6>
+        <div class="row g-3">
+            <% if (estudiante.archivos && estudiante.archivos.length > 0) { %>
+                <% estudiante.archivos.forEach(archivo => { %>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 border rounded-4 d-flex align-items-center justify-content-between bg-light shadow-sm">
+                            <div class="d-flex align-items-center overflow-hidden">
+                                <% 
+                                    let icon = 'bi-file-earmark';
+                                    if(archivo.tipo_de_archivo.includes('pdf')) icon = 'bi-file-earmark-pdf-fill text-danger';
+                                    else if(archivo.tipo_de_archivo.includes('image')) icon = 'bi-file-earmark-image-fill text-info';
+                                    else if(archivo.tipo_de_archivo.includes('word')) icon = 'bi-file-earmark-word-fill text-primary';
+                                %>
+                                <i class="bi <%= icon %> fs-3 me-3"></i>
+                                <div class="text-truncate">
+                                    <p class="mb-0 small fw-bold text-dark text-truncate" style="max-width: 130px;"><%= archivo.nombre_archivo %></p>
+                                    <small class="text-muted" style="font-size: 0.7rem;">
+                                        <%= new Date(archivo.fecha_subida).toLocaleDateString() %>
+                                    </small>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex gap-1">
+                                <a href="/uploads/materiales/<%= archivo.ruta_almacenamiento %>" 
+                                   download="<%= archivo.nombre_archivo %>" 
+                                   class="btn btn-sm btn-primary rounded-pill">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                                <button onclick="editarNombre('<%= archivo._id %>', '<%= archivo.nombre_archivo %>')" 
+                                        class="btn btn-sm btn-outline-warning rounded-pill">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button onclick="eliminarMaterial('<%= archivo._id %>')" 
+                                        class="btn btn-sm btn-outline-danger rounded-pill">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="text-center py-5">
+                    <i class="bi bi-folder-x fs-1 text-muted"></i>
+                    <p class="text-muted mt-2">No tienes materiales subidos todavía.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. GESTIÓN DE SUBIDA
+    document.getElementById('formSubirArchivo').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        Swal.fire({ title: 'Subiendo archivo...', didOpen: () => Swal.showLoading() });
+
+        try {
+            const res = await fetch('/estudiantes/subir-material', { method: 'POST', body: formData });
+            const data = await res.json();
+            if (data.estado) {
+                Swal.fire('¡Éxito!', 'Archivo guardado.', 'success').then(() => location.reload());
+            } else {
+                Swal.fire('Error', data.mensaje, 'error');
+            }
+        } catch (error) {
+            Swal.fire('Error', 'Fallo de conexión.', 'error');
+        }
+    });
+
+    // 2. GESTIÓN DE EDICIÓN (NOMBRE)
+    async function editarNombre(id, nombreActual) {
+        const { value: nuevoNombre } = await Swal.fire({
+            title: 'Renombrar material',
+            input: 'text',
+            inputValue: nombreActual,
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+            cancelButtonText: 'Cancelar',
+            inputValidator: (value) => {
+                if (!value) return '¡Debes escribir un nombre!'
+            }
+        });
+
+        if (nuevoNombre) {
+            try {
+                const res = await fetch(`/estudiantes/editar-nombre-material/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nuevoNombre })
+                });
+                const data = await res.json();
+                if (data.estado) {
+                    location.reload();
+                } else {
+                    Swal.fire('Error', 'No se pudo cambiar el nombre', 'error');
+                }
+            } catch (error) {
+                Swal.fire('Error', 'Error de conexión', 'error');
+            }
+        }
+    }
+
+    // 3. GESTIÓN DE ELIMINACIÓN
+    async function eliminarMaterial(id) {
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: "El archivo se borrará permanentemente del servidor.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sí, borrar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const res = await fetch(`/estudiantes/eliminar-material/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.estado) {
+                    Swal.fire('Eliminado', 'Archivo borrado correctamente.', 'success')
+                        .then(() => location.reload());
+                } else {
+                    Swal.fire('Error', data.mensaje || 'No se pudo borrar', 'error');
+                }
+            } catch (error) {
+                Swal.fire('Error', 'Fallo de conexión con el servidor.', 'error');
+            }
+        }
+    }
+</script>
+<%- include("template/cierre") %>

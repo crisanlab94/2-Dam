@@ -1,0 +1,131 @@
+<%- include("template/cabecera", {tituloWeb: 'Gestión de Estudiantes - StudyMatchKey' }) %>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="color: #1a3a5a;">Gestión de Estudiantes</h1>
+
+    <div class="text-end mb-4">
+        <a class="btn btn-azul-oscuro shadow-sm px-4 fw-bold" href="/estudiantes/crear">
+            + Crear nuevo Estudiante
+        </a>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="input-group shadow-sm">
+                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                <input type="text" id="buscador" class="form-control border-start-0" placeholder="Buscar por nombre, curso, móvil...">
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive shadow p-3 bg-white rounded-4">
+        <table class="table table-hover align-middle">
+            <thead class="btn-azul-oscuro text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo de entidad</th> 
+                    <th>Móvil</th> 
+                    <th>Email</th>
+                    <th>Fecha de nacimiento</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (arrayEstudiantes.length > 0) { %>
+                    <% arrayEstudiantes.forEach(estudiante => { %>
+                        <tr>
+                            <td class="fw-bold text-muted">#<%= estudiante.id_estudiante %></td>
+                            <td class="fw-bold" style="color: #1a3a5a;"><%= estudiante.nombre %></td>
+                            
+                            <td>
+                                <span class="badge <%= estudiante.tipo_entidad === 'Instituto' ? 'bg-primary' : 'bg-success' %> mb-1">
+                                    <%= estudiante.tipo_entidad %>
+                                </span><br>
+                                <small class="text-muted fw-bold"><%= estudiante.curso %></small>
+                                <% if(estudiante.modalidad) { %>
+                                    <br><small class="text-info" style="font-size: 0.75rem;"><%= estudiante.modalidad %></small>
+                                <% } %>
+                            </td>
+
+                            <td>
+                                <a href="tel:<%= estudiante.telefono %>" class="text-decoration-none text-dark">
+                                    <i class="bi bi-telephone text-success me-1"></i><%= estudiante.telefono %>
+                                </a>
+                            </td>
+                            <td><%= estudiante.email %></td>
+                            <td><%= estudiante.fecha_nacimiento ? estudiante.fecha_nacimiento.toLocaleDateString() : '---' %></td>
+                            
+                            <td class="text-center">
+                                <a class="btn btn-azul-claro btn-sm px-3 shadow-sm fw-bold mb-1" href="/estudiantes/editar/<%= estudiante.id_estudiante %>" style="border-radius: 8px;">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <button class="btn btn-danger btn-sm px-3 shadow-sm fw-bold mb-1" onclick="eliminarEstudiante('<%= estudiante.id_estudiante %>')" style="border-radius: 8px;">
+                                    <i class="bi bi-trash"></i> Borrar
+                                </button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <p class="mb-0">No hay estudiantes registrados.</p>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-5 mb-5 text-center">
+        <a href="/" class="btn-volver" style="text-decoration: none; color: #5a7d9a; font-weight: bold; border: 2px solid #5a7d9a; padding: 10px 20px; border-radius: 30px; display: inline-block;">
+            Volver al Inicio
+        </a>
+    </div>
+</div>
+
+<%- include("template/cierre") %>
+
+<script>
+    document.getElementById('buscador').addEventListener('keyup', function(e) {
+        const texto = e.target.value.toLowerCase();
+        const filas = document.querySelectorAll('tbody tr');
+
+        filas.forEach(fila => {
+            if (fila.children.length > 1) {
+                const nombre = fila.children[1].textContent.toLowerCase();
+                const academico = fila.children[2].textContent.toLowerCase();
+                const movil = fila.children[3].textContent.toLowerCase();
+                const email = fila.children[4].textContent.toLowerCase();
+
+                if (nombre.includes(texto) || academico.includes(texto) || movil.includes(texto) || email.includes(texto)) {
+                    fila.style.display = '';
+                } else {
+                    fila.style.display = 'none';
+                }
+            }
+        });
+    });
+
+    async function eliminarEstudiante(id) {
+        const confirmar = confirm("¿Estás seguro de que quieres eliminar este estudiante?");
+        if (confirmar) {
+            try {
+                const res = await fetch(`/estudiantes/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+
+                if (data.estado) {
+                    // Si se borraron todos, el servidor ya reinició el contador a 001 
+                    window.location.reload(); 
+                } else {
+                    alert("Error al eliminar el estudiante");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Hubo un fallo en la conexión al eliminar");
+            }
+        }
+    }
+</script>

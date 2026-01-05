@@ -1,0 +1,67 @@
+<%- include("template/cabecera", {tituloWeb: 'Acceso Restringido'}) %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-sm-10">
+            <div class="card shadow-lg border-0 rounded-4 p-4 text-center">
+                
+                <div class="text-start mb-3">
+                    <a href="/" class="text-muted text-decoration-none small" style="font-size: 0.9rem;">
+                        <i class="bi bi-arrow-left"></i> Volver a la web
+                    </a>
+                </div>
+
+                <div class="mb-3 text-danger">
+                    <i class="bi bi-shield-lock-fill display-1"></i>
+                </div>
+                
+                <h3 class="fw-bold">Acceso Administración</h3>
+                <p class="text-muted small">Solo personal autorizado</p>
+                <hr>
+
+                <% if (mensaje) { %>
+                    <div class="alert alert-danger p-2 small border-0 animate__animated animate__shakeX">
+                        <i class="bi bi-exclamation-octagon-fill me-2"></i> <%= mensaje %>
+                    </div>
+                <% } %>
+
+                <form action="/estudiantes/login-admin" method="POST">
+                    <div class="mb-3 text-start">
+                        <label class="form-label fw-bold">Usuario</label>
+                        <input type="email" name="email" class="form-control border-2" placeholder="Introduce tu email" required>
+                    </div>
+
+                    <div class="mb-3 text-start">
+                        <label class="form-label fw-bold">Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" name="clave" id="inputPass" class="form-control border-2 border-end-0" placeholder="********" required>
+                            <span class="input-group-text bg-white border-2 border-start-0" style="cursor: pointer;" onclick="togglePassword()">
+                                <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-azul-oscuro w-100 py-3 fw-bold mt-2 shadow-sm">
+                        IDENTIFICARSE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        const inputPass = document.getElementById('inputPass');
+        const icon = document.getElementById('toggleIcon');
+        if (inputPass.type === "password") {
+            inputPass.type = "text";
+            icon.classList.replace('bi-eye-slash', 'bi-eye');
+        } else {
+            inputPass.type = "password";
+            icon.classList.replace('bi-eye', 'bi-eye-slash');
+        }
+    }
+</script>
+
+<%- include("template/cierre") %>

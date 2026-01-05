@@ -1,4 +1,0 @@
-Número total de contribuyentes tratados:
-DNIs tratados: 8
-NSSs tratados: 9
-TOTAL: 17

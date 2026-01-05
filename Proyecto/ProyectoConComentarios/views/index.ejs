@@ -1,0 +1,39 @@
+<%- include("template/cabecera", {tituloWeb: 'Bienvenid@ a StudyMatchKey' }) %>
+
+<main class="fondo-principal-vibrante" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px 0;">
+    
+    <div class="container text-center">
+        
+        <h1 class="display-3 mb-2" style="color: #1a3a5a; font-weight: bold;">Bienvenid@ a StudyMatchKey</h1>
+
+        <div class="logo-container my-4">
+            <img src="/img/logo.jpg" alt="Logo StudyMatchKey" class="img-fluid shadow-sm" style="width: 500px; border-radius: 20px;">
+        </div>
+
+        <p class="lead mb-5 fw-bold" style="color: #1a3a5a;">Descubre cómo estudiar mejor, según tu forma de aprender</p>
+
+        <div class="row justify-content-center mt-2 gap-4">
+            <div class="col-auto">
+                <a href="/estudiantes/crear" class="btn btn-azul-oscuro btn-lg px-5 py-3 shadow fw-bold">
+                    <i class="bi bi-person-plus-fill me-2"></i> Nuevo estudiante
+                </a>
+            </div>
+
+            <div class="col-auto">
+                <a href="/estudiantes/login" class="btn btn-warning btn-lg px-5 py-3 shadow fw-bold" style="color: #1a3a5a;">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/estudiantes/login-admin" class="text-muted text-decoration-none small">
+                <i class="bi bi-lock"></i> Acceso administración
+            </a>
+        </div>
+
+    </div>
+
+</main>
+
+<%- include("template/cierre") %>

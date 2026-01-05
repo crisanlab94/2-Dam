@@ -1,0 +1,173 @@
+<%- include("template/cabecera", {tituloWeb: 'Creador de Recursos IA'}) %>
+
+<div class="container-fluid mt-3 px-4">
+    <div class="row g-4" style="height: 85vh;">
+        
+        <div id="columnaChat" class="col-md-3 transition-all">
+            <div class="card shadow-sm border-0 h-100 d-flex flex-column" style="border-radius: 20px;">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-4">
+                    <span class="fw-bold small"><i class="bi bi-chat-dots-fill me-2"></i>Tutor Pedagógico</span>
+                    <button class="btn btn-sm text-white" onclick="toggleChat()"><i class="bi bi-arrows-angle-contract"></i></button>
+                </div>
+                <div id="mensajesChat" class="card-body overflow-auto bg-light p-3 flex-grow-1" style="font-size: 0.85rem;">
+                    </div>
+                <div class="card-footer bg-white p-2">
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="inputAlumno" class="form-control" placeholder="Duda o comentario...">
+                        <button class="btn btn-primary" onclick="enviarChat()"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="columnaTrabajo" class="col-md-9 h-100 overflow-auto">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold text-dark mb-0" id="infoPaso">Configuración de estudio</h4>
+                <a href="/estudiantes/mi-perfil/ver" class="btn btn-sm btn-outline-secondary rounded-pill">Volver</a>
+            </div>
+
+            <div id="zonaConfig" class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="small fw-bold text-muted">ASIGNATURA</label>
+                        <select id="asignaturaId" class="form-select rounded-3">
+                            <% estudiante.plan_estudio.forEach(plan => { %>
+                                <option value="<%= plan._id %>"><%= plan.nombre_asignatura %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small fw-bold text-muted">TEMA</label>
+                        <input type="text" id="temaIA" class="form-control rounded-3" placeholder="Ej: Las Células">
+                    </div>
+                </div>
+                <button onclick="iniciarGuia()" class="btn btn-primary mt-4 fw-bold shadow-sm">Iniciar Guía Paso a Paso</button>
+            </div>
+
+            <div id="zonaPasos" class="d-none">
+                <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius: 20px;">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-file-earmark-arrow-up text-primary me-2"></i>
+                        <label class="small fw-bold text-muted">¿USAR ARCHIVO DE BIBLIOTECA?</label>
+                    </div>
+                    <select id="archivoBiblio" class="form-select mb-3 border-primary">
+                        <option value="">No usar material previo</option>
+                        <% estudiante.archivos.forEach(a => { %>
+                            <option value="<%= a.nombre_archivo %>"><%= a.nombre_archivo %></option>
+                        <% }) %>
+                    </select>
+
+                    <label class="small fw-bold text-muted mb-2">ESCRIBE AQUÍ TUS IDEAS PARA ESTE PASO:</label>
+                    <textarea id="textoAlumno" class="form-control mb-3" rows="4" placeholder="Ej: Lo que entiendo por este concepto es..."></textarea>
+                    
+                    <button onclick="generarContenidoPaso()" class="btn btn-dark w-100 fw-bold py-2 mb-3">
+                        <i class="bi bi-magic me-2"></i>GENERAR CONTENIDO DEL PASO
+                    </button>
+
+                    <div class="p-3 bg-light rounded-3 border mb-3" id="previewPaso" style="min-height: 100px; white-space: pre-wrap; font-size: 0.95rem;">
+                        Aquí aparecerá el contenido que la IA redacte formalmente...
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button onclick="siguientePaso()" class="btn btn-outline-primary flex-grow-1 fw-bold">Guardar y Siguiente Paso</button>
+                        <button onclick="finalizarTodo()" class="btn btn-danger px-4 fw-bold">FINALIZAR RECURSO</button>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm p-4 mb-5" style="border-radius: 20px;">
+                    <h6 class="fw-bold text-primary">BORRADOR ACUMULADO DEL RECURSO:</h6>
+                    <hr>
+                    <div id="borradorTotal" style="white-space: pre-wrap;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let pasoActual = 1;
+    let borradorFinal = "";
+    let metodoActual = "";
+
+    async function iniciarGuia() {
+        const res = await fetch('/estudiantes/ia/iniciar-guia', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ asignaturaId: document.getElementById('asignaturaId').value, tema: document.getElementById('temaIA').value })
+        });
+        const data = await res.json();
+        if(data.estado) {
+            metodoActual = data.metodoUsado;
+            document.getElementById('zonaConfig').classList.add('d-none');
+            document.getElementById('zonaPasos').classList.remove('d-none');
+            document.getElementById('infoPaso').innerText = `Paso 1 del Método: ${metodoActual}`;
+            aniadirMsg('IA', data.mensaje);
+        }
+    }
+
+    async function generarContenidoPaso() {
+        const res = await fetch('/estudiantes/ia/generar-paso', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ 
+                textoAlumno: document.getElementById('textoAlumno').value, 
+                paso: pasoActual, 
+                tema: document.getElementById('temaIA').value, 
+                metodo: metodoActual,
+                nombreArchivo: document.getElementById('archivoBiblio').value
+            })
+        });
+        const data = await res.json();
+        if(data.estado) document.getElementById('previewPaso').innerText = data.contenido;
+    }
+
+    function siguientePaso() {
+        borradorFinal += `\n--- PASO ${pasoActual} ---\n` + document.getElementById('previewPaso').innerText + "\n";
+        pasoActual++;
+        document.getElementById('borradorTotal').innerText = borradorFinal;
+        document.getElementById('textoAlumno').value = "";
+        document.getElementById('previewPaso').innerText = "...";
+        document.getElementById('infoPaso').innerText = `Paso ${pasoActual} del Método: ${metodoActual}`;
+        aniadirMsg('IA', `¡Muy bien! Hemos completado el paso anterior. Ahora cuéntame qué sabes para el Paso ${pasoActual}.`);
+    }
+
+    async function finalizarTodo() {
+        if(!confirm("¿Guardar este recurso definitivamente en tu biblioteca?")) return;
+        const res = await fetch('/estudiantes/ia/guardar-final', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ titulo: document.getElementById('temaIA').value, contenidoTotal: borradorFinal })
+        });
+        if((await res.json()).estado) window.location.href = '/estudiantes/mi-perfil/misMateriales';
+    }
+
+    function aniadirMsg(autor, texto) {
+        const div = document.createElement('div');
+        div.className = `p-2 rounded-3 mb-2 small shadow-sm ${autor==='IA'?'bg-white':'bg-primary text-white ms-auto'}`;
+        div.style.width = '85%';
+        div.innerHTML = `<b>${autor}:</b><br>${texto}`;
+        document.getElementById('mensajesChat').appendChild(div);
+        document.getElementById('mensajesChat').scrollTop = document.getElementById('mensajesChat').scrollHeight;
+    }
+
+    async function enviarChat() {
+        const msg = document.getElementById('inputAlumno').value;
+        aniadirMsg('TÚ', msg);
+        document.getElementById('inputAlumno').value = "";
+        const res = await fetch('/estudiantes/ia/chat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ mensajeAlumno: msg, asignaturaId: document.getElementById('asignaturaId').value, tema: document.getElementById('temaIA').value, pasoActual })
+        });
+        const data = await res.json();
+        aniadirMsg('IA', data.mensaje);
+    }
+
+    function toggleChat() {
+        const col = document.getElementById('columnaChat');
+        col.classList.toggle('d-none');
+        document.getElementById('columnaTrabajo').className = col.classList.contains('d-none') ? 'col-md-12' : 'col-md-9';
+    }
+</script>
+
+<%- include("template/cierre") %>

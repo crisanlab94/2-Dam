@@ -1,0 +1,214 @@
+<%- include("template/cabecera", {tituloWeb: 'Test de Aprendizaje Adaptativo'}) %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 rounded-4 p-4 p-md-5">
+                
+                <div class="position-relative d-flex align-items-center justify-content-center mb-5">
+                    <h2 class="fw-bold mb-0" style="color: #1a3a5a;">Test de Estudio</h2>
+                    <div class="position-absolute end-0">
+                        <a href="/estudiantes/mi-perfil/ver" class="btn btn-outline-primary fw-bold">
+                            Volver al Panel
+                        </a>
+                    </div>
+                </div>
+
+                <p class="text-muted text-center mb-5">Ajusta las barras según tu perfil para obtener un diagnóstico personalizado.</p>
+                
+                <form id="formTestAdaptativo">
+                    <div class="mb-5 p-4 bg-light rounded-4 border-start border-primary border-4 shadow-sm">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-book me-2"></i>1. Contexto de la Materia</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Asignatura:</label>
+                                <select name="asignatura" id="selectAsignatura" class="form-select border-2 shadow-sm" required>
+                                    <option value="" disabled selected>Selecciona tu asignatura...</option>
+                                    <% 
+                                        // Cambio aplicado: Normalización del array de asignaturas [cite: 2025-12-15]
+                                        let listaMaterias = [];
+                                        if (estudiante.asignaturas && estudiante.asignaturas.length > 0) {
+                                            listaMaterias = estudiante.asignaturas.join(',').split(',').map(m => m.trim()).filter(m => m !== "");
+                                        }
+                                        listaMaterias.forEach(materia => { 
+                                    %>
+                                        <option value="<%= materia %>"><%= materia %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Tipo de Examen</label>
+                                <select name="tipoExamen" class="form-select border-2 shadow-sm" required>
+                                    <option value="memoristico">Teórico: Datos y memoria</option>
+                                    <option value="practico">Ciencias: Problemas y fórmulas</option>
+                                    <option value="desarrollo">Análisis: Redacción y comentario</option>
+                                    <option value="idiomas">Idiomas: Gramática y expresión</option>
+                                    <option value="artistico">Práctico / Creativo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="fw-bold mb-4 px-2"><i class="bi bi-person-gear me-2"></i>2. Análisis de Perfil (Escala 1-5)</h5>
+                    <div class="row g-4 px-2">
+                        <div class="col-md-6">
+                            <label class="small fw-bold">¿Olvidas rápido si no repasas en varios días?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" name="repeticion" value="3">
+                            <div class="d-flex justify-content-between small text-muted"><span>Nada</span><span>Mucho</span></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold">¿Necesitas explicar los temas con tus palabras?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" name="feynman" value="3">
+                            <div class="d-flex justify-content-between small text-muted"><span>Nada</span><span>Mucho</span></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold">¿Te distraes fácilmente o te saturas rápido?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" name="pomodoro" value="3">
+                            <div class="d-flex justify-content-between small text-muted"><span>Nada</span><span>Mucho</span></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold">¿Te gusta autoevaluarte sin mirar apuntes?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" name="active_recall" value="3">
+                            <div class="d-flex justify-content-between small text-muted"><span>Nunca</span><span>Siempre</span></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold">¿Aprendes mejor con esquemas, colores y dibujos?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" name="mapas" value="3">
+                            <div class="d-flex justify-content-between small text-muted"><span>Nada</span><span>Mucho</span></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold">¿Te cuesta aplicar el método correcto cuando los temas se mezclan?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" name="intercalada" value="3">
+                            <div class="d-flex justify-content-between small text-muted"><span>Nada</span><span>Mucho</span></div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="small fw-bold">¿Necesitas memorizar definiciones, fórmulas o vocabulario específico?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" name="flashcards" value="3">
+                            <div class="d-flex justify-content-between small text-muted"><span>Nada</span><span>Mucho</span></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 border-top pt-4">
+                        <label class="form-label fw-bold small text-muted">Dificultades específicas (opcional):</label>
+                        <textarea name="razon" class="form-control shadow-sm" rows="2" placeholder="Ej: No entiendo el Ciclo de Krebs..."></textarea>
+                    </div>
+
+                    <button type="button" onclick="analizarPerfil()" class="btn btn-primary w-100 py-3 fw-bold mt-4 shadow rounded-3">
+                        Mostrar método sugerido
+                    </button>
+                </form>
+
+                <div id="seccionResultado" class="mt-5 d-none animate__animated animate__fadeIn">
+                    <div class="card shadow-lg border-0 rounded-4 overflow-hidden" style="border: 1px solid #e0e0e0; background-color: #fafcfe;">
+                        <div class="p-4 p-md-5 text-center">
+                            <h4 class="fw-bold text-primary text-uppercase mb-4">Diagnóstico Estratégico</h4>
+                            <h3 id="resAsignatura" class="fw-bold mb-3">-</h3>
+                            <span class="badge bg-primary px-3 py-2 mb-2">Técnica Recomendada</span>
+                            <h2 id="resMetodoPrincipal" class="fw-black text-dark text-uppercase mb-4" style="font-size: 2.2rem;">-</h2>
+                            
+                            <div class="p-3 mb-4 rounded-3 border-start border-success border-4" style="background-color: #f0fdf4;">
+                                <p id="resJustificacion" class="mb-0 text-dark text-start"></p>
+                            </div>
+
+                            <div class="mb-4 text-start">
+                                <span class="fw-bold text-warning text-uppercase small">Estrategia de Apoyo:</span>
+                                <h5 id="resMetodosApoyo" class="fw-bold text-muted ps-2"></h5>
+                            </div>
+
+                            <button onclick="guardarEnPerfil()" class="btn btn-success w-100 py-3 fw-bold shadow-sm rounded-3">
+                                GUARDAR PLAN EN MI PERFIL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let datosAGuardar = {};
+
+    function analizarPerfil() {
+        const selAsignatura = document.getElementById('selectAsignatura');
+        if (!selAsignatura.value) {
+            return Swal.fire('Falta información', 'Por favor, selecciona una asignatura para continuar.', 'warning');
+        }
+
+        const form = document.getElementById('formTestAdaptativo');
+        const fd = new FormData(form);
+        
+        const p = {
+            rep: parseInt(fd.get('repeticion')),
+            fey: parseInt(fd.get('feynman')),
+            pom: parseInt(fd.get('pomodoro')),
+            act: parseInt(fd.get('active_recall')),
+            map: parseInt(fd.get('mapas')),
+            int: parseInt(fd.get('intercalada')),
+            fla: parseInt(fd.get('flashcards'))
+        };
+
+        const tipoExamen = fd.get('tipoExamen');
+        const asignaturaRaw = fd.get('asignatura');
+
+        let principal = "";
+        let explicacion = "";
+        let apoyos = [];
+
+        if (p.fey >= 4) {
+            principal = "Técnica Feynman";
+            explicacion = "Ideal para simplificar conceptos difíciles explicando el tema con tus propias palabras.";
+        } else if (tipoExamen === 'practico' || p.int >= 4) {
+            principal = "Práctica Intercalada";
+            explicacion = "Fundamental para no mecanizar fórmulas y aprender a elegir el procedimiento correcto.";
+        } else if (p.fla >= 4 || tipoExamen === 'idiomas') {
+            principal = "Flashcards";
+            explicacion = "La mejor herramienta para retener vocabulario y datos específicos mediante el recuerdo activo.";
+        } else {
+            principal = "Active Recall";
+            explicacion = "Fortalece tu memoria a largo plazo al obligarte a recordar la información sin mirar apuntes.";
+        }
+
+        if (p.pom >= 4) apoyos.push("Pomodoro");
+        if (p.map >= 4) apoyos.push("Mapas Mentales");
+        if (p.rep >= 4) apoyos.push("Repetición Espaciada");
+
+        document.getElementById('resAsignatura').innerText = asignaturaRaw;
+        document.getElementById('resMetodoPrincipal').innerText = principal;
+        document.getElementById('resJustificacion').innerText = explicacion;
+        document.getElementById('resMetodosApoyo').innerText = apoyos.length > 0 ? apoyos.join(" + ") : "Planificación Estándar";
+        
+        document.getElementById('seccionResultado').classList.remove('d-none');
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+        datosAGuardar = { 
+            asignatura: asignaturaRaw, 
+            metodo: principal, 
+            apoyos: apoyos.join(", "), 
+            razon: explicacion 
+        };
+    }
+
+    async function guardarEnPerfil() {
+        if (!datosAGuardar.asignatura) return;
+
+        try {
+            const res = await fetch('/estudiantes/guardar-test/<%= estudiante._id %>', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosAGuardar)
+            });
+            const r = await res.json();
+            if (r.estado) {
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'Plan guardado correctamente en tu perfil.',
+                    icon: 'success',
+                    confirmButtonColor: '#0d6efd'
+                }).then(() => window.location.href = '/estudiantes/mi-perfil/ver');
+            }
+        } catch (e) { console.error(e); }
+    }
+</script>
+<%- include("template/cierre") %>

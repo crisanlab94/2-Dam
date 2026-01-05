@@ -1,0 +1,82 @@
+
+body { 
+    background-color: #fffcd1 !important; /* Amarillo intermedio suave */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1a3a5a;
+    margin: 0;
+}
+
+
+.fondo-principal-vibrante {
+    background-color: #fffa9e !important;
+}
+
+/* Títulos en negrita oscura */
+h1 { 
+    font-weight: 800 !important; 
+    color: #1a3a5a; 
+}
+
+
+.btn-azul-oscuro {
+    background-color: #0d3b66 !important;
+    color: white !important;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-azul-oscuro:hover {
+    background-color: #1a3a5a !important;
+    opacity: 0.9;
+}
+
+
+.btn-azul-claro {
+    background-color: #8ecae6 !important;
+    color: #023047 !important;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+/* Estilo para los inputs del formulario */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+}
+
+/* BOTÓN VOLVER */
+.btn-volver {
+    display: inline-block;
+    text-decoration: none;
+    color: #1a3a5a;
+    background-color: transparent;
+    border: 2px solid #1a3a5a;
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-volver:hover {
+    background-color: #1a3a5a;
+    color: #fffcd1; 
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(26, 58, 90, 0.3);
+    text-decoration: none;
+}
+.alert-success {
+    background-color: #d1e7dd; 
+    color: #0f5132;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+}
