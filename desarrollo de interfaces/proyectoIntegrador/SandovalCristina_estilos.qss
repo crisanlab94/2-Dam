@@ -1,0 +1,147 @@
+/* --- CONFIGURACIÓN GLOBAL --- */
+* {
+    font-family: "Segoe UI", "Arial", sans-serif;
+    font-size: 14px;
+   
+    color: #2c3e50; 
+}
+
+/* Fondo principal:  */
+QMainWindow, QDialog {
+    background-color: #f4f7f6; 
+}
+
+
+
+QWidget {
+   
+    outline: none;
+}
+
+/* Dock Widget y Contenedores */
+QDockWidget {
+    color: #2c3e50;
+}
+QDockWidget::title {
+    background: #dfe6e9;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+/* --- TÍTULOS Y ETIQUETAS --- */
+QLabel {
+    color: #2c3e50;
+    font-weight: 500;
+    padding: 2px;
+    background-color: transparent; 
+}
+
+/* --- BOTONES ESTÁNDAR (Azul) --- */
+QPushButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+QPushButton:hover { background-color: #2980b9; }
+QPushButton:pressed { background-color: #1abc9c; }
+
+/* --- BOTÓN DE ALERTA (Rojo) --- */
+QPushButton#btnAlerta {
+    background-color: #e74c3c;
+    border-bottom: 4px solid #c0392b;
+    color: white;
+    font-weight: 800;
+}
+QPushButton#btnAlerta:hover { background-color: #ff6b6b; }
+QPushButton#btnAlerta:pressed {
+    border-bottom: 0px;
+    margin-top: 4px;
+}
+
+/* --- CAMPOS DE TEXTO (Blanco con borde) --- */
+QLineEdit, QTextEdit, QComboBox {
+    background-color: #ffffff; /* Fondo blanco explícito */
+    color: #2c3e50; /* Texto oscuro */
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+QLineEdit:focus, QTextEdit:focus, QComboBox:focus {
+    border: 2px solid #3498db;
+}
+
+/* --- SPINBOXES --- */
+/* Los botones laterales del SpinBox */
+QSpinBox::up-button, QSpinBox::down-button {
+    width: 30px; 
+    background-color: #3498db; /* Azul claro bonito */
+    border: none;
+    border-left: 1px solid #2980b9;
+    margin: 0px;
+    padding: 0px; /* IMPORTANTE: Sin relleno para que no se oculte la flecha */
+}
+
+/* Flecha ARRIBA */
+QSpinBox::up-button {
+    border-top-right-radius: 6px;
+    /* Flecha blanca simple (Triángulo) */
+    image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDhsLTYgNiA2IDZ6IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAxMiAxMikiLz48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDB6Ii8+PC9zdmc+);
+}
+
+/* Flecha ABAJO */
+QSpinBox::down-button {
+    border-bottom-right-radius: 6px;
+    /* Flecha blanca simple (Triángulo) */
+    image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDhsLTYgNiA2IDZ6IiB0cmFuc2Zvcm09InJvdGF0ZSgyNzAgMTIgMTIpIi8+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwXnoiLz48L3N2Zz4=);
+}
+
+/* Efectos al pasar el ratón */
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: #5dade2; /* Un azul un pelín más claro al tocar */
+}
+
+QSpinBox::up-button:pressed, QSpinBox::down-button:pressed {
+    background-color: #1abc9c; /* Turquesa al pulsar */
+    padding-top: 2px; /* Efecto de botón pulsado */
+}
+
+/* --- SLIDER --- */
+QSlider::groove:horizontal {
+    border: 1px solid #bdc3c7;
+    height: 10px;
+    background: #ecf0f1;
+    border-radius: 5px;
+}
+QSlider::handle:horizontal {
+    background: #3498db;
+    border: 3px solid white;
+    width: 24px;
+    height: 24px;
+    margin: -8px 0;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+/* --- MENÚS Y BARRAS --- */
+QMenuBar {
+    background-color: #ffffff;
+    color: #2c3e50;
+}
+QMenuBar::item:selected {
+    background-color: #dfe6e9;
+}
+QToolBar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #bdc3c7;
+}
+QStatusBar {
+    background: #2c3e50;
+    color: white;
+}
+QStatusBar QLabel {
+    color: white; 
+}
