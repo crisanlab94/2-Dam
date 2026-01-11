@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "fecha": "2025-11-01",
+    "descripcion": "Fase Grupos 1",
+    "videojuego": "LOL",
+    "EquipoGanador": {
+      "codigo": "G2",
+      "nombre": "G2 Esports",
+      "email": "contact@g2esports.com",
+      "numJugadores": 5
+    }
+  },
+  {
+    "id": 31,
+    "fecha": "2025-11-11",
+    "descripcion": "Octavos 1",
+    "videojuego": "LOL",
+    "EquipoGanador": {
+      "codigo": "G2",
+      "nombre": "G2 Esports",
+      "email": "contact@g2esports.com",
+      "numJugadores": 5
+    }
+  },
+  {
+    "id": 41,
+    "fecha": "2025-11-15",
+    "descripcion": "Cuartos 3",
+    "videojuego": "LOL",
+    "EquipoGanador": {
+      "codigo": "G2",
+      "nombre": "G2 Esports",
+      "email": "contact@g2esports.com",
+      "numJugadores": 5
+    }
+  },
+  {
+    "id": 45,
+    "fecha": "2025-11-17",
+    "descripcion": "Semifinal 3",
+    "videojuego": "LOL",
+    "EquipoGanador": {
+      "codigo": "G2",
+      "nombre": "G2 Esports",
+      "email": "contact@g2esports.com",
+      "numJugadores": 5
+    }
+  },
+  {
+    "id": 49,
+    "fecha": "2025-11-19",
+    "descripcion": "3er Puesto LOL",
+    "videojuego": "LOL",
+    "EquipoGanador": {
+      "codigo": "G2",
+      "nombre": "G2 Esports",
+      "email": "contact@g2esports.com",
+      "numJugadores": 5
+    }
+  }
+]

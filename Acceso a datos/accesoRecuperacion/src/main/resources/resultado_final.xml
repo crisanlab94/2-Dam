@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<torneoData>
+  <listaEquipos>
+    <equipo codigo="VIT">
+      <nombre>Team Vitality</nombre>
+      <email>hello@vitality.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="NRG">
+      <nombre>NRG Esports</nombre>
+      <email>contact@nrg.gg</email>
+      <numJugadores>6</numJugadores>
+    </equipo>
+    <equipo codigo="TES">
+      <nombre>Top Esports</nombre>
+      <email>contact@tes.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="LNG">
+      <nombre>LNG Esports</nombre>
+      <email>contact@lng.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="EDG">
+      <nombre>EDward Gaming</nombre>
+      <email>contact@edg.gg</email>
+      <numJugadores>6</numJugadores>
+    </equipo>
+    <equipo codigo="RNG">
+      <nombre>Royal Never Give Up</nombre>
+      <email>contact@rng.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="G2">
+      <nombre>G2 Esports</nombre>
+      <email>contact@g2esports.com</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="DRX">
+      <nombre>DRX</nombre>
+      <email>contact@drx.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="JDG">
+      <nombre>JD Gaming</nombre>
+      <email>contact@jdg.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="FPX">
+      <nombre>FunPlus Phoenix</nombre>
+      <email>contact@fpx.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="BDS">
+      <nombre>Team BDS</nombre>
+      <email>contact@teambds.ch</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="C9">
+      <nombre>Cloud9</nombre>
+      <email>info@cloud9.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="SK">
+      <nombre>SK Gaming</nombre>
+      <email>info@sk-gaming.com</email>
+      <numJugadores>6</numJugadores>
+    </equipo>
+    <equipo codigo="KC">
+      <nombre>Karmine Corp</nombre>
+      <email>contact@karminecorp.fr</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="T1">
+      <nombre>T1</nombre>
+      <email>contact@t1.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="IG">
+      <nombre>Invictus Gaming</nombre>
+      <email>contact@ig.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="MSF">
+      <nombre>Misfits Gaming</nombre>
+      <email>contact@misfitsgaming.gg</email>
+      <numJugadores>6</numJugadores>
+    </equipo>
+    <equipo codigo="AST">
+      <nombre>Astralis</nombre>
+      <email>info@astralis.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="KOI">
+      <nombre>KOI Team</nombre>
+      <email>info@koi.gg</email>
+      <numJugadores>6</numJugadores>
+    </equipo>
+    <equipo codigo="HRTS">
+      <nombre>Team Heretics</nombre>
+      <email>info@heretics.com</email>
+      <numJugadores>7</numJugadores>
+    </equipo>
+    <equipo codigo="TSM">
+      <nombre>TSM</nombre>
+      <email>contact@tsm.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="MAD">
+      <nombre>MAD Lions</nombre>
+      <email>contact@madlions.com</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="RGE">
+      <nombre>Rogue</nombre>
+      <email>info@rogue.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="LOUD">
+      <nombre>LOUD</nombre>
+      <email>contato@loud.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="GEN">
+      <nombre>Gen.G</nombre>
+      <email>contact@geng.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="XL">
+      <nombre>Excel Esports</nombre>
+      <email>contact@xl.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="TH">
+      <nombre>Team Liquid</nombre>
+      <email>info@teamliquid.com</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="TL">
+      <nombre>Team Liquid</nombre>
+      <email>support@teamliquid.com</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="FNC">
+      <nombre>Fnatic</nombre>
+      <email>manager@fnatic.com</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+    <equipo codigo="SEN">
+      <nombre>Sentinels</nombre>
+      <email>info@sentinels.gg</email>
+      <numJugadores>5</numJugadores>
+    </equipo>
+  </listaEquipos>
+  <listaEnfrentamientos>
+    <enfrentamiento id="1">
+      <ganador codigoRef="G2"/>
+    </enfrentamiento>
+    <enfrentamiento id="2">
+      <ganador codigoRef="KOI"/>
+    </enfrentamiento>
+    <enfrentamiento id="3">
+      <ganador codigoRef="FNC"/>
+    </enfrentamiento>
+    <enfrentamiento id="4">
+      <ganador codigoRef="VIT"/>
+    </enfrentamiento>
+    <enfrentamiento id="5">
+      <ganador codigoRef="HRTS"/>
+    </enfrentamiento>
+    <enfrentamiento id="6">
+      <ganador codigoRef="MAD"/>
+    </enfrentamiento>
+    <enfrentamiento id="7">
+      <ganador codigoRef="RGE"/>
+    </enfrentamiento>
+    <enfrentamiento id="8">
+      <ganador codigoRef="SK"/>
+    </enfrentamiento>
+    <enfrentamiento id="9">
+      <ganador codigoRef="XL"/>
+    </enfrentamiento>
+    <enfrentamiento id="10">
+      <ganador codigoRef="BDS"/>
+    </enfrentamiento>
+    <enfrentamiento id="11">
+      <ganador codigoRef="AST"/>
+    </enfrentamiento>
+    <enfrentamiento id="12">
+      <ganador codigoRef="MSF"/>
+    </enfrentamiento>
+    <enfrentamiento id="13">
+      <ganador codigoRef="KC"/>
+    </enfrentamiento>
+    <enfrentamiento id="14">
+      <ganador codigoRef="TH"/>
+    </enfrentamiento>
+    <enfrentamiento id="15">
+      <ganador codigoRef="C9"/>
+    </enfrentamiento>
+    <enfrentamiento id="16">
+      <ganador codigoRef="TSM"/>
+    </enfrentamiento>
+    <enfrentamiento id="17">
+      <ganador codigoRef="TL"/>
+    </enfrentamiento>
+    <enfrentamiento id="18">
+      <ganador codigoRef="NRG"/>
+    </enfrentamiento>
+    <enfrentamiento id="19">
+      <ganador codigoRef="SEN"/>
+    </enfrentamiento>
+    <enfrentamiento id="20">
+      <ganador codigoRef="LOUD"/>
+    </enfrentamiento>
+    <enfrentamiento id="21">
+      <ganador codigoRef="GEN"/>
+    </enfrentamiento>
+    <enfrentamiento id="22">
+      <ganador codigoRef="T1"/>
+    </enfrentamiento>
+    <enfrentamiento id="23">
+      <ganador codigoRef="DRX"/>
+    </enfrentamiento>
+    <enfrentamiento id="24">
+      <ganador codigoRef="EDG"/>
+    </enfrentamiento>
+    <enfrentamiento id="25">
+      <ganador codigoRef="RNG"/>
+    </enfrentamiento>
+    <enfrentamiento id="26">
+      <ganador codigoRef="FPX"/>
+    </enfrentamiento>
+    <enfrentamiento id="27">
+      <ganador codigoRef="IG"/>
+    </enfrentamiento>
+    <enfrentamiento id="28">
+      <ganador codigoRef="LNG"/>
+    </enfrentamiento>
+    <enfrentamiento id="29">
+      <ganador codigoRef="TES"/>
+    </enfrentamiento>
+    <enfrentamiento id="30">
+      <ganador codigoRef="JDG"/>
+    </enfrentamiento>
+    <enfrentamiento id="31">
+      <ganador codigoRef="G2"/>
+    </enfrentamiento>
+    <enfrentamiento id="32">
+      <ganador codigoRef="FNC"/>
+    </enfrentamiento>
+    <enfrentamiento id="33">
+      <ganador codigoRef="MAD"/>
+    </enfrentamiento>
+    <enfrentamiento id="34">
+      <ganador codigoRef="KOI"/>
+    </enfrentamiento>
+    <enfrentamiento id="35">
+      <ganador codigoRef="HRTS"/>
+    </enfrentamiento>
+    <enfrentamiento id="36">
+      <ganador codigoRef="VIT"/>
+    </enfrentamiento>
+    <enfrentamiento id="37">
+      <ganador codigoRef="AST"/>
+    </enfrentamiento>
+    <enfrentamiento id="38">
+      <ganador codigoRef="T1"/>
+    </enfrentamiento>
+    <enfrentamiento id="39">
+      <ganador codigoRef="LOUD"/>
+    </enfrentamiento>
+    <enfrentamiento id="40">
+      <ganador codigoRef="C9"/>
+    </enfrentamiento>
+    <enfrentamiento id="41">
+      <ganador codigoRef="G2"/>
+    </enfrentamiento>
+    <enfrentamiento id="42">
+      <ganador codigoRef="T1"/>
+    </enfrentamiento>
+    <enfrentamiento id="43">
+      <ganador codigoRef="KOI"/>
+    </enfrentamiento>
+    <enfrentamiento id="44">
+      <ganador codigoRef="FNC"/>
+    </enfrentamiento>
+    <enfrentamiento id="45">
+      <ganador codigoRef="G2"/>
+    </enfrentamiento>
+    <enfrentamiento id="46">
+      <ganador codigoRef="T1"/>
+    </enfrentamiento>
+    <enfrentamiento id="47">
+      <ganador codigoRef="KOI"/>
+    </enfrentamiento>
+    <enfrentamiento id="48">
+      <ganador codigoRef="FNC"/>
+    </enfrentamiento>
+    <enfrentamiento id="49">
+      <ganador codigoRef="G2"/>
+    </enfrentamiento>
+    <enfrentamiento id="50">
+      <ganador codigoRef="Desconocido"/>
+    </enfrentamiento>
+  </listaEnfrentamientos>
+</torneoData>

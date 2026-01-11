@@ -1,0 +1,16 @@
+[
+  {
+    "identificadorPiloto": "11001421",
+    "nombrePiloto": "Yuki Tsunoda",
+    "puntos": 5,
+    "identificadorEquipo": "11000383",
+    "pais": "JAP"
+  },
+  {
+    "identificadorPiloto": "11001284",
+    "nombrePiloto": "Alexander Albon",
+    "puntos": 5,
+    "identificadorEquipo": "11000150",
+    "pais": "TH"
+  }
+]

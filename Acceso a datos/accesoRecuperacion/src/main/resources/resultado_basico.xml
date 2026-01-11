@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clasificacionGeneral>
+    <equipos>
+        <equipo identificadorEquipo="11000383">
+            <nombreEquipo>RB</nombreEquipo>
+            <puntosEquipo>22</puntosEquipo>
+            <pilotos>
+                <piloto id="11001423">
+                    <nombre>Liam Lawson</nombre>
+                </piloto>
+                <piloto id="11001421">
+                    <nombre>Yuki Tsunoda</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000384">
+            <nombreEquipo>KICK SAUBER</nombreEquipo>
+            <puntosEquipo>0</puntosEquipo>
+            <pilotos>
+                <piloto id="11001371">
+                    <nombre>Guanyu Zhou</nombre>
+                </piloto>
+                <piloto id="11000857">
+                    <nombre>Valtteri Bottas</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000150">
+            <nombreEquipo>WILLIAMS</nombreEquipo>
+            <puntosEquipo>12</puntosEquipo>
+            <pilotos>
+                <piloto id="11001284">
+                    <nombre>Alexander Albon</nombre>
+                </piloto>
+                <piloto id="11001436">
+                    <nombre>Franco Colapinto</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000105">
+            <nombreEquipo>MCLAREN</nombreEquipo>
+            <puntosEquipo>319</puntosEquipo>
+            <pilotos>
+                <piloto id="11000999">
+                    <nombre>Lando Norris</nombre>
+                </piloto>
+                <piloto id="11001429">
+                    <nombre>Oscar Piastri</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000159">
+            <nombreEquipo>RED BULL</nombreEquipo>
+            <puntosEquipo>362</puntosEquipo>
+            <pilotos>
+                <piloto id="11000949">
+                    <nombre>Max Verstappen</nombre>
+                </piloto>
+                <piloto id="11000852">
+                    <nombre>Sergio Pérez</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000123">
+            <nombreEquipo>ALPINE F1 TEAM</nombreEquipo>
+            <puntosEquipo>9</puntosEquipo>
+            <pilotos>
+                <piloto id="11000957">
+                    <nombre>Esteban Ocon</nombre>
+                </piloto>
+                <piloto id="11000955">
+                    <nombre>Pierre Gasly</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000179">
+            <nombreEquipo>MERCEDES AMG F1</nombreEquipo>
+            <puntosEquipo>199</puntosEquipo>
+            <pilotos>
+                <piloto id="11001036">
+                    <nombre>George Russell</nombre>
+                </piloto>
+                <piloto id="11000822">
+                    <nombre>Lewis Hamilton</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000363">
+            <nombreEquipo>ASTON MARTIN</nombreEquipo>
+            <puntosEquipo>62</puntosEquipo>
+            <pilotos>
+                <piloto id="11000008">
+                    <nombre>Fernando Alonso</nombre>
+                </piloto>
+                <piloto id="11000996">
+                    <nombre>Lance Stroll</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000198">
+            <nombreEquipo>HAAS F1 TEAM</nombreEquipo>
+            <puntosEquipo>37</puntosEquipo>
+            <pilotos>
+                <piloto id="11000879">
+                    <nombre>Kevin Magnussen</nombre>
+                </piloto>
+                <piloto id="11000836">
+                    <nombre>Nico Hulkenberg</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+        <equipo identificadorEquipo="11000045">
+            <nombreEquipo>FERRARI</nombreEquipo>
+            <puntosEquipo>315</puntosEquipo>
+            <pilotos>
+                <piloto id="11000962">
+                    <nombre>Carlos Sainz</nombre>
+                </piloto>
+                <piloto id="11000995">
+                    <nombre>Charles Leclerc</nombre>
+                </piloto>
+            </pilotos>
+        </equipo>
+    </equipos>
+</clasificacionGeneral>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BancoDeAlimentos>
+    <CentroLogistico>
+        <ID>CL01</ID>
+        <Nombre>Banco de Alimentos Sevilla</Nombre>
+        <Ciudad>Sevilla</Ciudad>
+        <ComedoresAbastecidos>50</ComedoresAbastecidos>
+        <Trabajadores>
+            <Trabajador>
+                <Nombre>Juan Pérez</Nombre>
+                <DNI>12345678A</DNI>
+                <FechaNacimiento>1980-04-12</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>María González</Nombre>
+                <DNI>87654321B</DNI>
+                <FechaNacimiento>1992-11-05</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Isabel Morales</Nombre>
+                <DNI>34567890C</DNI>
+                <FechaNacimiento>1985-05-22</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Antonio Fernández</Nombre>
+                <DNI>23456789D</DNI>
+                <FechaNacimiento>1977-03-14</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+        </Trabajadores>
+    </CentroLogistico>
+    
+    <CentroLogistico>
+        <ID>CL02</ID>
+        <Nombre>Banco de Alimentos Málaga</Nombre>
+        <Ciudad>Málaga</Ciudad>
+        <ComedoresAbastecidos>35</ComedoresAbastecidos>
+        <Trabajadores>
+            <Trabajador>
+                <Nombre>Pedro López</Nombre>
+                <DNI>11223344C</DNI>
+                <FechaNacimiento>1975-08-23</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Ana Torres</Nombre>
+                <DNI>44332211D</DNI>
+                <FechaNacimiento>1988-03-30</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Lucía Martín</Nombre>
+                <DNI>55667788F</DNI>
+                <FechaNacimiento>1991-07-08</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Francisco Ruiz</Nombre>
+                <DNI>66778899G</DNI>
+                <FechaNacimiento>1984-12-19</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+        </Trabajadores>
+    </CentroLogistico>
+
+    <CentroLogistico>
+        <ID>CL03</ID>
+        <Nombre>Banco de Alimentos Granada</Nombre>
+        <Ciudad>Granada</Ciudad>
+        <ComedoresAbastecidos>28</ComedoresAbastecidos>
+        <Trabajadores>
+            <Trabajador>
+                <Nombre>Laura Fernández</Nombre>
+                <DNI>55667788E</DNI>
+                <FechaNacimiento>1995-06-14</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Carlos Méndez</Nombre>
+                <DNI>33445566F</DNI>
+                <FechaNacimiento>1982-01-10</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Elena Martín</Nombre>
+                <DNI>77889900H</DNI>
+                <FechaNacimiento>1993-09-29</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Rafael Sánchez</Nombre>
+                <DNI>88990011I</DNI>
+                <FechaNacimiento>1978-02-17</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+        </Trabajadores>
+    </CentroLogistico>
+
+    <CentroLogistico>
+        <ID>CL04</ID>
+        <Nombre>Banco de Alimentos Córdoba</Nombre>
+        <Ciudad>Córdoba</Ciudad>
+        <ComedoresAbastecidos>22</ComedoresAbastecidos>
+        <Trabajadores>
+            <Trabajador>
+                <Nombre>Elena Ruiz</Nombre>
+                <DNI>99887766G</DNI>
+                <FechaNacimiento>1990-12-22</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Alberto García</Nombre>
+                <DNI>22334455H</DNI>
+                <FechaNacimiento>1979-09-15</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Julia Muñoz</Nombre>
+                <DNI>99001122J</DNI>
+                <FechaNacimiento>1987-10-05</FechaNacimiento>
+                <Tipo>Voluntario</Tipo>
+            </Trabajador>
+            <Trabajador>
+                <Nombre>Manuel Serrano</Nombre>
+                <DNI>10111213K</DNI>
+                <FechaNacimiento>1983-04-01</FechaNacimiento>
+                <Tipo>Asalariado</Tipo>
+            </Trabajador>
+        </Trabajadores>
+    </CentroLogistico>
+</BancoDeAlimentos>
