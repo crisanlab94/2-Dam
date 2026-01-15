@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import modeloExamen.CentroLogistico;
+import modeloExamen.Grupo;
 import modeloExamen.Tipo;
 import modeloExamen.Trabajador;
 
@@ -25,8 +25,8 @@ public class DOMbanco {
      * Al ser una estructura anidada, este método ya devuelve los centros
      * con sus listas de trabajadores rellenas.
      */
-    public List<CentroLogistico> leerBancoDesdeXML(String nombreArchivo) throws Exception {
-        List<CentroLogistico> listaCentros = new ArrayList<>();
+    public List<Grupo> leerBancoDesdeXML(String nombreArchivo) throws Exception {
+        List<Grupo> listaCentros = new ArrayList<>();
         
         // 1. Cargar el documento XML
         File archivo = new File(rutaResources + nombreArchivo);
@@ -46,7 +46,7 @@ public class DOMbanco {
             int comedores = Integer.parseInt(elCentro.getElementsByTagName("ComedoresAbastecidos").item(0).getTextContent().trim());
 
             // Crear el objeto CentroLogistico
-            CentroLogistico centro = new CentroLogistico(idC, nombreC, ciudadC, comedores);
+            Grupo centro = new Grupo(idC, nombreC, ciudadC, comedores);
 
             // -------------------------------------------------------------------------
             // 3. BUCLE ANIDADO: Leer los trabajadores que están DENTRO de este centro

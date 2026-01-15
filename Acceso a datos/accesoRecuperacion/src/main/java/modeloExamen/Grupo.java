@@ -3,14 +3,14 @@ package modeloExamen;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CentroLogistico {
+public class Grupo {
 	private String idCentro;
 	private String nombre;
 	private String ciudad;
 	private int numComedores;
 	private List<Trabajador>listaTrabajadores;
 	
-	public CentroLogistico(String idCentro, String nombre, String ciudad, int numComedores) {
+	public Grupo(String idCentro, String nombre, String ciudad, int numComedores) {
 		super();
 		this.idCentro = idCentro;
 		this.nombre = nombre;

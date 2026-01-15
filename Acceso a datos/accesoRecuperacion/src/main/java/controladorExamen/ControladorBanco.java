@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import Util.DOMbanco;
 import modeloExamen.BancoException;
-import modeloExamen.CentroLogistico;
+import modeloExamen.Grupo;
 import modeloExamen.Tipo;
 import modeloExamen.Trabajador;
 import repositorioExamen.BancoAlimentos;
@@ -27,7 +27,7 @@ public class ControladorBanco {
             logger.info("Iniciando carga desde bancoAlimentos.xml...");
             
             // Leemos los centros (que ya traen sus trabajadores dentro gracias al DOM)
-            List<CentroLogistico> listaCentros = dom.leerBancoDesdeXML("bancoAlimentos.xml");
+            List<Grupo> listaCentros = dom.leerBancoDesdeXML("bancoAlimentos.xml");
             
             // Cargamos los centros en el repositorio a través del servicio
             servicio.cargarCentros(listaCentros);
@@ -37,7 +37,7 @@ public class ControladorBanco {
             // --- PRUEBAS DE FUNCIONALIDADES (Apartado 1) ---
 
             // 1. Obtener datos de un centro por ID
-            CentroLogistico sevilla = bancosDeAlimentos.recuperarCentro("CL01");
+            Grupo sevilla = bancosDeAlimentos.recuperarCentro("CL01");
             if (sevilla != null) {
                 logger.error("Centro encontrado: {} en {}. Trabajadores: {}", 
                              sevilla.getNombre(), sevilla.getCiudad(), sevilla.getListaTrabajadores().size());
@@ -81,7 +81,7 @@ public class ControladorBanco {
 
          for (Trabajador v : voluntarios) {
              // Para sacar los datos del centro, se lo pedimos al repositorio usando el ID que guarda el trabajador
-             CentroLogistico c = bancosDeAlimentos.recuperarCentro(v.getIdCentro());
+             Grupo c = bancosDeAlimentos.recuperarCentro(v.getIdCentro());
              
              if (c != null) {
                  StringBuilder linea = new StringBuilder();

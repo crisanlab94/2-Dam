@@ -1,8 +1,8 @@
 package simulacionCoches;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Semaphore;
+
 
 public class GestionaTaller2 {
 	final int numCoches = 20;
@@ -11,7 +11,7 @@ public class GestionaTaller2 {
     int[] contadorCoches = {1};
 
     Semaphore hayCoches = new Semaphore(1);
-    Semaphore hayTurno  = new Semaphore(1);
+   
 
     try {
         // CORRECCIÓN 3: SOLO bajamos hayCoches.

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import modeloExamen.BancoException;
-import modeloExamen.CentroLogistico;
+import modeloExamen.Grupo;
 import modeloExamen.Tipo;
 import modeloExamen.Trabajador;
 import repositorioExamen.BancoAlimentos;
@@ -24,7 +24,7 @@ public class ServicioBancoAlimentos {
      * PASO 1: Carga los centros en el repositorio.
      * @param listaCentrosXML Lista de objetos CentroLogistico leídos del XML.
      */
-    public void cargarCentros(List<CentroLogistico> listaCentrosXML) {
+    public void cargarCentros(List<Grupo> listaCentrosXML) {
         logger.info("Iniciando carga de centros en el sistema...");
         repoBancoAlimentos.agregarListaCentros(listaCentrosXML);
     }
