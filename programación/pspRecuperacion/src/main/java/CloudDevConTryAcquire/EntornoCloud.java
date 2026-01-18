@@ -3,36 +3,74 @@ package CloudDevConTryAcquire;
 import java.util.concurrent.Semaphore;
 
 public class EntornoCloud {
-	private Tipo tipo;
-    private Semaphore sem; // El semáforo gestiona internamente el aforo (sustituye a cuentaActual)
+    private Tipo tipo;
+    private Semaphore sem;
+    // Monitor para integridad de datos (Apartado 2: Resumen)
+    private int totalAccesosExitosos = 0;
 
     public EntornoCloud(Tipo tipo, int aforo) {
         this.tipo = tipo;
-        // Inicializamos el semáforo con el número de plazas (permisos)
         this.sem = new Semaphore(aforo);
     }
 
-    /**
-     * Intenta iniciar sesión. Si no hay sitio, no bloquea al hilo.
-     * @return true si pudo entrar, false si estaba lleno.
-     */
-    public boolean intentarIniciarSesion(Desarrollador ds) {
-        // tryAcquire() es el "Aforo con Rechazo":
-        // Si hay permisos libres, lo coge y devuelve true.
-        // Si está a 0, devuelve false INSTANTÁNEAMENTE y no duerme al hilo.
-        if (sem.tryAcquire()) {
-            System.out.println("[ENTRADA] El desarrollador " + ds.getId() + " ha entrado en " + tipo);
-            return true;
-        } else {
-            System.out.println("[RECHAZO] El desarrollador " + ds.getId() + " NO ha podido entrar en " + tipo + " (Lleno)");
-            return false;
-        }
+    // Apartado 2: Lógica de autenticación
+    public boolean autenticar(String user, String pass) {
+        // Ejemplo simple: login debe ser igual al password
+        return user.equals(pass);
     }
 
-    // Método para liberar la plaza
+    public boolean intentarIniciarSesion(Desarrollador ds) {
+        boolean haEntrado = false;
+        // Aforo con rechazo (Modelo 2)
+        if (sem.tryAcquire()) {
+            registrarAcceso(); // Monitor para el resumen
+            System.out.println("[" + ds.getHoraActual() + "] [ENTRADA] " + ds.getId() + " en " + tipo);
+            haEntrado = true;
+        } else {
+            System.out.println("[" + ds.getHoraActual() + "] [RECHAZO] " + ds.getId() + " en " + tipo + " (Lleno)");
+        }
+        return haEntrado;
+    }
+
+    // Monitor (synchronized) para asegurar integridad del contador de resumen [cite: 857, 869]
+    private synchronized void registrarAcceso() {
+        totalAccesosExitosos++;
+    }
+
     public void salir(Desarrollador ds) {
         sem.release();
-        System.out.println("[SALIDA] El desarrollador " + ds.getId() + " ha abandonado el entorno " + tipo);
+        System.out.println("[" + ds.getHoraActual() + "] [SALIDA] " + ds.getId() + " de " + tipo);
     }
 
+    public void mostrarResumen() {
+        System.out.println("--- RESUMEN ENTORNO " + tipo + " ---");
+        System.out.println("Total de accesos completados: " + totalAccesosExitosos);
+    }
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public Semaphore getSem() {
+		return sem;
+	}
+
+	public void setSem(Semaphore sem) {
+		this.sem = sem;
+	}
+
+	public int getTotalAccesosExitosos() {
+		return totalAccesosExitosos;
+	}
+
+	public void setTotalAccesosExitosos(int totalAccesosExitosos) {
+		this.totalAccesosExitosos = totalAccesosExitosos;
+	}
+    
+    
+    
 }

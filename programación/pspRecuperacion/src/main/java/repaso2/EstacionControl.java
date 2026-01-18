@@ -2,7 +2,7 @@ package repaso2;
 
 import java.util.concurrent.Semaphore;
 
-import CloudDev.Desarrollador;
+
 
 public class EstacionControl {
 	private TipoTransmision tipo;
