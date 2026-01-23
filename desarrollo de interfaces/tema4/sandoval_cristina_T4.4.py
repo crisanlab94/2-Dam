@@ -36,6 +36,7 @@ bloque_line = dp.Plot(plot3.get_figure(), label="Vista de Líneas")
 
 pagina1 = dp.Page(
     title="Dashboard",
+    
     blocks=[
         dp.Text("# Resumen de Operaciones"),
         dp.Group(
