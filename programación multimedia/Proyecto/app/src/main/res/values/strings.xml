@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">StudyMatchKey</string>
+    <string-array name="entidades_web">
+        <item>Selecciona...</item>
+        <item>Colegio</item>
+        <item>Instituto</item>
+    </string-array>
+
+    <string-array name="modalidades_web">
+        <item>Ciencias y Tecnología</item>
+        <item>Humanidades y Ciencias Sociales</item>
+        <item>Artes</item>
+    </string-array>S
+</resources>
