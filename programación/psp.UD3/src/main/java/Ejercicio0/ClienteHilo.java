@@ -11,7 +11,7 @@ public class ClienteHilo extends Thread{
 		  String Host = "localhost"; 
 			int Puerto = 5555;     
 			Socket cliente = null;
-			try {
+			try  {
 				cliente = new Socket(Host, Puerto);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
