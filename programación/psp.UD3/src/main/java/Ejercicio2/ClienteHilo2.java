@@ -15,7 +15,26 @@ public class ClienteHilo2 extends Thread {
 				Thread.sleep(10000);
 			} catch (IOException | InterruptedException e) {
 	            System.err.println("Error en el cliente: " + e.getMessage());
-	        }
-	  }
-}   
-
+			} finally {
+				
+			    try {
+			
+			        if (cliente != null) {
+			
+			            cliente.close();
+			
+			            System.out.println("Conexión cerrada.");
+			
+			        }
+			
+			    } catch (IOException e) {
+			
+			        System.err.println("Error al cerrar el cliente: " + e.getMessage());
+			
+			    }
+			
+			}
+			
+			}
+		
+}

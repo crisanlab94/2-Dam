@@ -7,8 +7,11 @@ public class ServidorMultihilo3 {
     public static void main(String[] args) {
         // El obejeto se crea fuera del bucle, una sola vez 
         Contador contadorCompartido = new Contador();
+        int puerto = 44444;
+		ServerSocket servidor = null;
         
-        try (ServerSocket servidor = new ServerSocket(44444)) {
+        try  {
+        	servidor = new ServerSocket(puerto);
             System.out.println("Servidor iniciado. Esperando clientes...");
 
             while (true) {

@@ -16,9 +16,11 @@ public class HiloServidor implements Runnable {
         try (BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
              PrintWriter salida = new PrintWriter(cliente.getOutputStream(), true)) {
 
-            String texto;
-            while ((texto = entrada.readLine()) != null) {
+            String texto=entrada.readLine();
+            while ( texto  != null) {
+            	
                 salida.println("ECO:" + texto);
+                texto=entrada.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();

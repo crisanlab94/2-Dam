@@ -16,8 +16,9 @@ public class HiloTablero extends Thread {
 
     @Override
     public void run() {
-        try (PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
-             BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try {
+        	PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             salida.println(id);
 
@@ -28,8 +29,9 @@ public class HiloTablero extends Thread {
                 
                 int intentos = 0;
                 String linea;
+                linea = entrada.readLine();
 
-                while (intentos < 3 && tablero.getPremiosRestantes() > 0 && (linea = entrada.readLine()) != null) {
+                while (intentos < 3 && tablero.getPremiosRestantes() > 0 && linea != null ){
                     try {
                         intentos++;
                         String[] partes = linea.split(",");

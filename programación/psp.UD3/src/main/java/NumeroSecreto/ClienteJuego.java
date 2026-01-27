@@ -13,10 +13,15 @@ public class ClienteJuego extends Thread {
     }
     @Override
     public void run() {
-        try (Socket socket = new Socket("localhost", 44444);
-             PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
-             BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             Scanner sc = new Scanner(System.in)) {
+    	 String host = "localhost"; 
+			int puerto = 44444;     
+			Socket cliente = null;
+			
+        try {
+        	cliente = new Socket(host, puerto);
+             PrintWriter salida = new PrintWriter(cliente.getOutputStream(), true);
+             BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+             Scanner sc = new Scanner(System.in);
 
             // 1. Leer bienvenida
         	System.out.println("[Cliente " + id + "] Servidor dice: " + entrada.readLine());

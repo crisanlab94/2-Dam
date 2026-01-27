@@ -12,19 +12,18 @@ package NumeroSecreto;
 
 	    // El método clave que todos los hilos consultan
 	    public synchronized int comprobarNumero(int intento, int idHilo) {
+	        int resultado = 2; // Por defecto: Sigue intentándolo.
+
 	        if (juegoTerminado) {
-	            return 1; // 1 significa: El juego ya acabó, perdiste.
-	        }
-	        
-	        if (intento == numeroSecreto) {
+	            resultado = 1; // El juego ya acabó.
+	        } else if (intento == numeroSecreto) {
 	            juegoTerminado = true;
 	            ganadorId = idHilo;
-	            return 0; // 0 significa: ¡HAS GANADO!
-	        } else {
-	            return 2; // 2 significa: Sigue intentándolo.
+	            resultado = 0; // ¡HAS GANADO!
 	        }
-	    }
 
+	        return resultado;
+	    }
 	    public boolean isJuegoTerminado() {
 	        return juegoTerminado;
 	    }

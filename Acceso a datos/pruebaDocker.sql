@@ -1,0 +1,1 @@
+SELECT * FROM pruebaDocker.persona_reunion;

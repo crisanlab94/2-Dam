@@ -1,0 +1,13 @@
+<div class="pokedex">
+    <h1>Mis Pokémon</h1>
+
+    @for (p of listaPokemon; track p.nombre) {
+    <div class="pokemon-card">
+        <h2>{{ p.nombre }}</h2>
+        <p>Tipo: {{ p.tipo }}</p>
+        <p><i>{{ p.descripcion }}</i></p>
+    </div>
+    } @empty {
+    <p>No hay pokémon en la lista.</p>
+    }
+</div>
