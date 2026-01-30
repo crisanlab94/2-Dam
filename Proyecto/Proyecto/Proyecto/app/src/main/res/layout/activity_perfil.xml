@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_amarillo">
+
+    <LinearLayout
+        android:id="@+id/headerPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1A3A5A"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingTop="25dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:id="@+id/btnBackPerfil"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/abc_ic_ab_back_material"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/imgUserIcon"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/btnBackPerfil"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_user"
+                app:tint="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvTituloPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/imgUserIcon"
+                android:layout_toStartOf="@+id/btnAyudaHeader"
+                android:text="Información del Estudiante"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnAyudaHeader"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/id_pill"
+                app:cardBackgroundColor="#3182CE"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="\?"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/id_pill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/card_blanca"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="ID:#001"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerPerfil"
+        android:layout_above="@+id/bottomNavigationPerfil"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView style="@style/LabelSeccion" android:text="Información Personal" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/black" />
+
+            <TextView style="@style/LabelCampo" android:text="Nombre Completo" />
+            <EditText android:id="@+id/etNombrePerfil" style="@style/InputPerfil" android:text="Cristina Sandoval" />
+
+            <TextView style="@style/LabelCampo" android:text="Fecha de nacimiento" />
+            <EditText android:id="@+id/etFechaNacPerfil" style="@style/InputPerfil" android:text="06/06/1994" />
+
+            <TextView style="@style/LabelCampo" android:text="Correo electrónico" />
+            <EditText android:id="@+id/etEmailPerfil" style="@style/InputPerfil" android:text="cristina@gmail.com" />
+
+            <TextView style="@style/LabelCampo" android:text="Teléfono móvil" />
+            <EditText android:id="@+id/etTelefonoPerfil" style="@style/InputPerfil" android:text="675432476" android:inputType="phone" />
+
+            <TextView style="@style/LabelSeccion" android:layout_marginTop="20dp" android:text="Datos Académicos" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/black" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="2">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="5dp" android:orientation="vertical">
+                    <TextView style="@style/LabelCampo" android:text="Tipo de Entidad" />
+                    <Spinner android:id="@+id/spinnerTipoEntidad" android:layout_width="match_parent" android:layout_height="40dp" android:background="@drawable/card_blanca" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="5dp" android:orientation="vertical">
+                    <TextView style="@style/LabelCampo" android:text="Nombre entidad" />
+                    <EditText style="@style/InputPerfil" android:text="IES Los Rosales" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="2">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="5dp" android:orientation="vertical">
+                    <TextView style="@style/LabelCampo" android:text="Curso" />
+                    <EditText style="@style/InputPerfil" android:text="2º Bachillerato" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="5dp" android:orientation="vertical">
+                    <TextView style="@style/LabelCampo" android:text="Modalidad" />
+                    <EditText style="@style/InputPerfil" android:text="Ciencias" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/LabelCampo" android:text="Asignaturas" />
+            <EditText style="@style/InputPerfil" android:text="Lengua II, Inglés, Historia de España..." />
+
+            <TextView style="@style/LabelSeccion" android:layout_marginTop="20dp" android:text="Seguridad" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/black" />
+
+            <TextView style="@style/LabelCampo" android:text="Clave de Acceso" android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/selector_ojito"
+                app:boxBackgroundMode="none"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etClavePerfil"
+                    style="@style/InputPerfil"
+                    android:inputType="textPassword"
+                    android:text="Cristina31@"
+                    android:paddingEnd="45dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEliminarPerfil"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="#FF0000"
+                    android:text="Eliminar"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btnActualizarPerfil"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#0D47A1"
+                    android:text="Actualizar"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/bottomNavigationPerfil"
+        layout="@layout/bottom_navigation_comun"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

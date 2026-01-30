@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_amarillo">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavigationTest"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_registro"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:paddingBottom="30dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/header_azul"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/btnBackTest"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:padding="9dp"
+                        android:layout_centerVertical="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/abc_ic_ab_back_material"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Test de estudio"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Ajusta las barras según tu perfil para obtener un diagnóstico personalizado"
+                        android:textColor="#555555"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="1.Contexto de la Materia"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="5dp">
+                            <TextView android:text="Asignatura" style="@style/LabelFormMini"/>
+                            <Spinner android:id="@+id/spAsignaturaTest" android:layout_width="match_parent" android:layout_height="45dp" android:background="@drawable/input_redondeado" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="5dp">
+                            <TextView android:text="Tipo de Examen" style="@style/LabelFormMini"/>
+                            <Spinner android:id="@+id/spTipoExamenTest" android:layout_width="match_parent" android:layout_height="45dp" android:background="@drawable/input_redondeado" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="2.Análisis de Perfil (Escala 1-5)"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView style="@style/PreguntaTest" android:text="¿Olvidas rápido si no repasas en varios días?" />
+                    <SeekBar style="@style/SliderTest" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:text="Nada" style="@style/LabelSlider" />
+                        <TextView android:text="Mucho" android:layout_alignParentEnd="true" style="@style/LabelSlider" />
+                    </RelativeLayout>
+
+                    <TextView style="@style/PreguntaTest" android:text="¿Necesitas explicar los temas con tus palabras?" />
+                    <SeekBar style="@style/SliderTest" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:text="Nada" style="@style/LabelSlider" />
+                        <TextView android:text="Mucho" android:layout_alignParentEnd="true" style="@style/LabelSlider" />
+                    </RelativeLayout>
+
+                    <TextView style="@style/PreguntaTest" android:text="¿Te distraes fácilmente o te saturas rápido?" />
+                    <SeekBar style="@style/SliderTest" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:text="Nada" style="@style/LabelSlider" />
+                        <TextView android:text="Mucho" android:layout_alignParentEnd="true" style="@style/LabelSlider" />
+                    </RelativeLayout>
+
+                    <TextView style="@style/PreguntaTest" android:text="¿Te gusta autoevaluarte sin mirar apuntes?" />
+                    <SeekBar style="@style/SliderTest" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:text="Nada" style="@style/LabelSlider" />
+                        <TextView android:text="Mucho" android:layout_alignParentEnd="true" style="@style/LabelSlider" />
+                    </RelativeLayout>
+
+                    <TextView style="@style/PreguntaTest" android:text="¿Aprendes mejor con esquemas,colores y dibujos?" />
+                    <SeekBar style="@style/SliderTest" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:text="Nada" style="@style/LabelSlider" />
+                        <TextView android:text="Mucho" android:layout_alignParentEnd="true" style="@style/LabelSlider" />
+                    </RelativeLayout>
+
+                    <TextView style="@style/PreguntaTest" android:text="¿Te cuesta aplicar el método correcto?" />
+                    <SeekBar style="@style/SliderTest" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:text="Nada" style="@style/LabelSlider" />
+                        <TextView android:text="Mucho" android:layout_alignParentEnd="true" style="@style/LabelSlider" />
+                    </RelativeLayout>
+
+                    <TextView style="@style/PreguntaTest" android:text="¿Necesitas memorizar definiciones, fórmulas o vocabulario específico?" />
+                    <SeekBar style="@style/SliderTest" />
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:text="Nada" style="@style/LabelSlider" />
+                        <TextView android:text="Mucho" android:layout_alignParentEnd="true" style="@style/LabelSlider" />
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/btnMostrarMetodo"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="35dp"
+                        android:backgroundTint="#3454D1"
+                        android:text="Mostrar método sugerido"
+                        android:textAllCaps="false"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomNavigationTest"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1A3A5A"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/btnNavCalendario"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Calendario"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:id="@+id/btnNavBiblioteca"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Biblioteca"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:id="@+id/btnNavMetodos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Métodos"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:id="@+id/btnNavPerfil"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Perfil"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </LinearLayout>
+
+</RelativeLayout>
