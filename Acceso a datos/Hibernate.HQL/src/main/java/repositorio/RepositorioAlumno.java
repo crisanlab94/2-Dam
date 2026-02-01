@@ -43,4 +43,29 @@ public class RepositorioAlumno extends AbstractDao <Alumno> {
 			return resultadosNombreEmail;
 			
 		}
+		//Obtener los alumnos mayores de 18 años.
+		
+		//Obtener los alumnos cuyo nombre sea "Ana".
+		
+		//Obtener los alumnos ordenados por edad de forma descendente.
+		
+		//Obtener los alumnos con una edad mayor que un valor pasado por parámetro.
+		//Obtener el alumno cuyo email se pasa como parámetro.
+		//Obtener los alumnos cuyo nombre contenga una cadena introducida por el usuario. 
+		//Obtener todos los alumnos del curso llamado "DAM".
+		//Obtener el nombre de los alumnos y el nombre de su curso. 
+		//Obtener los cursos que tengan al menos un alumno.
+		//Obtener los alumnos cuyo curso sea de nivel "Superior".
+		//Contar el número total de alumnos.
+		//Obtener la edad media de los alumnos.
+		//Obtener el número de alumnos por curso.
+		//Obtener el curso con más alumnos.
+		//Obtener los alumnos que no estén asignados a ningún curso. 
+		//Obtener los cursos que no tengan alumnos. 
+		//Obtener los alumnos cuya edad sea mayor que la edad media. 
+		//Obtener los nombres de los cursos que tengan alumnos mayores de 25 años.
+		//¿Por qué en HQL no se usan nombres de tablas?
+		//¿Qué ventaja tiene HQL frente a SQL en una aplicación Java?
+
+
 }
