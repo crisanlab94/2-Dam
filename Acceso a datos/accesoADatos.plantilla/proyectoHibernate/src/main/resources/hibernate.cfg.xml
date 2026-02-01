@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+       "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+       "https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+   <session-factory>
+       <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+       
+       <property name="hibernate.connection.url">
+           jdbc:mysql://localhost:3307/proyectoCristina?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC
+       </property>
+
+       <property name="hibernate.connection.username">usuario2</property>
+       <property name="hibernate.connection.password">usuario</property>
+       
+       <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+       <property name="hibernate.hbm2ddl.auto">update</property>
+       <property name="hibernate.show_sql">true</property>
+       <property name="hibernate.format_sql">true</property>
+       
+       <mapping class="modelo.Gimnasio"/>
+       <mapping class="modelo.Direccion"/>
+       <mapping class="modelo.Entrenador"/>
+       <mapping class="modelo.Socio"/>
+       <mapping class="modelo.Actividad"/>
+       <mapping class="modelo.FichaMedica"/>
+   </session-factory>
+</hibernate-configuration>

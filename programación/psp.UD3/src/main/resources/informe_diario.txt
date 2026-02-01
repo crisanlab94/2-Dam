@@ -1,0 +1,4 @@
+--- INFORME DE ALMACÉN ---
+Pedido ID: 1 | Estado: EN_REPARTO | Urgente: SÍ
+Pedido ID: 2 | Estado: EN_REPARTO | Urgente: NO
+Pedido ID: 3 | Estado: ENTREGADO | Urgente: SÍ
