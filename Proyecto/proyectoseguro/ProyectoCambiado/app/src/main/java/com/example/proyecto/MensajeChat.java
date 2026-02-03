@@ -12,12 +12,12 @@ public class MensajeChat {
         this.tipo = tipo;
     }
 
-    // Este es el método que te falta:
+
     public String getText() {
         return texto;
     }
 
-    // También necesitarás este para el Adaptador:
+
     public int getTipo() {
         return tipo;
     }

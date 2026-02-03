@@ -71,7 +71,7 @@ public class PerfilActivity extends AppCompatActivity {
         View btnEliminar = findViewById(R.id.btnEliminarPerfil);
         if (btnEliminar != null) {
             btnEliminar.setOnClickListener(v -> {
-                Log.d(TAG, "BOTÓN ELIMINAR: Simulación de borrado. El próximo ID será #001 [cite: 2025-12-26].");
+                Log.d(TAG, "BOTÓN ELIMINAR: Simulación de borrado. ");
             });
         }
 

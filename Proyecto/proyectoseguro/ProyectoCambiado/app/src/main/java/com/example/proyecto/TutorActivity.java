@@ -23,8 +23,7 @@ public class TutorActivity extends AppCompatActivity {
     private Button btnIniciarGuia;
     private ChatAdapter adapter;
     private List<MensajeChat> listaMensajes;
-    private String temaActual = ""; // Variable para que la IA recuerde el tema escrito
-
+    private String temaActual = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +60,7 @@ public class TutorActivity extends AppCompatActivity {
             iniciarGuiaAutomática(temaActual, asignatura);
         });
 
-        // 5. Botón Enviar (Sin validaciones por diseño [cite: 2026-01-25])
+        // 5. Botón Enviar
         btnEnviar.setOnClickListener(v -> {
             String texto = etMensaje.getText().toString();
             enviarMensajeUsuario(texto);
