@@ -50,4 +50,35 @@ public class ArticuloDao extends AbstractDao<Articulo> {
 	    return articulos;
 	}
 	
+	
+	// Artículos con más de 6 páginas incluyendo datos de la revista
+	// Devolvemos List<Object[]> porque pedimos campos específicos de distintas tablas
+	public List<Object[]> getArticulosMasDe6Paginas() {
+	    Session sesion = HibernateUtil.getFactoriaSession().openSession();
+	    try {
+	        String hql = "SELECT a.titulo, (a.numPagFin - a.numPaginaInicio) " +
+	                     "FROM Articulo a " +
+	                     "WHERE (a.numPagFin - a.numPaginaInicio) > 6";
+	        return sesion.createQuery(hql, Object[].class).getResultList();
+	    } finally {
+	        sesion.close();
+	    }
+	}
+	
+	//como el anterior y  además, el nombre de la revista y la fecha de publicación.
+	public List<Object[]> getArticulosMasDe6PaginasConRevista() {
+	    Session sesion = HibernateUtil.getFactoriaSession().openSession();
+	    try {
+	        String hql = "SELECT a.titulo, (a.numPagFin - a.numPaginaInicio), " +
+	                     "a.revista.nombreRevista, a.revista.fecha " +
+	                     "FROM Articulo a " +
+	                     "WHERE (a.numPagFin - a.numPaginaInicio) > 6";
+	        return sesion.createQuery(hql, Object[].class).getResultList();
+	    } finally {
+	        sesion.close();
+	    }
+	}
+	
+	
+	
 }
