@@ -1,0 +1,4 @@
+CREATE DATABASE IF NOT EXISTS segundaConsultaHQL;
+GRANT ALL PRIVILEGES ON segundaConsultaHQL.* TO 'usuario2'@'%';
+FLUSH PRIVILEGES;
+USE segundaConsultaHQL;
