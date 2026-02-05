@@ -61,7 +61,7 @@ public class GestionaArticulos {
 
 		// --- CONSULTA 2: Título y número de páginas (si páginas > 6) ---
 		logger.info("--- C2: Artículos con más de 6 páginas ---");
-		List<Object[]> listaC2 = servicioDao.consultaArticulosLargos();
+		List<Articulo[]> listaC2 = servicioDao.consultaArticulosLargos();
 		for (int i = 0; i < listaC2.size(); i++) {
 			Object[] fila = listaC2.get(i);
 			// fila[0] = Título | fila[1] = Número de páginas (calculado en el DAO)

@@ -38,7 +38,7 @@ public class ServicioDao {
     }
 	
 	// CONSULTA 2: Artículos con más de 6 páginas
-	public List<Object[]> consultaArticulosLargos() {
+	public List<Articulo[]> consultaArticulosLargos() {
 	    return articuloDao.getArticulosMasDe6Paginas();
 	}
 	

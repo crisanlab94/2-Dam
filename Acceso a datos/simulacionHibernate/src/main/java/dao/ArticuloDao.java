@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import jakarta.persistence.TypedQuery;
 import modelos.Articulo;
+import modelos.Revista;
 import utiles.AbstractDao;
 import utiles.HibernateUtil;
 
@@ -53,15 +54,15 @@ public class ArticuloDao extends AbstractDao<Articulo> {
 	
 	// Artículos con más de 6 páginas incluyendo datos de la revista
 	// Devolvemos List<Object[]> porque pedimos campos específicos de distintas tablas
-	public List<Object[]> getArticulosMasDe6Paginas() {
+	public List<Articulo[]> getArticulosMasDe6Paginas() {
 	    Session sesion = HibernateUtil.getFactoriaSession().openSession();
 	    try {
 	        String hql = "SELECT a.titulo, (a.numPagFin - a.numPaginaInicio) " +
 	                     "FROM Articulo a " +
 	                     "WHERE (a.numPagFin - a.numPaginaInicio) > 6";
-	        return sesion.createQuery(hql, Object[].class).getResultList();
+	        return sesion.createQuery(hql, Articulo[].class).getResultList();
 	    } finally {
-	        sesion.close();
+	        sesion.close(); 
 	    }
 	}
 	
