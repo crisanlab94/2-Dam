@@ -1,0 +1,52 @@
+:host {
+    --purple-main: #d145d1;
+    --pink-accent: #e352e3;
+    --dark-bg: #212121;
+}
+
+.custom-title {
+    font-weight: bold;
+    color: #444;
+}
+
+
+.pokemon-card {
+    border-radius: 15px !important;
+    transition: transform 0.2s;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-5px);
+}
+
+.pokemon-name {
+    color: var(--purple-main);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* BOTONES CON  COLORES */
+.btn-add-custom {
+    background-color: #007bff;
+
+    color: white;
+    border-radius: 30px;
+    padding: 10px 25px;
+}
+
+.btn-actualizar {
+    background-color: var(--purple-main);
+    color: white;
+    font-weight: bold;
+}
+
+.btn-eliminar {
+    background-color: #c98bc9;
+    color: white;
+    font-weight: bold;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    color: white;
+}

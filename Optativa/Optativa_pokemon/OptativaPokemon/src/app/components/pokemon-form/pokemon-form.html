@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm border-0">
+        <h2 class="text-purple mb-4">
+            {{ idEditar ? 'Editar' : 'Registrar Nuevo' }} Pokémon
+        </h2>
+
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" [(ngModel)]="nuevoNombre" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo</label>
+            <input type="text" [(ngModel)]="nuevoTipo" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea [(ngModel)]="nuevaDescripcion" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="d-flex gap-2 justify-content-end mt-4">
+            <button (click)="cancelar()" class="btn btn-outline-secondary">Cancelar</button>
+            <button (click)="guardar()" class="btn btn-primary shadow">
+                {{ idEditar ? 'Guardar Cambios' : 'Registrar en Pokedex' }}
+            </button>
+        </div>
+    </div>
+</div>

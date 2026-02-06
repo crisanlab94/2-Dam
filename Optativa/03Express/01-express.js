@@ -1,62 +1,57 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const path = require('path');
+require('dotenv').config();
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+const app = express();
 
-require('dotenv').config()
+// --- CONFIGURACIÓN DE MIDDLEWARES ---
+app.use(cors());
 
-const port = process.env.PORT || 3000
+// Express ya incluye los parsers para JSON y formularios
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-app.set('view engine', 'ejs')
-app.use('views', express.static(__dirname + '/views'))
-app.use(express.static(__dirname + '/public'));
+// Puerto del servidor (según la configuración de tu entorno)
+const port = process.env.PORT || 4000;
 
-//Llamadas a las rutas:
+// Configuración de motor de plantillas y archivos estáticos
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// --- CONEXIÓN A MONGODB ---
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cristina.rxmgmup.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
+
+mongoose.connect(uri)
+  .then(() => console.log('Conectado a MongoDB en el cluster de Cristina'))
+  .catch(e => console.log('Error de conexión: ', e));
+
+// --- LLAMADAS A LAS RUTAS ---
+
 app.use('/', require('./router/rutas'));
 app.use('/pokemon', require('./router/pokemon'));
 
-const mongoose = require('mongoose');
-
-// --- TUS VARIABLES (Credenciales) ---
-// Asegúrate de que este usuario y contraseña son los correctos para entrar en ese cluster
-
-
-// --- LA URL ADAPTADA ---
-// Fíjate que aquí usamos la dirección 'cristina.rxmgmup.mongodb.net' que pediste
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cristina.rxmgmup.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
-
-// --- CONEXIÓN ---
-mongoose.connect(uri)
-  .then(() => console.log('Conectado a MongoDB en el cluster de Cristina '))
-  .catch(e => console.log('Error de conexión: ', e));
-
+// --- RUTAS DE PRUEBA / VISTAS EJS ---
 app.get('/pruebas', (req, res) => {
-  //console.log(__dirname) //ruta donde estamos
-  //res.send('Ya somos unos crack en Node+Express')
-  //pasa un json con un titulo
-  res.render('pruebas', { titulo: 'mi titulo dinámico', Descripcion: 'Esto es una descripcion' })
-})
+  res.render('pruebas', { titulo: 'mi titulo dinámico', Descripcion: 'Esto es una descripcion' });
+});
 
 app.get('/pruebas2', (req, res) => {
-  //console.log(__dirname) //ruta donde estamos
-  //res.send('Ya somos unos crack en Node+Express')
-  //pasa un json con un titulo
-  res.render('pruebas2', { titulo: 'mi titulo dinámico 2', Descripcion: 'Esto es una descripcion 2' })
-})
+  res.render('pruebas2', { titulo: 'mi titulo dinámico 2', Descripcion: 'Esto es una descripcion 2' });
+});
 
 app.get('/contacto', (req, res) => {
-  console.log(__dirname + '/public')
-  res.send('Estas en contactos')
-})
+  res.send('Estas en contactos');
+});
 
+// --- MANEJO DE ERROR 404 ---
 
 app.use((req, res) => {
-  res.status(404).sendFile(__dirname + "/public/html/404.html")
-})
+  res.status(404).sendFile(path.join(__dirname, "public", "html", "404.html"));
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-
+  console.log(`Servidor de la Pokedex escuchando en el puerto ${port}`);
+});
