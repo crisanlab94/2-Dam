@@ -1,4 +1,6 @@
 from cartera import Cartera  
+
+### CONSTRUCTOR
 def test_constructor_saldo_defecto():
     c = Cartera()
     assert c.saldo == 0 
@@ -19,7 +21,7 @@ def test_constructor_saldo_valido():
     assert c.saldo == 50 
 
 
-
+### PRUEBAS DEL MÉTODO INGRESAR(CANTIDAD)
 
 def test_ingresar_suma_correctamente():
    
@@ -49,3 +51,9 @@ def test_gastar_mas_del_disponible():
     resultado = c.gastar(100) 
     assert resultado is None 
     assert c.saldo == 50 
+
+def test_ingresar_tipo_incorrecto():
+    c = Cartera(50)
+    resultado = c.ingresar("mucho")
+    assert resultado is None
+    assert c.saldo == 50

@@ -16,7 +16,7 @@ class Cartera(object):
         return nuevo_saldo
 
     def gastar(self, cantidad):
-        # Devuelve el nuevo saldo. Si no hay saldo suficiente o la cantidad no es vÃ¡lida, devuelve None.
+        # Devuelve el nuevo saldo. Si no hay saldo suficiente o la cantidad no es válida, devuelve None.
         nuevo_saldo = None
         if type(cantidad) == int and cantidad >= 0:
             if self.saldo >= cantidad:
