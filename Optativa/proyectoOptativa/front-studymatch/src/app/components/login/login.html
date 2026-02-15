@@ -1,0 +1,60 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      
+      <div *ngIf="mensajeError" class="alert alert-danger text-center fw-bold shadow-sm mb-4">
+        {{ mensajeError }}
+      </div>
+
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <div class="p-4 text-center text-white" style="background-color: #1a3a5a;">
+          <h2 class="fw-bold mb-0">Acceso StudyMatchKey</h2>
+        </div>
+
+        <form (ngSubmit)="acceder()" class="p-4 p-md-5 bg-white">
+          
+          <div class="mb-4 text-start">
+            <label class="form-label fw-bold">Correo electrónico</label>
+            <input type="email" name="email" [(ngModel)]="email" 
+                   class="form-control border-2 shadow-sm" 
+                   placeholder="Escribe tu email" required>
+          </div>
+
+          <div class="mb-4 text-start">
+            <label class="form-label fw-bold">Contraseña</label>
+            <div class="input-group">
+              <input [type]="verClave ? 'text' : 'password'" 
+                     name="clave" [(ngModel)]="clave" 
+                     class="form-control border-2 border-end-0 shadow-sm" 
+                     placeholder="Escribe tu contraseña" required>
+              <span class="input-group-text bg-white border-2 border-start-0" 
+                    style="cursor: pointer;" (click)="togglePassword()">
+                <i class="bi" [ngClass]="verClave ? 'bi-eye' : 'bi-eye-slash'"></i>
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="!email || !clave" 
+                  class="btn w-100 py-3 fw-bold text-white shadow mb-3" 
+                  style="background-color: #1a3a5a; transition: 0.3s;">
+            Entrar
+          </button>
+
+          <div class="text-center">
+            <p class="text-muted small">¿Aún no tienes cuenta?</p>
+            <a routerLink="/estudiante" class="fw-bold" style="color: #1a3a5a; text-decoration: none;">
+              Regístrate aquí
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <div class="mt-4 text-center">
+        <a routerLink="/" class="btn-volver" style="text-decoration: none; color: #5a7d9a; font-weight: bold; border: 2px solid #5a7d9a; padding: 10px 20px; border-radius: 30px;">
+          Volver al Inicio
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

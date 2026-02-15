@@ -1,0 +1,36 @@
+.perfil-wrapper {
+  background-color: #fffde7; /* Fondo amarillo crema */
+}
+
+.bg-navy {
+  background-color: #1a3a5a !important;
+}
+
+.text-navy {
+  color: #1a3a5a !important;
+}
+
+.btn-navy {
+  background-color: #1a3a5a;
+  color: white;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-navy:hover:not(:disabled) {
+  background-color: #122a42;
+  transform: translateY(-2px);
+}
+
+.bg-warning-light {
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #1a3a5a;
+  box-shadow: none;
+}

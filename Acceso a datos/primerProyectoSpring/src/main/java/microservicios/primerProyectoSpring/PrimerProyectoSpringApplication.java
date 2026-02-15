@@ -1,4 +1,4 @@
-package microservicios.prmerProyectoSpring.controller;
+package microservicios.primerProyectoSpring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,146 @@
+<div class="admin-wrapper p-4">
+  <h1 class="text-center fw-bold mb-5" style="color: #1a3a5a;">Gestión de Estudiantes</h1>
+
+  <div class="container bg-white p-4 shadow-sm rounded-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="input-group w-50 shadow-sm rounded-pill overflow-hidden border border-2">
+        <span class="input-group-text bg-white border-0"><i class="bi bi-search text-muted"></i></span>
+        <input type="text" class="form-control border-0" 
+               placeholder="Busca por nombre, teléfono, centro o curso..." 
+               [(ngModel)]="filtro">
+      </div>
+      
+      <button routerLink="/registro" class="btn btn-navy rounded-pill px-4 fw-bold shadow-sm">
+        <i class="bi bi-person-plus-fill me-2"></i> Nuevo Estudiante
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle custom-table">
+        <thead class="table-light text-secondary small text-uppercase">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo de entidad</th>
+            <th>Móvil</th>
+            <th>Email</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let est of estudiantesFiltrados">
+            <td class="text-muted small">#{{ est.id_estudiante }}</td>
+            <td class="fw-bold" style="color: #1a3a5a;">{{ est.nombre }}</td>
+            <td>
+              <span class="badge bg-primary mb-1">{{ est.tipo_entidad }}</span>
+              <div class="small fw-bold">{{ est.curso }}</div>
+              <div class="text-muted italic" style="font-size: 0.75rem;">{{ est.nombre_entidad }}</div>
+            </td>
+            <td><i class="bi bi-telephone-fill text-success small me-1"></i> {{ est.telefono }}</td>
+            <td class="small">{{ est.email }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <button (click)="prepararEdicion(est)" class="btn btn-edit btn-sm px-3" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+                <button (click)="borrar(est._id)" class="btn btn-delete btn-sm px-3">Borrar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <button routerLink="/" class="btn btn-outline-navy rounded-pill px-5 fw-bold small shadow-sm">
+      VOLVER AL INICIO
+    </button>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" *ngIf="estudianteEditando">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header bg-navy text-white">
+        <h5 class="fw-bold m-0">Actualizar Datos de {{ estudianteEditando.nombre }}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Nombre Completo</label>
+            <input type="text" class="form-control" [(ngModel)]="estudianteEditando.nombre">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Email</label>
+            <input type="email" class="form-control" [(ngModel)]="estudianteEditando.email">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Teléfono</label>
+            <input type="text" class="form-control" [(ngModel)]="estudianteEditando.telefono">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Fecha Nacimiento</label>
+            <input type="date" class="form-control" [(ngModel)]="estudianteEditando.fecha_nacimiento">
+          </div>
+
+          <hr class="my-4">
+          <h6 class="fw-bold text-navy mb-1"><i class="bi bi-book me-2"></i>Información del Centro</h6>
+
+          <div class="col-md-4">
+            <label class="form-label small fw-bold">Tipo de Centro</label>
+            <select class="form-select" [(ngModel)]="estudianteEditando.tipo_entidad" (change)="cambioEntidad()">
+              <option value="Colegio">Colegio</option>
+              <option value="Instituto">Instituto</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small fw-bold">Nombre del Centro</label>
+            <input type="text" class="form-control" [(ngModel)]="estudianteEditando.nombre_entidad">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small fw-bold">Ubicación</label>
+            <input type="text" class="form-control" [(ngModel)]="estudianteEditando.ubicacion">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Curso</label>
+            <select class="form-select" [(ngModel)]="estudianteEditando.curso" (change)="actualizarSugerencias()">
+              <option *ngFor="let c of cursosDisponibles" [value]="c">{{c}}</option>
+            </select>
+          </div>
+          <div class="col-md-6" *ngIf="estudianteEditando.curso?.includes('Bachillerato')">
+            <label class="form-label small fw-bold">Modalidad</label>
+            <select class="form-select" [(ngModel)]="estudianteEditando.modalidad" (change)="actualizarSugerencias()">
+              <option value="Ciencias">Ciencias</option>
+              <option value="Sociales">Sociales</option>
+              <option value="Artes">Artes</option>
+            </select>
+          </div>
+
+          <div class="col-12 mt-3" *ngIf="asignaturasSugeridas.length > 0">
+            <label class="form-label small fw-bold d-block">Asignaturas de la Lista</label>
+            <div class="d-flex flex-wrap gap-2">
+              <button *ngFor="let asig of asignaturasSugeridas" 
+                      type="button" (click)="toggleAsignatura(asig)"
+                      [class]="estudianteEditando.asignaturas?.includes(asig) ? 'btn btn-primary btn-sm rounded-pill' : 'btn btn-outline-secondary btn-sm rounded-pill'">
+                {{ asig }}
+                <i class="bi ms-1" [ngClass]="estudianteEditando.asignaturas?.includes(asig) ? 'bi-check-circle-fill' : 'bi-plus-circle'"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-12 mt-3">
+            <label class="form-label small fw-bold text-danger">Otras Asignaturas (Manual)</label>
+            <input type="text" class="form-control" [(ngModel)]="asignaturas_extra">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" (click)="guardarCambios()" class="btn btn-primary rounded-pill px-5 shadow" data-bs-dismiss="modal">
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

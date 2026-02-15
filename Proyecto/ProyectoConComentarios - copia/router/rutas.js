@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render('index', { tituloWeb: 'StudyMatchKey - Inicio' });
+// En una arquitectura con Angular, el "/" suele devolver un mensaje de API 
+// o simplemente no usarse, ya que Angular carga su propio index.html
+router.get('/health', (req, res) => {
+    res.json({ estado: true, mensaje: 'Servidor de StudyMatch funcionando correctamente' });
 });
 
 module.exports = router;

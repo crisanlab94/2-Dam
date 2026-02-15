@@ -1,0 +1,33 @@
+.admin-wrapper {
+  background-color: #fffde7; /* Fondo amarillo crema */
+  min-height: 100vh;
+}
+
+.bg-navy {
+  background-color: #1a3a5a !important;
+}
+
+.btn-navy {
+  background-color: #1a3a5a;
+  color: white;
+}
+
+.btn-outline-navy {
+  border: 2px solid #1a3a5a;
+  color: #1a3a5a;
+}
+
+.btn-edit {
+  background-color: #7ab8d3;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #e35d6a;
+  color: white;
+}
+
+.table thead th {
+  border-top: none;
+  background-color: #f8f9fa;
+}

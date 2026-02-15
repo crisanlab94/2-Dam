@@ -1,0 +1,51 @@
+añadir 1 en postman
+post http://localhost:8084/api/productos
+
+{
+  "name": "Ratón Inalámbrico",
+  "description": "Ergonómico con batería recargable",
+  "category": "Periféricos",
+  "price": 29.99
+}
+
+Añadir varios
+post http://localhost:8084/api/productos/varios
+
+[
+  {
+    "name": "Teclado Gaming",
+    "description": "Mecánico RGB",
+    "category": "Periféricos",
+    "price": 89.99
+  },
+  {
+    "name": "Ratón Pro",
+    "description": "12000 DPI",
+    "category": "Periféricos",
+    "price": 45.50
+  },
+  {
+    "name": "Alfombrilla XXL",
+    "description": "Superficie de tela",
+    "category": "Accesorios",
+    "price": 15.00
+  }
+]
+
+Consultar lista
+get http://localhost:8084/api/productos
+
+Borrar
+Delete http://localhost:8084/api/productos/(id del producto a borrar)
+
+Actualizar
+Put   http://localhost:8084/api/productos/(id del producto a actualizar)
+Hay que poner todos los datos porque hemos puesto
+que se cree como nuevo pero se le asigne el id antiguo
+
+{
+  "name": "Nombre del producto 13", 
+  "description": "Su descripción de siempre",
+  "category": "tecnologia",
+  "price": 120
+}
