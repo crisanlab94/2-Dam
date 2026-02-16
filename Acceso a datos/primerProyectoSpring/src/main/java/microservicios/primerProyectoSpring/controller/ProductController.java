@@ -37,7 +37,7 @@ public class ProductController {
     }
     
     @PostMapping("/varios")
-    public List<Product> crearVarios(@RequestBody List<Product> productos) {
+    public List<Product> crearVarios(@RequestBody List<Product> productos) { 
         return productService.guardarVarios(productos);
     }
     

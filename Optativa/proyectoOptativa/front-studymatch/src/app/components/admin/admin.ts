@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router'; // 🚀 Añadimos Router
+import { RouterModule, Router } from '@angular/router';
 import { EstudianteService, Estudiante } from '../../services/estudiante';
 
 @Component({
@@ -19,7 +19,7 @@ export class AdminPanel implements OnInit {
   public estudiantes: Estudiante[] = [];
   public filtro: string = '';
   public estudianteEditando: any = null;
-  public asignaturas_extra: string = ''; 
+  public asignaturas_extra: string = '';
 
   public cursosDisponibles: string[] = [];
   public asignaturasSugeridas: string[] = [];
@@ -65,7 +65,7 @@ export class AdminPanel implements OnInit {
   get estudiantesFiltrados() {
     if (!this.filtro) return this.estudiantes;
     const b = this.filtro.toLowerCase().trim();
-    return this.estudiantes.filter(e => 
+    return this.estudiantes.filter(e =>
       e.nombre?.toLowerCase().includes(b) ||
       e.telefono?.toLowerCase().includes(b) ||
       e.nombre_entidad?.toLowerCase().includes(b) ||

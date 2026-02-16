@@ -1,0 +1,76 @@
+.mis-eventos-wrapper {
+    background-color: #fffde7;
+}
+
+.text-navy {
+    color: #1a3a5a;
+}
+
+.bg-navy {
+    background-color: #1a3a5a;
+}
+
+.bg-navy-light {
+    background-color: rgba(26, 58, 90, 0.1);
+}
+
+.btn-outline-navy {
+    border-color: #1a3a5a;
+    color: #1a3a5a;
+}
+
+.tarea-completada {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.borde-completado {
+    border-left: 8px solid #28a745 !important;
+}
+
+.borde-pendiente {
+    border-left: 8px solid #0d6efd !important;
+}
+
+.btn-filter {
+    border-radius: 20px;
+    padding: 5px 20px;
+    border: 2px solid #ddd;
+    background: white;
+}
+
+.btn-filter.active {
+    background-color: #1a3a5a;
+    color: white;
+    border-color: #1a3a5a;
+}
+
+.badge-tiempo {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.pulse {
+    animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn-action {
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 6px 15px;
+}

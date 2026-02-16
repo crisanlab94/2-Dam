@@ -17,8 +17,8 @@ export class LoginAdmin {
 
   public email: string = '';
   public clave: string = '';
-  public mensaje: string = ''; // Coincide con tu {{ mensaje }}
-  public verClave: boolean = false; // Coincide con tu [type]
+  public mensaje: string = '';
+  public verClave: boolean = false;
 
   togglePassword(): void {
     this.verClave = !this.verClave;
@@ -26,7 +26,7 @@ export class LoginAdmin {
 
   accederAdmin(): void {
     this.mensaje = '';
-    
+
     this.service.loginAdmin(this.email, this.clave).subscribe({
       next: (res: any) => {
         if (res.estado) {

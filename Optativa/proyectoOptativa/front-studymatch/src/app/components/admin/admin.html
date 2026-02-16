@@ -5,11 +5,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div class="input-group w-50 shadow-sm rounded-pill overflow-hidden border border-2">
         <span class="input-group-text bg-white border-0"><i class="bi bi-search text-muted"></i></span>
-        <input type="text" class="form-control border-0" 
-               placeholder="Busca por nombre, teléfono, centro o curso..." 
-               [(ngModel)]="filtro">
+        <input type="text" class="form-control border-0" placeholder="Busca por nombre, teléfono, centro o curso..."
+          [(ngModel)]="filtro">
       </div>
-      
+
       <button routerLink="/registro" class="btn btn-navy rounded-pill px-4 fw-bold shadow-sm">
         <i class="bi bi-person-plus-fill me-2"></i> Nuevo Estudiante
       </button>
@@ -40,7 +39,8 @@
             <td class="small">{{ est.email }}</td>
             <td>
               <div class="d-flex justify-content-center gap-2">
-                <button (click)="prepararEdicion(est)" class="btn btn-edit btn-sm px-3" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+                <button (click)="prepararEdicion(est)" class="btn btn-edit btn-sm px-3" data-bs-toggle="modal"
+                  data-bs-target="#editModal">Editar</button>
                 <button (click)="borrar(est._id)" class="btn btn-delete btn-sm px-3">Borrar</button>
               </div>
             </td>
@@ -74,13 +74,20 @@
             <label class="form-label small fw-bold">Email</label>
             <input type="email" class="form-control" [(ngModel)]="estudianteEditando.email">
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label class="form-label small fw-bold">Teléfono</label>
             <input type="text" class="form-control" [(ngModel)]="estudianteEditando.telefono">
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label class="form-label small fw-bold">Fecha Nacimiento</label>
             <input type="date" class="form-control" [(ngModel)]="estudianteEditando.fecha_nacimiento">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label small fw-bold text-primary"><i class="bi bi-key-fill me-1"></i>Contraseña
+              (Clave)</label>
+            <input type="text" class="form-control border-primary-subtle" [(ngModel)]="estudianteEditando.clave"
+              placeholder="Nueva contraseña">
           </div>
 
           <hr class="my-4">
@@ -120,11 +127,11 @@
           <div class="col-12 mt-3" *ngIf="asignaturasSugeridas.length > 0">
             <label class="form-label small fw-bold d-block">Asignaturas de la Lista</label>
             <div class="d-flex flex-wrap gap-2">
-              <button *ngFor="let asig of asignaturasSugeridas" 
-                      type="button" (click)="toggleAsignatura(asig)"
-                      [class]="estudianteEditando.asignaturas?.includes(asig) ? 'btn btn-primary btn-sm rounded-pill' : 'btn btn-outline-secondary btn-sm rounded-pill'">
+              <button *ngFor="let asig of asignaturasSugeridas" type="button" (click)="toggleAsignatura(asig)"
+                [class]="estudianteEditando.asignaturas?.includes(asig) ? 'btn btn-primary btn-sm rounded-pill' : 'btn btn-outline-secondary btn-sm rounded-pill'">
                 {{ asig }}
-                <i class="bi ms-1" [ngClass]="estudianteEditando.asignaturas?.includes(asig) ? 'bi-check-circle-fill' : 'bi-plus-circle'"></i>
+                <i class="bi ms-1"
+                  [ngClass]="estudianteEditando.asignaturas?.includes(asig) ? 'bi-check-circle-fill' : 'bi-plus-circle'"></i>
               </button>
             </div>
           </div>
@@ -137,7 +144,8 @@
       </div>
       <div class="modal-footer bg-light">
         <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" (click)="guardarCambios()" class="btn btn-primary rounded-pill px-5 shadow" data-bs-dismiss="modal">
+        <button type="button" (click)="guardarCambios()" class="btn btn-primary rounded-pill px-5 shadow"
+          data-bs-dismiss="modal">
           Guardar Cambios
         </button>
       </div>

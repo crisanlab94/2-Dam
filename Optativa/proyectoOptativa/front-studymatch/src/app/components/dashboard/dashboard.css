@@ -1,11 +1,19 @@
 .main-wrapper {
-  background-color: #fffde7; /* Fondo amarillo/crema */
+  background-color: #fffde7;
   min-height: 100vh;
 }
 
-.border-top-info { border-top: 5px solid #0dcaf0; }
-.border-top-primary { border-top: 5px solid #0d6efd; }
-.border-top-purple { border-top: 5px solid #6610f2; }
+.border-top-info {
+  border-top: 5px solid #0dcaf0;
+}
+
+.border-top-primary {
+  border-top: 5px solid #0d6efd;
+}
+
+.border-top-purple {
+  border-top: 5px solid #6610f2;
+}
 
 .card {
   border-radius: 15px;
@@ -14,4 +22,13 @@
 
 .card:hover {
   transform: translateY(-3px);
+}
+
+::ng-deep .fc-daygrid-day {
+  cursor: pointer;
+}
+
+::ng-deep .fc-daygrid-day:hover {
+  background-color: #fffde7 !important;
+  /* Color crema suave al pasar el ratón */
 }

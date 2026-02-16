@@ -1,0 +1,66 @@
+<div class="add-evento-wrapper min-vh-100 pt-5 pb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow-lg border-0 bg-white rounded-4">
+                    <h3 class="fw-bold mb-4 text-navy">
+                        <i class="bi bi-calendar-plus me-2"></i>Añadir Evento
+                    </h3>
+
+                    <form (ngSubmit)="guardar()">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Título</label>
+                            <input type="text" name="titulo" class="form-control border-0 bg-light rounded-3"
+                                [(ngModel)]="nuevaTarea.titulo" placeholder="Ej: Examen de Matemáticas" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Categoría</label>
+                            <select name="tipo" class="form-select border-0 bg-light rounded-3"
+                                [(ngModel)]="nuevaTarea.tipo">
+                                <option value="examen">Examen</option>
+                                <option value="entrega">Entrega</option>
+                                <option value="deberes">Deberes</option>
+                                <option value="aviso">Aviso / Recordatorio</option>
+                            </select>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label small fw-bold text-muted">Fecha</label>
+                                <input type="date" name="fecha" class="form-control border-0 bg-light rounded-3"
+                                    [(ngModel)]="nuevaTarea.fecha" required>
+                            </div>
+                            <div class="col">
+                                <label class="form-label small fw-bold text-muted">Hora</label>
+                                <input type="time" name="hora" class="form-control border-0 bg-light rounded-3"
+                                    [(ngModel)]="nuevaTarea.hora" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-primary">Nota Personalizada (Opcional)</label>
+                            <textarea name="mensaje" class="form-control border-0 bg-light rounded-3" rows="3"
+                                [(ngModel)]="nuevaTarea.mensaje_personalizado"
+                                placeholder="Ej: Repasar temas del 1 al 5..."></textarea>
+                        </div>
+
+                        <button type="submit" [disabled]="enviando || !nuevaTarea.titulo || !nuevaTarea.fecha"
+                            class="btn btn-navy w-100 fw-bold py-3 rounded-pill shadow-sm mb-3">
+                            <span *ngIf="!enviando">GUARDAR EVENTO</span>
+                            <span *ngIf="enviando">
+                                <span class="spinner-border spinner-border-sm me-2"></span>PROCESANDO...
+                            </span>
+                        </button>
+
+                        <div class="text-center">
+                            <a routerLink="/mis-eventos" class="text-decoration-none text-muted small fw-bold">
+                                CANCELAR Y VOLVER
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

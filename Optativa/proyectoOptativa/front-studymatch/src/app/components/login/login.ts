@@ -14,21 +14,20 @@ export class LoginComponent {
   private service = inject(EstudianteService);
   private router = inject(Router);
 
-  // Variables para el formulario (ngModel)
+
   email: string = '';
   clave: string = '';
-  
-  // Control de interfaz
+
   mensajeError: string | null = null;
   verClave: boolean = false;
 
   acceder(): void {
-    this.mensajeError = null; // Limpiamos errores previos
-    
+    this.mensajeError = null;
+
     this.service.login(this.email, this.clave).subscribe({
       next: (res) => {
         if (res.estado) {
-          // Si el login es correcto, navegamos al panel
+
           this.router.navigate(['/mi-perfil']);
         } else {
           this.mensajeError = 'Correo o contraseña incorrectos';

@@ -1,5 +1,6 @@
 .registro-wrapper {
-  background-color: #f6ec80; /* Fondo amarillo crema igual que el Dashboard */
+  background-color: #fffde7;
+
   min-height: 100vh;
 }
 
@@ -12,19 +13,21 @@
 }
 
 .btn-submit {
-  background-color: #adb5bd; /* Gris mientras está desactivado */
+  background-color: #adb5bd;
+
   color: white;
   transition: background-color 0.3s ease;
   border: none;
 }
 
-/* Color cuando el formulario es válido */
+
 .btn-submit:not([disabled]) {
   background-color: #1a3a5a;
   cursor: pointer;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: #1a3a5a;
   box-shadow: 0 0 0 0.25rem rgba(26, 58, 90, 0.1);
 }

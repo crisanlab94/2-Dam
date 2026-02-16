@@ -1,5 +1,5 @@
 .perfil-wrapper {
-  background-color: #fffde7; /* Fondo amarillo crema */
+  background-color: #fffde7;
 }
 
 .bg-navy {
@@ -30,7 +30,8 @@
   transition: transform 0.2s;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: #1a3a5a;
   box-shadow: none;
 }

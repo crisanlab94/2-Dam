@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// 🚀 VITAL: El "export" antes de "interface" para que los componentes puedan usarlo
 export interface Estudiante {
   _id?: string;
   id_estudiante?: string;
@@ -16,6 +15,7 @@ export interface Estudiante {
   modalidad: string;
   curso: string;
   asignaturas: string[];
+  foto?: string;
   clave: string;
   fecha_registro: Date;
 }
@@ -25,10 +25,9 @@ export interface Estudiante {
 })
 export class EstudianteService {
   private http = inject(HttpClient);
-  // URL unificada con el prefijo /api de tu Node
   private API_URL = 'http://localhost:4000/api/estudiantes';
 
-  // --- LOGIN ---
+  // --- 1. AUTENTICACIÓN ---
   login(email: string, clave: string): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/login`, { email, clave }, { withCredentials: true });
   }
@@ -37,12 +36,12 @@ export class EstudianteService {
     return this.http.post<any>(`${this.API_URL}/login-admin`, { email, clave }, { withCredentials: true });
   }
 
-  // --- DASHBOARD (DATOS REALES) ---
+  // --- 2. INFORMACIÓN DEL PERFIL / DASHBOARD ---
   getDatosDashboard(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/dashboard-info`, { withCredentials: true });
   }
 
-  // --- CRUD GESTIÓN ---
+  // --- 3. CRUD DE ESTUDIANTES (PARA EL ADMIN) ---
   getEstudiantes(): Observable<Estudiante[]> {
     return this.http.get<Estudiante[]>(this.API_URL, { withCredentials: true });
   }
@@ -59,7 +58,26 @@ export class EstudianteService {
     return this.http.delete(`${this.API_URL}/${id}`, { withCredentials: true });
   }
 
-  toggleTarea(id: string): Observable<any> {
-    return this.http.put<any>(`${this.API_URL}/toggle-tarea/${id}`, {}, { withCredentials: true });
+  // --- 4. GESTIÓN DE TAREAS / EVENTOS (NUEVO) ---
+
+  // Añade una tarea al array del estudiante logueado
+  aniadirTarea(tarea: any): Observable<any> {
+    // Eliminamos el ${idEstudiante} de la URL
+    return this.http.post<any>(`${this.API_URL}/aniadir-tarea`, tarea, { withCredentials: true });
+  }
+
+  // Cambia el estado (completada/pendiente) de una tarea específica
+  toggleTarea(tareaId: string): Observable<any> {
+    return this.http.put<any>(`${this.API_URL}/toggle-tarea/${tareaId}`, {}, { withCredentials: true });
+  }
+
+  // Edita los campos de una tarea específica
+  editarTarea(tareaId: string, datosTarea: any): Observable<any> {
+    return this.http.put<any>(`${this.API_URL}/editar-tarea/${tareaId}`, datosTarea, { withCredentials: true });
+  }
+
+  // Elimina una tarea específica del array
+  eliminarTarea(tareaId: string): Observable<any> {
+    return this.http.delete<any>(`${this.API_URL}/eliminar-tarea/${tareaId}`, { withCredentials: true });
   }
 }

@@ -20,8 +20,8 @@ export class EstudianteComponent {
   cursosDisponibles: string[] = [];
   asignaturasSugeridas: string[] = [];
   asignaturasSeleccionadas: string[] = [];
-  
-  // 👁️ Controles de visibilidad
+
+
   public verClave: boolean = false;
   public verClaveConfirm: boolean = false;
 

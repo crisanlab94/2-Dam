@@ -35,7 +35,7 @@ router.get('/dashboard-info', isAuthenticated, async (req, res) => {
 
         // --- CÁLCULO DE PROGRESO REAL ---
         let porcentajeProgreso = 0;
-        const tareas = estudiante.tareas || []; 
+        const tareas = estudiante.tareas || [];
         if (tareas.length > 0) {
             const completadas = tareas.filter(t => t.completada === true).length;
             porcentajeProgreso = Math.round((completadas / tareas.length) * 100);
@@ -54,11 +54,7 @@ router.get('/dashboard-info', isAuthenticated, async (req, res) => {
 
         res.json({
             estado: true,
-            estudiante: {
-                nombre: estudiante.nombre,
-                id_estudiante: estudiante.id_estudiante || '001',
-                tareas: estudiante.tareas 
-            },
+            estudiante: estudiante, // <--- Enviamos el objeto completo de la base de datos
             progreso: porcentajeProgreso,
             fraseMotivacional: fraseAleatoria,
             notificaciones: notificacionesReales
@@ -78,12 +74,12 @@ router.get('/dashboard-info', isAuthenticated, async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, clave } = req.body;
     try {
-        const user = await Estudiante.findOne({ email, clave }); 
+        const user = await Estudiante.findOne({ email, clave });
         if (user) {
-            req.session.usuarioId = user._id; 
-            res.json({ estado: true, usuarioId: user._id, nombre: user.nombre }); 
-        } else { 
-            res.json({ estado: false, mensaje: 'Credenciales incorrectas' }); 
+            req.session.usuarioId = user._id;
+            res.json({ estado: true, usuarioId: user._id, nombre: user.nombre });
+        } else {
+            res.json({ estado: false, mensaje: 'Credenciales incorrectas' });
         }
     } catch (e) { res.status(500).json({ estado: false, mensaje: 'Error en el servidor' }); }
 });
@@ -121,8 +117,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const contador = await Contador.findOneAndUpdate(
-            { id: 'estudianteId' }, 
-            { $inc: { seq: 1 } }, 
+            { id: 'estudianteId' },
+            { $inc: { seq: 1 } },
             { new: true, upsert: true }
         );
         const idFormateado = contador.seq.toString().padStart(3, '0');
@@ -133,11 +129,11 @@ router.post('/', async (req, res) => {
 });
 
 // Actualizar estudiante
-router.put('/:id', async (req, res) => { 
+router.put('/:id', async (req, res) => {
     try {
         await Estudiante.findByIdAndUpdate(
-            req.params.id, 
-            req.body, 
+            req.params.id,
+            req.body,
             { new: true, runValidators: true }
         );
         res.json({ estado: true, mensaje: 'Estudiante actualizado' });
@@ -155,8 +151,69 @@ router.delete('/:id', async (req, res) => {
             await Contador.findOneAndUpdate({ id: 'estudianteId' }, { seq: 0 });
         }
         res.json({ estado: true, mensaje: 'Estudiante eliminado' });
-    } catch (error) { 
-        res.status(500).json({ estado: false, error: error.message }); 
+    } catch (error) {
+        res.status(500).json({ estado: false, error: error.message });
+    }
+});
+
+
+// 4. SECCIÓN: GESTIÓN DE TAREAS INDIVIDUALES
+// ==========================================
+
+// Añadir una nueva tarea al array del estudiante
+router.post('/aniadir-tarea', isAuthenticated, async (req, res) => {
+    try {
+        const { titulo, tipo, fecha, hora, mensaje_personalizado } = req.body;
+        // Usamos req.session.usuarioId directamente
+        await Estudiante.findByIdAndUpdate(req.session.usuarioId, {
+            $push: {
+                tareas: {
+                    titulo, tipo, fecha, hora,
+                    mensaje_personalizado: mensaje_personalizado || "",
+                    completada: false
+                }
+            }
+        });
+        res.json({ estado: true, mensaje: 'Tarea añadida con éxito' });
+    } catch (error) {
+        res.status(500).json({ estado: false, error: error.message });
+    }
+});
+
+// Editar una tarea específica
+router.put('/editar-tarea/:tareaId', isAuthenticated, async (req, res) => {
+    try {
+        const { titulo, fecha, hora, mensaje_personalizado } = req.body;
+
+        // Buscamos al estudiante que tiene esa tarea
+        const estudiante = await Estudiante.findOne({ "tareas._id": req.params.tareaId });
+        if (!estudiante) return res.status(404).json({ estado: false, mensaje: 'Tarea no encontrada' });
+
+        // Localizamos la tarea dentro del array y actualizamos sus campos
+        const tarea = estudiante.tareas.id(req.params.tareaId);
+        tarea.titulo = titulo;
+        tarea.fecha = fecha;
+        tarea.hora = hora;
+        tarea.mensaje_personalizado = mensaje_personalizado;
+
+        await estudiante.save();
+        res.json({ estado: true, mensaje: 'Tarea actualizada' });
+    } catch (error) {
+        res.status(500).json({ estado: false, error: error.message });
+    }
+});
+
+// Eliminar una tarea específica
+router.delete('/eliminar-tarea/:tareaId', isAuthenticated, async (req, res) => {
+    try {
+        // Usamos $pull para quitar el objeto del array que coincida con el ID
+        await Estudiante.findOneAndUpdate(
+            { "tareas._id": req.params.tareaId },
+            { $pull: { tareas: { _id: req.params.tareaId } } }
+        );
+        res.json({ estado: true, mensaje: 'Tarea eliminada' });
+    } catch (error) {
+        res.status(500).json({ estado: false, error: error.message });
     }
 });
 

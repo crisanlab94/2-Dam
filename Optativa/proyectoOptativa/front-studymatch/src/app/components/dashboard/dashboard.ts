@@ -23,7 +23,7 @@ registerLocaleData(localeEs, 'es');
 export class DashboardComponent implements OnInit {
   private service = inject(EstudianteService);
   private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef); // 🚀 Inyectamos el detector de cambios
+  private cdr = inject(ChangeDetectorRef);
 
   public datos: any = null;
   public saludo: string = '';
@@ -33,9 +33,14 @@ export class DashboardComponent implements OnInit {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, interactionPlugin],
     locale: 'es',
-    headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth' },
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth'
+    },
     height: 'auto',
-    events: []
+    events: [],
+    dateClick: this.handleDateClick.bind(this),
   };
 
   ngOnInit(): void {
@@ -46,36 +51,66 @@ export class DashboardComponent implements OnInit {
   cargarDashboard(): void {
     this.service.getDatosDashboard().subscribe({
       next: (res: any) => {
-        console.log('📦 Respuesta recibida:', res);
         if (res && res.estado) {
-          // Asignamos los datos con una copia para asegurar que Angular lo detecte
           this.datos = { ...res };
-          
           if (res.estudiante && res.estudiante.tareas) {
             this.mapearTareas(res.estudiante.tareas);
           }
-
-          // 🚀 FORZAMOS A ANGULAR A DIBUJAR
-          this.cdr.detectChanges(); 
-          console.log('✅ Vista actualizada con éxito');
+          this.cdr.detectChanges();
         } else {
           this.router.navigate(['/login']);
         }
       },
       error: (err: any) => {
-        console.error('❌ Error API:', err);
         if (err.status === 401) this.router.navigate(['/login']);
       }
     });
   }
 
+  /**
+   * Mapeo de colores personalizado según tu petición
+   */
   mapearTareas(tareas: any[]): void {
-    this.calendarOptions.events = tareas.map(t => ({
-      id: t._id,
-      title: t.completada ? '✅ ' + t.titulo : t.titulo,
-      start: t.fecha ? t.fecha.split('T')[0] : new Date().toISOString().split('T')[0],
-      color: t.completada ? '#28a745' : (t.tipo === 'examen' ? '#dc3545' : '#0d6efd')
-    }));
+    this.calendarOptions.events = tareas.map(t => {
+      let colorEvento = '#0d6efd'; // Por defecto azul
+
+      // 1. PRIORIDAD MÁXIMA: Si está completada, siempre es verde
+      if (t.completada) {
+        colorEvento = '#28a745'; // 🟢 VERDE
+      } else {
+        // 2. Si no está completada, aplicamos color por tipo
+        switch (t.tipo.toLowerCase()) {
+          case 'examen':
+            colorEvento = '#dc3545'; // 🔴 ROJO
+            break;
+          case 'trabajo':
+            colorEvento = '#0d6efd'; // 🔵 AZUL
+            break;
+          case 'deberes':
+            colorEvento = '#ffc107'; // 🟡 AMARILLO
+            break;
+          case 'aviso':
+          case 'avisos':
+            colorEvento = '#6c757d'; // 🔘 GRIS
+            break;
+        }
+      }
+
+      return {
+        id: t._id,
+        title: (t.completada ? '✅ ' : '') + t.titulo,
+        start: t.fecha ? t.fecha.split('T')[0] : new Date().toISOString().split('T')[0],
+        color: colorEvento,
+        allDay: true,
+        textColor: t.tipo === 'deberes' && !t.completada ? '#000' : '#fff' // Texto negro en amarillo para leer mejor
+      };
+    });
+  }
+
+  handleDateClick(arg: any): void {
+    this.router.navigate(['/add-evento'], {
+      queryParams: { fecha: arg.dateStr }
+    });
   }
 
   definirSaludo(): void {
@@ -86,9 +121,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getIconoSaludo(): string {
-    if (this.saludo.includes('Días')) return '☀️';
-    if (this.saludo.includes('Tardes')) return '🌤️';
-    return '🌙';
+    return this.saludo.includes('Días') ? '☀️' : (this.saludo.includes('Tardes') ? '🌤️' : '🌙');
   }
 
   logout(): void {

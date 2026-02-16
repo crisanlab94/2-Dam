@@ -1,8 +1,8 @@
-<div class="perfil-wrapper min-vh-100 pt-5 pb-5" style="background-color: #fffde7;">
+<div class="perfil-wrapper min-vh-100 pt-5 pb-5">
   <div class="container mt-2">
-    
+
     <div class="mb-4">
-      <a [routerLink]="['/mi-perfil']" class="text-navy text-decoration-none fw-bold">
+      <a routerLink="/mi-perfil" class="text-navy text-decoration-none fw-bold">
         <i class="bi bi-arrow-left-circle-fill fs-5"></i> Volver al Dashboard
       </a>
     </div>
@@ -10,74 +10,129 @@
     <div class="row g-4" *ngIf="student">
       <div class="col-lg-8">
         <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-          <div class="card-header bg-navy text-white p-4">
-            <h3 class="mb-0 fw-bold">{{ student.nombre }}</h3>
-            <span class="badge bg-info">ID: {{ student.id_estudiante }}</span>
+
+          <div class="card-header bg-navy text-white p-4 d-flex align-items-center gap-4">
+            <div class="position-relative">
+              <img [src]="student.foto || 'assets/no-foto.png'"
+                class="rounded-circle border border-3 border-white shadow"
+                style="width: 110px; height: 110px; object-fit: cover;">
+
+              <label for="inputFoto"
+                class="btn btn-sm btn-light position-absolute bottom-0 end-0 rounded-circle shadow-sm">
+                <i class="bi bi-camera-fill"></i>
+                <input type="file" id="inputFoto" hidden (change)="cambiarFoto($event)" accept="image/*">
+              </label>
+            </div>
+
+            <div>
+              <h3 class="mb-0 fw-bold">{{ student.nombre }}</h3>
+              <span class="badge bg-info">ID ESTUDIANTE: {{ student.id_estudiante }}</span>
+            </div>
           </div>
-          
+
           <div class="card-body p-4 p-md-5 bg-white">
+
             <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">1. Datos Personales</h6>
             <div class="row g-3 mb-4">
               <div class="col-md-6">
                 <label class="text-muted small fw-bold d-block">Email</label>
-                <div class="fw-bold">{{ student.email }}</div>
+                <input type="email" class="form-control border-0 bg-light rounded-3" [(ngModel)]="student.email">
               </div>
               <div class="col-md-6">
                 <label class="text-muted small fw-bold d-block">Teléfono</label>
-                <div class="fw-bold">{{ student.telefono || 'No indicado' }}</div>
+                <input type="text" class="form-control border-0 bg-light rounded-3" [(ngModel)]="student.telefono">
               </div>
               <div class="col-md-6">
                 <label class="text-muted small fw-bold d-block">F. Nacimiento</label>
-                <div class="fw-bold">{{ student.fecha_nacimiento | date:'dd/MM/yyyy' }}</div>
+                <input type="date" class="form-control border-0 bg-light rounded-3"
+                  [(ngModel)]="student.fecha_nacimiento">
               </div>
             </div>
 
-            <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">2. Información Académica</h6>
+            <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">2. Información Institucional
+            </h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-4">
+                <label class="text-muted small fw-bold d-block">Tipo de Entidad</label>
+                <div class="fw-bold text-dark">{{ student.tipo_entidad || '---' }}</div>
+              </div>
+              <div class="col-md-4">
+                <label class="text-muted small fw-bold d-block">Nombre del Centro</label>
+                <div class="fw-bold text-dark">{{ student.nombre_entidad || '---' }}</div>
+              </div>
+              <div class="col-md-4">
+                <label class="text-muted small fw-bold d-block">Ubicación</label>
+                <div class="fw-bold text-dark">{{ student.ubicacion || '---' }}</div>
+              </div>
+            </div>
+
+            <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">3. Información Académica</h6>
             <div class="row g-3 mb-4">
               <div class="col-md-6">
-                <label class="text-muted small fw-bold d-block">Tipo de Entidad</label>
-                <div class="fw-bold">{{ student.tipo_entidad }}</div>
-              </div>
-              <div class="col-md-6">
-                <label class="text-muted small fw-bold d-block">Nombre del Centro</label>
-                <div class="fw-bold">{{ student.nombre_entidad }}</div>
-              </div>
-              <div class="col-md-12">
-                <label class="text-muted small fw-bold d-block">Ubicación</label>
-                <div class="fw-bold">{{ student.ubicacion }}</div>
-              </div>
-              <div class="col-md-6">
                 <label class="text-muted small fw-bold d-block">Curso</label>
-                <div class="fw-bold">{{ student.curso }}</div>
+                <div class="fw-bold text-dark">{{ student.curso || '---' }}</div>
               </div>
               <div class="col-md-6">
                 <label class="text-muted small fw-bold d-block">Modalidad</label>
-                <div class="fw-bold">{{ student.modalidad }}</div>
+                <div class="fw-bold text-dark">{{ student.modalidad || '---' }}</div>
               </div>
             </div>
 
-            <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">3. Mis Asignaturas</h6>
-            <div class="d-flex flex-wrap gap-2 pt-2">
-              <span *ngFor="let asig of student.asignaturas" class="badge rounded-pill border border-primary text-primary px-3 py-2">
+            <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">4. Mis Asignaturas</h6>
+            <div class="d-flex flex-wrap gap-2 pt-2 mb-4">
+              <span *ngFor="let asig of student.asignaturas"
+                class="badge rounded-pill border border-primary text-primary px-3 py-2">
                 {{ asig }}
               </span>
+            </div>
+
+            <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">5. Seguridad</h6>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="text-muted small fw-bold d-block">Contraseña de acceso</label>
+                <div class="input-group">
+                  <input [type]="verClave ? 'text' : 'password'" class="form-control border-0 bg-light"
+                    [(ngModel)]="student.clave">
+                  <button class="btn btn-light border-0 bg-light" type="button" (click)="verClave = !verClave">
+                    <i class="bi" [ngClass]="verClave ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-end mt-5">
+              <button (click)="actualizarPerfil()" class="btn btn-navy rounded-pill px-5 py-2 fw-bold shadow-sm">
+                ACTUALIZAR PERFIL
+              </button>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col-lg-4">
-        <div class="card shadow-lg border-0 rounded-4 bg-white p-4">
+        <div class="card shadow-lg border-0 rounded-4 bg-white p-4 sticky-top" style="top: 20px;">
           <div class="text-center mb-4">
             <div class="bg-warning text-dark rounded-circle d-inline-flex p-3 mb-2 shadow-sm">
               <i class="bi bi-headset fs-2"></i>
             </div>
             <h5 class="fw-bold">¿Necesitas ayuda?</h5>
           </div>
-          <textarea class="form-control mb-3" rows="5" [(ngModel)]="mensajeSoporte" placeholder="Escribe tu duda..."></textarea>
-          <button (click)="enviarASoporte()" class="btn btn-navy w-100 py-3 fw-bold rounded-pill">
-            ENVIAR A SOPORTE
+
+          <textarea class="form-control mb-3 border-0 bg-light rounded-3" rows="5" [(ngModel)]="mensajeSoporte"
+            placeholder="Escribe tu duda..."></textarea>
+
+          <button (click)="enviarASoporte()" [disabled]="enviando || !mensajeSoporte.trim()"
+            class="btn btn-navy w-100 py-3 fw-bold rounded-pill shadow-sm mb-3">
+            <span *ngIf="!enviando">ENVIAR A SOPORTE</span>
+            <span *ngIf="enviando" class="spinner-border spinner-border-sm me-2"></span>
           </button>
+
+          <div *ngIf="notificacionSoporte" class="alert alert-success border-0 shadow-sm rounded-4 text-center">
+            <i class="bi bi-check-circle-fill fs-4 d-block mb-1"></i>
+            <strong class="small">¡Mensaje enviado!</strong>
+            <p class="mb-0 x-small text-muted">Te responderemos pronto.</p>
+          </div>
+
         </div>
       </div>
     </div>

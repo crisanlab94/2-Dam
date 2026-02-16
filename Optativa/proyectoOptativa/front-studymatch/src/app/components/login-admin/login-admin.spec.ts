@@ -23,7 +23,7 @@ export class LoginAdminComponent {
     this.service.loginAdmin(this.email, this.clave).subscribe({
       next: (res) => {
         if (res.estado) {
-          this.router.navigate(['/admin']); // Te lleva a la tabla
+          this.router.navigate(['/admin']);
         } else {
           this.mensaje = res.mensaje;
         }

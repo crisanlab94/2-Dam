@@ -10,5 +10,5 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./inicio.css']
 })
 export class InicioComponent {
-  // Aquí no necesitamos lógica por ahora, solo es navegación
+
 }

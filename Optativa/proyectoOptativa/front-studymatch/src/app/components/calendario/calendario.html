@@ -1,0 +1,22 @@
+<div class="calendario-container p-4 shadow rounded-4 bg-white">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold text-navy m-0">Calendario de Eventos</h4>
+        <div class="badge bg-navy-light text-navy px-3 py-2 text-uppercase fw-bold">
+            {{ mesActual | date:'MMMM yyyy' }}
+        </div>
+    </div>
+
+    <div class="grid-calendario">
+        <div class="header-dia" *ngFor="let h of ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']">{{h}}</div>
+
+        <div *ngFor="let d of diasMes" class="celda-dia" [class.vacia]="!d.dia"
+            [class.con-evento]="d.tareas?.length > 0" (click)="d.dia ? irAAnadir(d.fecha) : null">
+
+            <span class="numero-dia">{{ d.dia }}</span>
+
+            <div class="puntos-contenedor" *ngIf="d.tareas?.length > 0">
+                <div class="punto-evento" *ngFor="let t of d.tareas.slice(0, 3)"></div>
+            </div>
+        </div>
+    </div>
+</div>

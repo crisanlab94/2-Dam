@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const estudianteSchema = new Schema({
     // ID incremental gestionado por el contador (001, 002...)
-    id_estudiante: { type: String }, 
-    
+    id_estudiante: { type: String },
+
     // Datos Personales y de Contacto
     nombre: { type: String, required: true },
     email: { type: String, unique: true, required: true },
@@ -44,12 +44,12 @@ const estudianteSchema = new Schema({
         nombre_archivo: String,      // Nombre original
         tipo_de_archivo: String,     // Mimetype (image/png, application/pdf)
         ruta_almacenamiento: String, // Nombre generado por Multer
-        fecha_subida: { 
-            type: Date, 
-            default: Date.now 
+        fecha_subida: {
+            type: Date,
+            default: Date.now
         }
     }],
-
+    foto: { type: String, default: "" },
     fecha_registro: { type: Date, default: Date.now }
 });
 
