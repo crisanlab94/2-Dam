@@ -1,0 +1,16 @@
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Partida</th>
+            <th>Farmacéutica</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="vacuna : ${vacunas}">
+            <td th:text="${vacuna.nombre}">Nombre</td>
+            <td th:text="${vacuna.partida}">Partida</td>
+            <td th:text="${vacuna.farmaceutica}">Laboratorio</td>
+        </tr>
+    </tbody>
+</table>

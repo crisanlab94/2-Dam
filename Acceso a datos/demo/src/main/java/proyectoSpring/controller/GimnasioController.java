@@ -12,7 +12,7 @@ import exception.GimnasioNotFoundException;
 import exception.SocioNotFoundException;
 import proyectoSpring.models.*;
 import proyectoSpring.service.*;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/miweb")

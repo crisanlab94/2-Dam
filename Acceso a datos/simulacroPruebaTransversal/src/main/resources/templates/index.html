@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Panel de Control</h1>
+    <p>Bienvenido a la clnica Seleccione una opción:</p>
+    <ul>
+        <li><a th:href="@{/clinica/listaAnimales}">Consultar Lista de Animales</a></li>
+        <li><a th:href="@{/clinica/listaVacunas}">Consultar Lista de vacunas</a></li>
+      
+    </ul>
+</body>
+</html>

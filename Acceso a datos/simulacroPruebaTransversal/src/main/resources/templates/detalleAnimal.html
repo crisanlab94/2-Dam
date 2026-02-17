@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Detalle del Animal</title>
+</head>
+
+<body>
+	<h1>Información del Animal</h1>
+	
+	<ul>
+		<li><strong>ID:</strong> <span th:text="${animal.idAnimal}">1</span></li>
+		<li><strong>Nombre:</strong> <span th:text="${animal.nombre}">Nombre</span></li>
+		<li><strong>Fecha de Nacimiento:</strong> <span th:text="${animal.fechaNacimiento}">2020-01-01</span></li>
+		<li><strong>Tipo:</strong> <span th:text="${animal.tipo}">Tipo</span></li>
+	</ul>
+
+	<a href="/clinica/listaAnimales">Volver al listado</a>
+</body>
+
+</html>
