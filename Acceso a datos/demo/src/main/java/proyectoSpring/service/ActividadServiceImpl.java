@@ -5,12 +5,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import exception.ActividadNotFoundException;
 import proyectoSpring.models.Actividad;
 import proyectoSpring.repository.ActividadRepository;
 
-
+@Service
 public class ActividadServiceImpl implements ActividadService {
 	@Autowired
 	private ActividadRepository actividadRepository;
@@ -22,15 +23,15 @@ public class ActividadServiceImpl implements ActividadService {
 	}
    
 	@Override
-	public Set<Actividad> findActividadByCategory(String nombre) {
-		return actividadRepository.findByCategory(nombre);
+	public Set<Actividad> findActividadByNombre(String nombre) {
+		return actividadRepository.findByNombre(nombre);
 	}
 
 	public Actividad createActividad(Actividad actividad) {
 		return actividadRepository.save(actividad);
 	}
 
-	// Método para encontrar un producto por ID
+	// Método para encontrar una actividad por ID
     public Actividad findActividadById(long id) {
         Optional<Actividad> optionalActividad = actividadRepository.findById(id);
         return optionalActividad.orElseThrow(() -> new ActividadNotFoundException(id));

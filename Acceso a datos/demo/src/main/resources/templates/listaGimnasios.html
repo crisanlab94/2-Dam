@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sedes</title>
+</head>
+<body>
+    <nav>
+        <a th:href="@{/miweb/}">Inicio</a> | 
+        <a th:href="@{/miweb/listaSocios}">Socios</a> | 
+        <a th:href="@{/miweb/listaGimnasios}">Gimnasios</a>
+    </nav>
+    <hr>
+    <h2>Nuestras Sedes</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Centro</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="g : ${gimnasios}">
+                <td th:text="${g.id}"></td>
+                <td th:text="${g.nombre}"></td>
+                <td><a th:href="@{/miweb/gimnasio/{id}(id=${g.id})}">Ver ficha técnica</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

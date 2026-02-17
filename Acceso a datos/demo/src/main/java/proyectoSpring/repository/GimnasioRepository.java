@@ -11,7 +11,7 @@ import proyectoSpring.models.Gimnasio;
 
 public interface GimnasioRepository extends JpaRepository<Gimnasio,Long> {
 	  List<Gimnasio> findAll();
-	    Set<Gimnasio> findByCategory(String nombre);
-	    Gimnasio findProductById(long id);
+	    Set<Gimnasio> findByNombre(String nombre);
+	    Gimnasio findGimnasioById(long id);
 
 }

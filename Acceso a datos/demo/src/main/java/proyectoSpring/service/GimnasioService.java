@@ -9,8 +9,8 @@ import proyectoSpring.models.Gimnasio;
 
 public interface GimnasioService {
 	List<Gimnasio>  findAll();
-    Set<Gimnasio> findGimnasioByCategory(String nombre);
-    public Gimnasio createGimansio(Gimnasio gimnasio) ;
+    Set<Gimnasio> findGimnasioByNombre(String nombre);
+    public Gimnasio createGimnasio(Gimnasio gimnasio) ;
     public Gimnasio findGimnasioById(long id);
     
 

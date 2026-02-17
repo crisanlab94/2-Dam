@@ -20,6 +20,8 @@ public class Actividad {
     private long id;
     private String nombre;
     
+    private Dificultad dificultad;
+    
  // Indicamos que el "dueño" de la relación es el socio
     @ManyToMany(mappedBy = "actividades")
     private List<Socio> socios = new ArrayList<Socio>();
@@ -36,6 +38,15 @@ public class Actividad {
 	super();
 	this.nombre = nombre;
  }
+
+ 
+
+
+ public Actividad(String nombre, Dificultad dificultad) {
+	super();
+	this.nombre = nombre;
+	this.dificultad = dificultad;
+}
 
 
 
@@ -71,6 +82,19 @@ public class Actividad {
 
  public void setSocios(List<Socio> socios) {
 	this.socios = socios;
+ }
+
+
+ 
+
+ public Dificultad getDificultad() {
+	return dificultad;
+}
+
+
+
+ public void setDificultad(Dificultad dificultad) {
+	this.dificultad = dificultad;
  }
 
 

@@ -6,12 +6,14 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import proyectoSpring.models.Actividad;
+import proyectoSpring.models.Dificultad;
 
 
 public interface ActividadRepository extends JpaRepository<Actividad,Long> {
 	  List<Actividad> findAll();
-	    Set<Actividad> findByCategory(String nombre);
-	    Actividad findProductById(long id);
+	    Set<Actividad> findByNombre(String nombre);
+	    List<Actividad> findByDificultad(Dificultad dificultad);
+	    Actividad findActividadById(long id);
 
 }
 

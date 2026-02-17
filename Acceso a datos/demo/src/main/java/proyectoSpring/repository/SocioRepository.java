@@ -9,8 +9,8 @@ import proyectoSpring.models.Socio;
 
 public interface SocioRepository extends JpaRepository<Socio,Long> {
 	  List<Socio> findAll();
-	    Set<Socio> findByCategory(String nombre);
-	    Socio findProductById(long id);
-
+	    Set<Socio> findByNombre(String nombre);
+	    Socio findSocioById(long id);
+	    List<Socio> findByEstaAlCorrientePagoFalse();
 
 }

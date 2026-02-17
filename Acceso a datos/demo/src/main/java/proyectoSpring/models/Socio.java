@@ -24,13 +24,13 @@ public class Socio {
     private long id;
     private String nombre;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "id_gimnasio")
     private Gimnasio gimnasio;
 
 
   
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     private List<Actividad> actividades = new ArrayList<Actividad>();
     
  
