@@ -44,6 +44,10 @@ public class ClinicaController {
 	}
 
 	
+	//Lado debil tiene el atributo mappedbBy
+	//metes al debil en el fuerte
+	//al guerdar el fuerte, hibernate mira la lista de animales y escribe en la tabla animal_vacuna
+	//el lado fuerte quien tiene permiso para escribir en la tabal intermedia
 	/**
      * 1. Agregar Animal
      * Retorna el ID o un mensaje de error.
@@ -63,6 +67,7 @@ public class ClinicaController {
 	    return respuesta;
 	}
 
+	//Lado fuerte 
 	@PostMapping("/agregaVacuna/{id}")
 	@ResponseBody
 	public Map<String, Object> agregaVacuna(@PathVariable("id") long id, @RequestBody Vacuna vacuna) {
@@ -91,4 +96,9 @@ public class ClinicaController {
 		model.addAttribute("animal", animalEncontrado);
 		return "detalleAnimal";
 	}
+	
+	//Si fuera 1:N Animal --> Vacuna
+	// En 1:N el fuerte (Vacuna) recibe al padre (Animal)
+	//vacuna.setAnimal(animal); 
+	//animalesService.createVacuna(vacuna);
 }
