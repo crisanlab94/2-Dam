@@ -24,9 +24,11 @@ public interface AnimalesService {
     
     List<Vacuna> findAllVacuna();
 	  Set<Vacuna> findByPartidaVacuna(String partida);
-	  Set<Vacuna> findByNombreVacuna(String nombre);
+	  Vacuna findByNombreVacuna(String nombre);
 	  Vacuna findVacunaById(long idVacuna);
+	  Vacuna createVacunaById(Vacuna vacuna);
 	  public Vacuna createVacuna(Vacuna vacuna) ;
+	  Vacuna vincularVacunaAAnimal(Long idAnimal, Vacuna vacunaRequest);
   
   
     

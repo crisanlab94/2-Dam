@@ -15,6 +15,7 @@ import acceso.veterinaria.repositories.AnimalRepository;
 import acceso.veterinaria.repositories.VacunaRepository;
 import exception.AnimalNotFoundException;
 import exception.VacunaNotFoundException;
+import jakarta.transaction.Transactional;
 
 
 
@@ -54,20 +55,18 @@ public class AnimalesServiceImpl implements AnimalesService{
 
 	@Override
 	public Animal createAnimal(Animal animal) {
-	    if (animal.getVacunas() != null && !animal.getVacunas().isEmpty()) {
-	        List<Vacuna> vacunasReales = new ArrayList<>();
-	        for (Vacuna v : animal.getVacunas()) {
-	            Vacuna vacunaReal = vacunaRepository.findById(v.getIdVacuna())
-	                .orElseThrow(() -> new VacunaNotFoundException(v.getIdVacuna()));
-	            
-	            // IMPORTANTE: Como Vacuna es la dueña, añadimos el animal a la vacuna
-	            vacunaReal.getAnimales().add(animal); 
-	            
-	            vacunasReales.add(vacunaReal);
-	        }
-	        animal.setVacunas(vacunasReales);
+	    // 1. Aseguramos que la lista de vacunas esté inicializada pero vacía 
+	    // (según pide el enunciado para un animal nuevo)
+	    if (animal.getVacunas() == null) {
+	        animal.setVacunas(new ArrayList<>());
 	    }
-	    return animalRepository.save(animal);
+
+	    // 2. Guardamos al animal (lado débil)
+	    // Esto crea la fila en la tabla 'animales', pero no toca la tabla intermedia
+	    Animal animalGuardado = animalRepository.save(animal);
+
+	    // 3. Un solo return
+	    return animalGuardado;
 	}
 
 	@Override
@@ -81,8 +80,8 @@ public class AnimalesServiceImpl implements AnimalesService{
 	}
 
 	@Override
-	public Set<Vacuna> findByNombreVacuna(String nombre) {
-		return vacunaRepository.findByNombre(nombre);
+	public Vacuna findByNombreVacuna(String nombre) {
+	    return vacunaRepository.findByNombre(nombre); // Ahora sí coinciden (Vacuna con Vacuna)
 	}
 
 	@Override
@@ -90,30 +89,68 @@ public class AnimalesServiceImpl implements AnimalesService{
 		 Optional<Vacuna> OpcionalVacuna = vacunaRepository.findById(idVacuna);
 	        return OpcionalVacuna.orElseThrow(() -> new VacunaNotFoundException(idVacuna));
 	}
-
 	@Override
 	public Vacuna createVacuna(Vacuna vacuna) {
-	    // Verificamos si la vacuna trae animales para vincular
-	    if (vacuna.getAnimales() != null && !vacuna.getAnimales().isEmpty()) {
-	        List<Animal> animalesReales = new ArrayList<>();
+	    // 1. Intentamos buscar si ya existe por nombre
+	    Vacuna resultado = vacunaRepository.findByNombre(vacuna.getNombre());
 
-	        for (Animal a : vacuna.getAnimales()) {
-	            // Buscamos cada animal por su ID en el repositorio de animales
-	            Animal animalReal = animalRepository.findById(a.getIdAnimal())
-	                .orElseThrow(() -> new RuntimeException("Animal no encontrado con ID: " + a.getIdAnimal()));
-	            
-	            animalesReales.add(animalReal);
-	        }
-	        
-	        // Asignamos la lista de animales reales a la vacuna
-	        vacuna.setAnimales(animalesReales);
+	    // 2. Si no existe (es null), la guardamos para que deje de serlo
+	    if (resultado == null) {
+	        resultado = vacunaRepository.save(vacuna);
 	    }
 
-	    // Guardamos la vacuna 
+	    // 3. Un único punto de salida: devolvemos la encontrada o la recién creada
+	    return resultado;
+	}
+
+	@Override
+	public Vacuna createVacunaById(Vacuna vacuna) {
+	    // Solo guarda. Si el objeto ya trae un ID, hará Update. Si no, hará Insert.
 	    return vacunaRepository.save(vacuna);
 	}
 	
 	
-	
-	
+	@Override
+	@Transactional // IMPORTANTE: Asegura que toda la operación sea atómica (o se hace todo o nada)
+	public Vacuna vincularVacunaAAnimal(Long idAnimal, Vacuna vacunaRequest) {
+	    
+	    // 1. BUSCAR EL ANIMAL (El que ya existe)
+	    // Usamos el id que viene en la URL. Si no existe, lanzamos excepción.
+	    Animal animal = animalRepository.findById(idAnimal)
+	            .orElseThrow(() -> new RuntimeException("Error: El animal con ID " + idAnimal + " no existe."));
+
+	    // 2. BUSCAR LA VACUNA (Lógica: "Si no existe, se crea")
+	    // Buscamos en la BBDD por un campo único, como el nombre
+	    Vacuna vacunaDefinitiva = vacunaRepository.findByNombre(vacunaRequest.getNombre());
+
+	    if (vacunaDefinitiva == null) {
+	        // CASO A: La vacuna NO existe en la BBDD
+	        vacunaDefinitiva = vacunaRequest; // Usamos la que viene del JSON
+	        
+	        // Inicializamos la lista de animales por seguridad (evita NullPointerException)
+	        if (vacunaDefinitiva.getAnimales() == null) {
+	            vacunaDefinitiva.setAnimales(new ArrayList<>());
+	        }
+	    } else {
+	        // CASO B: La vacuna SÍ existe
+	        // Actualizamos sus datos con lo que venga en el JSON (partida, farmacéutica...)
+	        vacunaDefinitiva.setPartida(vacunaRequest.getPartida());
+	        vacunaDefinitiva.setFarmaceutica(vacunaRequest.getFarmaceutica());
+	    }
+
+	    // 3. VINCULACIÓN TÉCNICA (Lado Fuerte manda)
+	    // Comprobamos si el animal ya tenía esa vacuna para no duplicar en la tabla intermedia
+	    if (!vacunaDefinitiva.getAnimales().contains(animal)) {
+	        // Metemos al débil (Animal) dentro de la lista del fuerte (Vacuna)
+	        vacunaDefinitiva.getAnimales().add(animal);
+	    }
+
+	    // 4. GUARDAR EL DUEÑO DE LA RELACIÓN
+	    // Al guardar 'vacunaDefinitiva', JPA hace dos cosas:
+	    // - Si es nueva, hace un INSERT en 'vacunas'. Si existía, un UPDATE.
+	    // - Hace un INSERT en la tabla intermedia 'animal_vacuna'.
+	    return vacunaRepository.save(vacunaDefinitiva);
+	}
 }
+	
+

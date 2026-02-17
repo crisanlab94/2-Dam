@@ -10,7 +10,7 @@ import acceso.veterinaria.models.Vacuna;
 public interface VacunaRepository extends JpaRepository<Vacuna,Long> {
 	  List<Vacuna> findAll();
 	  Set<Vacuna> findByPartida(String partida);
-	  Set<Vacuna> findByNombre(String nombre);
+	  Vacuna findByNombre(String nombre);
 	  Vacuna findByIdVacuna(long idVacuna);
 
 }
