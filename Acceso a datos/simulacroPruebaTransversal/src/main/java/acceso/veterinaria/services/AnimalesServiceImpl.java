@@ -151,6 +151,85 @@ public class AnimalesServiceImpl implements AnimalesService{
 	    // - Hace un INSERT en la tabla intermedia 'animal_vacuna'.
 	    return vacunaRepository.save(vacunaDefinitiva);
 	}
+	
+	
+	// --- MÉTODO PARA ACTUALIZAR con string---
+	public Animal updateAnimal(Long id, Animal datosNuevos) {
+	    // 1. Buscamos si el animal existe
+	    return animalRepository.findById(id).map(animal -> {
+	        // 2. Actualizamos los campos (ajusta los nombres según tu modelo Animal)
+	        animal.setNombre(datosNuevos.getNombre());
+	        // animal.setEspecie(datosNuevos.getEspecie()); // añade los campos que necesites
+	        
+	        // 3. Guardamos los cambios
+	        return animalRepository.save(animal);
+	    }).orElseThrow(() -> new RuntimeException("Animal no encontrado con ID: " + id));
+	}
+
+	// --- MÉTODO PARA ELIMINAR con string  ---
+	public void deleteAnimal(Long id) {
+	    // 1. Comprobamos si existe antes de borrar para evitar errores feos
+	    if (animalRepository.existsById(id)) {
+	        animalRepository.deleteById(id);
+	    } else {
+	        throw new RuntimeException("No se puede eliminar: Animal no encontrado");
+	    }
+	}
+	
+	// Lógica para actualizar con json (PUT)
+    public Animal updateAnimalJSON(Long id, Animal datosNuevos) {
+        return animalRepository.findById(id).map(animal -> {
+            // Actualiza aquí los campos que necesites
+            animal.setNombre(datosNuevos.getNombre());
+            // animal.setEspecie(datosNuevos.getEspecie()); 
+            return animalRepository.save(animal);
+        }).orElseThrow(() -> new RuntimeException("El animal con ID " + id + " no existe."));
+    }
+
+    // Lógica para eliminar con json (DELETE)
+    public void deleteAnimalJSON(Long id) {
+        if (animalRepository.existsById(id)) {
+            animalRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontró el animal para eliminar.");
+        }
+    }
+	
+    public void desvincularVacunaDeAnimal(Long idAnimal, Long idVacuna) {
+        // 1. Buscamos al animal (lado fuerte)
+        Animal animal = animalRepository.findById(idAnimal)
+                .orElseThrow(() -> new RuntimeException("Animal no encontrado"));
+
+        // 2. Buscamos la vacuna dentro de la colección del animal
+        // Usamos removeIf para quitar de la lista la vacuna que coincida con el ID
+        boolean eliminada = animal.getVacunas().removeIf(v -> v.getIdVacuna().equals(idVacuna));
+
+        if (!eliminada) {
+            throw new RuntimeException("El animal no tenía asignada esa vacuna");
+        }
+
+        // 3. Al guardar el animal, Hibernate borra la fila en la tabla intermedia automáticamente
+        animalRepository.save(animal);
+    }
+    
+    
+    //Relacion 1:N
+    /*
+    public Vacuna vincularVacunaAAnimal1N(Long idAnimal, Vacuna vacunaNueva) {
+        // 1. Buscamos al animal que será el "dueño" de la vacuna
+        Animal animal = animalRepository.findById(idAnimal)
+                .orElseThrow(() -> new RuntimeException("Animal no encontrado"));
+
+        // 2. Establecemos la relación (LADO FUERTE)
+        // En el modelo Vacuna debes tener un: private Animal animal;
+        vacunaNueva.setAnimales(animal); 
+
+        // 3. Guardamos la vacuna. 
+        // Al guardar la vacuna, Hibernate escribe automáticamente el id_animal en la tabla vacuna.
+        return vacunaRepository.save(vacunaNueva);
+    }
+    */
+	
 }
 	
 

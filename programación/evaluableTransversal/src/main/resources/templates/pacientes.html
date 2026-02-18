@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Productos</title>
+</head>
+
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Nombre del Paciente</th>
+				<th>Dni</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="paciente : ${pacientes}">
+				<td th:text="${paciente.nombre}">Nombre </td>
+				<td th:text="${paciente.dni}">DNI</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

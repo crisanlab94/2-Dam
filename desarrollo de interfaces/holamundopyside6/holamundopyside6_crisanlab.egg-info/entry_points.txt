@@ -1,0 +1,2 @@
+[console_scripts]
+holamundopyside6 = holamundopyside6.__main__:main

@@ -30,7 +30,12 @@ public interface AnimalesService {
 	  public Vacuna createVacuna(Vacuna vacuna) ;
 	  Vacuna vincularVacunaAAnimal(Long idAnimal, Vacuna vacunaRequest);
   
-  
+	  public Animal updateAnimal(Long id, Animal datosNuevos);
+	  public void deleteAnimal(Long id);
+	  public Animal updateAnimalJSON(Long id, Animal datosNuevos);
+	  public void deleteAnimalJSON(Long id);
+	  public void desvincularVacunaDeAnimal(Long idAnimal, Long idVacuna);
+	 // relacion 1:N public Vacuna vincularVacunaAAnimal1N(Long idAnimal, Vacuna vacunaNueva);
     
 
 }

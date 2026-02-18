@@ -1,0 +1,6 @@
+<body>
+    <h2>Ficha de la Sede</h2>
+    <p>Nombre: <span th:text="${detalleGimnasio.nombre}"></span></p>
+    <p>Estado: <span th:text="${detalleGimnasio.estaAbierto ? 'Abierto' : 'Cerrado'}"></span></p>
+    <a th:href="@{/miweb/listaGimnasios}">Volver</a>
+</body>
