@@ -1,0 +1,19 @@
+.inicio-wrapper {
+    background-color: #fffde7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+
+.btn-navy {
+    background-color: #1a3a5a;
+    color: white;
+}
+
+.contenedor-imagen {
+    text-align: center;
+}

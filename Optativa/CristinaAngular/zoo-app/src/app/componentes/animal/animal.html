@@ -1,0 +1,54 @@
+<div class="main">
+    <h1>Gestión de zoo-app</h1>
+    <hr>
+
+    <div class="form-card">
+        <h3>{{ editando ? 'Modificar Animal: ' + nuevo.id_entidad : 'Alta de Nuevo Animal' }}</h3>
+
+        <div class="grid-form">
+            <input type="text" [(ngModel)]="nuevo.nombre" placeholder="Nombre del animal">
+            <input type="email" [(ngModel)]="nuevo.email" placeholder="Email del cuidador">
+            <input type="password" [(ngModel)]="nuevo.clave" placeholder="Clave de acceso">
+            <input type="date" [ngModel]="nuevo.fecha_nacimiento | date:'yyyy-MM-dd'"
+                (ngModelChange)="nuevo.fecha_nacimiento = $event">
+        </div>
+
+        <div class="btns">
+            <button (click)="guardar()" [style.background]="editando ? '#f39c12' : '#27ae60'">
+                {{ editando ? 'Guardar Cambios' : 'Registrar Animal' }}
+            </button>
+
+            <button *ngIf="editando" (click)="cancelar()" style="background: #95a5a6;">
+                Cancelar Edición
+            </button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table *ngIf="animales.length > 0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email Cuidador</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of animales">
+                    <td class="id-column">{{ a.id_entidad }}</td>
+                    <td>{{ a.nombre }}</td>
+                    <td>{{ a.email }}</td>
+                    <td>
+                        <button (click)="actualizar(a)" class="btn-edit">Actualizar</button>
+                        <button (click)="eliminar(a.id_entidad)" class="btn-delete">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p *ngIf="animales.length === 0" class="warning">
+            ⚠️ No hay animales en el zoo. El siguiente registro será el <strong>001</strong>.
+        </p>
+    </div>
+</div>

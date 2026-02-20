@@ -1,0 +1,8 @@
+.contenedor-centrado {
+    display: grid;
+    place-content: center;
+    /* Centrado perfecto vertical y horizontal */
+    min-height: 100vh;
+    font-size: 18px;
+    /* Aumenta el tamaño */
+}

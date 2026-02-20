@@ -1,0 +1,38 @@
+<div class="main">
+    <h1>Concesionario de coches</h1>
+    <hr>
+</div>
+<div class="table-container">
+    <table *ngIf="vehiculos.length > 0">
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Kilometros</th>
+                <th>Fecha de registro</th>
+                <th>Propietarios</th>
+                <th>Tipo de combustile</th>
+                <th>Última ITV</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let a of vehiculos">
+                <td class="id-column">{{ a.identificacion }}</td>
+                <td>{{ a.modelo }}</td>
+                <td>{{ a.kilometros }}</td>
+                <td>{{ a.propietarios }}</td>
+                <td>{{ a.tipo_combustible }}</td>
+                <td>{{ a.ultima_itv }}</td>
+                <td>{{ a.precio }}</td>
+                <td>
+                    <button (click)="actualizar(a)" class="btn-edit">Actualizar</button>
+                    <button (click)="eliminar(a.identificacion)" class="btn-delete">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p *ngIf="vehiculos.length === 0" class="warning">
+        ⚠️ No hay animales en el zoo. El siguiente registro será el <strong>001</strong>.
+    </p>
+</div>
