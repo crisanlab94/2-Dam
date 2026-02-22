@@ -1,0 +1,151 @@
+anio,distrito,servicio,usos
+2020,Bahía,App recargas,1406
+2020,Bahía,Bici pública,2178
+2020,Bahía,Bus urbano,7264
+2020,Bahía,Metro,5084
+2020,Bahía,Tranvía,2637
+2020,Centro,App recargas,2539
+2020,Centro,Bici pública,3646
+2020,Centro,Bus urbano,11697
+2020,Centro,Metro,9951
+2020,Centro,Tranvía,4838
+2020,Este,App recargas,1597
+2020,Este,Bici pública,2411
+2020,Este,Bus urbano,8595
+2020,Este,Metro,6433
+2020,Este,Tranvía,3280
+2020,Norte,App recargas,1972
+2020,Norte,Bici pública,2627
+2020,Norte,Bus urbano,9273
+2020,Norte,Metro,8279
+2020,Norte,Tranvía,3566
+2020,Oeste,App recargas,1549
+2020,Oeste,Bici pública,2073
+2020,Oeste,Bus urbano,9050
+2020,Oeste,Metro,6186
+2020,Oeste,Tranvía,2461
+2020,Sur,App recargas,1474
+2020,Sur,Bici pública,2092
+2020,Sur,Bus urbano,8892
+2020,Sur,Metro,6402
+2020,Sur,Tranvía,3099
+2021,Bahía,App recargas,1646
+2021,Bahía,Bici pública,2490
+2021,Bahía,Bus urbano,8201
+2021,Bahía,Metro,5537
+2021,Bahía,Tranvía,2646
+2021,Centro,App recargas,2923
+2021,Centro,Bici pública,3153
+2021,Centro,Bus urbano,11351
+2021,Centro,Metro,12247
+2021,Centro,Tranvía,4871
+2021,Este,App recargas,1639
+2021,Este,Bici pública,2832
+2021,Este,Bus urbano,8991
+2021,Este,Metro,7147
+2021,Este,Tranvía,3679
+2021,Norte,App recargas,2035
+2021,Norte,Bici pública,2586
+2021,Norte,Bus urbano,9039
+2021,Norte,Metro,7921
+2021,Norte,Tranvía,3003
+2021,Oeste,App recargas,1859
+2021,Oeste,Bici pública,2602
+2021,Oeste,Bus urbano,8809
+2021,Oeste,Metro,6472
+2021,Oeste,Tranvía,2454
+2021,Sur,App recargas,1598
+2021,Sur,Bici pública,2555
+2021,Sur,Bus urbano,10366
+2021,Sur,Metro,7146
+2021,Sur,Tranvía,3193
+2022,Bahía,App recargas,1679
+2022,Bahía,Bici pública,2454
+2022,Bahía,Bus urbano,7740
+2022,Bahía,Metro,6731
+2022,Bahía,Tranvía,2943
+2022,Centro,App recargas,3086
+2022,Centro,Bici pública,3292
+2022,Centro,Bus urbano,12117
+2022,Centro,Metro,11103
+2022,Centro,Tranvía,4696
+2022,Este,App recargas,1695
+2022,Este,Bici pública,2933
+2022,Este,Bus urbano,10743
+2022,Este,Metro,7895
+2022,Este,Tranvía,3498
+2022,Norte,App recargas,2008
+2022,Norte,Bici pública,3146
+2022,Norte,Bus urbano,11732
+2022,Norte,Metro,8185
+2022,Norte,Tranvía,4065
+2022,Oeste,App recargas,1697
+2022,Oeste,Bici pública,2512
+2022,Oeste,Bus urbano,8913
+2022,Oeste,Metro,7258
+2022,Oeste,Tranvía,3066
+2022,Sur,App recargas,1514
+2022,Sur,Bici pública,3113
+2022,Sur,Bus urbano,10641
+2022,Sur,Metro,8364
+2022,Sur,Tranvía,3395
+2023,Bahía,App recargas,1801
+2023,Bahía,Bici pública,2947
+2023,Bahía,Bus urbano,8701
+2023,Bahía,Metro,6590
+2023,Bahía,Tranvía,2738
+2023,Centro,App recargas,2957
+2023,Centro,Bici pública,3734
+2023,Centro,Bus urbano,13378
+2023,Centro,Metro,12794
+2023,Centro,Tranvía,5123
+2023,Este,App recargas,2111
+2023,Este,Bici pública,3131
+2023,Este,Bus urbano,10963
+2023,Este,Metro,9506
+2023,Este,Tranvía,3829
+2023,Norte,App recargas,2188
+2023,Norte,Bici pública,3223
+2023,Norte,Bus urbano,9845
+2023,Norte,Metro,8878
+2023,Norte,Tranvía,4048
+2023,Oeste,App recargas,1882
+2023,Oeste,Bici pública,3305
+2023,Oeste,Bus urbano,8091
+2023,Oeste,Metro,7418
+2023,Oeste,Tranvía,2903
+2023,Sur,App recargas,1992
+2023,Sur,Bici pública,2728
+2023,Sur,Bus urbano,9662
+2023,Sur,Metro,7583
+2023,Sur,Tranvía,3489
+2024,Bahía,App recargas,1828
+2024,Bahía,Bici pública,2956
+2024,Bahía,Bus urbano,9486
+2024,Bahía,Metro,6257
+2024,Bahía,Tranvía,2839
+2024,Centro,App recargas,3359
+2024,Centro,Bici pública,3578
+2024,Centro,Bus urbano,14833
+2024,Centro,Metro,11570
+2024,Centro,Tranvía,6344
+2024,Este,App recargas,2012
+2024,Este,Bici pública,3434
+2024,Este,Bus urbano,12544
+2024,Este,Metro,8136
+2024,Este,Tranvía,3866
+2024,Norte,App recargas,2249
+2024,Norte,Bici pública,3412
+2024,Norte,Bus urbano,13771
+2024,Norte,Metro,8392
+2024,Norte,Tranvía,3978
+2024,Oeste,App recargas,2051
+2024,Oeste,Bici pública,2944
+2024,Oeste,Bus urbano,10227
+2024,Oeste,Metro,8629
+2024,Oeste,Tranvía,2645
+2024,Sur,App recargas,1964
+2024,Sur,Bici pública,3179
+2024,Sur,Bus urbano,10030
+2024,Sur,Metro,8291
+2024,Sur,Tranvía,3449

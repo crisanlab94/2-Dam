@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: holamundopyside6-crisanlab
+Version: 0.0.2
+Summary: Hola mundo con PySide6
+Author: Nombre Apellidos
+Author-email: correo@ejemplo.com
+License: MIT
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: summary
+
+# Hola Mundo PyPI
+Ejemplo de empaquetado y distribución de una aplicación Python.

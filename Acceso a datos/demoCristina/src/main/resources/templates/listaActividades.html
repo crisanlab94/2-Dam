@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actividades</title>
+</head>
+<body>
+    <nav>
+        <a th:href="@{/miweb/}">Inicio</a> | 
+        <a th:href="@{/miweb/listaActividades}">Todas las Actividades</a>
+    </nav>
+    <hr>
+    <h2>Buscador de Clases</h2>
+    <form th:action="@{/miweb/buscarActividad}" method="get">
+        <label>Nombre:</label>
+        <input type="text" name="nombre">
+        <input type="submit" value="Consultar">
+    </form>
+    <br>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Actividad</th>
+                <th>Dificultad</th>
+                <th>Enlace</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${actividades}">
+                <td th:text="${a.nombre}"></td>
+                <td th:text="${a.dificultad}"></td>
+                <td><a th:href="@{/miweb/actividad/{id}(id=${a.id})}">Ver ficha</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

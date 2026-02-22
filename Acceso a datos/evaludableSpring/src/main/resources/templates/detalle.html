@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Paciente</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Detalles del Paciente</h1>
+        <p><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></p>
+        <p><strong>DNI:</strong> <span th:text="${paciente.dni}"></span></p>
+
+        <h2>Constantes Vitales</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Frecuencia Cardíaca</th>
+                    <th>Tensión</th>
+                    <th>Temperatura</th>
+                    <th>Fecha Registro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="constante : ${paciente.constantesVitales}">
+                    <td th:text="${constante.frecuenciaCardiaca}"></td>
+                    <td th:text="${constante.tension}"></td>
+                    <td th:text="${constante.temperatura}"></td>
+                    <td th:text="${#temporals.format(constante.fechaRegistro, 'dd/MM/yyyy HH:mm')}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(paciente.constantesVitales)}">
+                    <td colspan="4">No hay registros de constantes vitales.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

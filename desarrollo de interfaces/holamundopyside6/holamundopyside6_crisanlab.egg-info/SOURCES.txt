@@ -1,0 +1,11 @@
+MANIFEST.in
+README.md
+setup.py
+holamundopyside6/__init__.py
+holamundopyside6/__main__.py
+holamundopyside6/iconos/perro.png
+holamundopyside6_crisanlab.egg-info/PKG-INFO
+holamundopyside6_crisanlab.egg-info/SOURCES.txt
+holamundopyside6_crisanlab.egg-info/dependency_links.txt
+holamundopyside6_crisanlab.egg-info/entry_points.txt
+holamundopyside6_crisanlab.egg-info/top_level.txt

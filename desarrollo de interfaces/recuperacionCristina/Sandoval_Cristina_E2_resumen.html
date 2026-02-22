@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+<meta charset="UTF-8" />
+
+<link rel="shortcut icon" type="image/png" href="https://datapane-cdn.com/static/v1/datapane-icon-192x192.png"/>
+<link rel="shortcut icon" sizes="192x192" href="https://datapane-cdn.com/static/v1/datapane-icon-192x192.png"/>
+<link rel="apple-touch-icon" href="https://datapane-cdn.com/static/v1/datapane-icon-192x192.png"/>
+
+<script src="https://kit.fontawesome.com/256c714d9a.js"></script>
+<link
+  href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700|Inconsolata|Karla|Rubik&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="https://datapane-cdn.com/v0.17.0/report/index.css" />
+<link rel="stylesheet" href="https://datapane-cdn.com/v0.17.0/report/tailwind.css" />
+<script>
+  // analytics config
+  // TODO -- pass these in as props for consistency?
+  window.dpAppRunner = false;
+  window.dpLocal = true;
+
+  /* construct the view */
+  const htmlHeader = `<style type="text/css">:root {
+    --dp-accent-color: #4E46E5;
+    --dp-bg-color: #FFF;
+    --dp-text-align: left;
+    --dp-font-family: Inter, ui-sans-serif, system-ui;
+}</style>`;
+  window.reportProps = { htmlHeader, isLightProse: false, isOrg: false, mode: "VIEW", reportWidthClass: "max-w-screen-xl" };
+
+  if (!window.dpAppRunner) {
+      // pass app data via props if in local (static) mode, otherwise this data is fetched from the server
+      window.reportProps["appData"] = { data: { result: {"view_xml": "\u003cView version=\"1\" fragment=\"false\"\u003e\u003cText\u003e\u003c![CDATA[#Ejercicio 2. Indicadores y resumen ejecutivo\n\nEste informe explica el total de usos acumulados de transporte y la comparativa del a\u00f1o actual(\u00faltimo a\u00f1o) con el a\u00f1o anterior]]\u003e\u003c/Text\u003e\u003cBigNumber heading=\"Total de usos acumulados\" value=\"801547\" is_positive_intent=\"false\" is_upward_change=\"false\"/\u003e\u003cBigNumber heading=\"Comparativa de uso en el \u00faltimo a\u00f1o 2024 vs a\u00f1o anterior 2023\" value=\"178253\" change=\"10715\" is_positive_intent=\"true\" is_upward_change=\"true\"/\u003e\u003c/View\u003e", "assets": {}} }};
+  }
+</script>
+<script type="module">
+  import { mountReport } from "https://datapane-cdn.com/v0.17.0/report/index.es.js";
+  mountReport(window.reportProps);
+</script>
+  </head>
+  <body>
+      <div id="report"></div>
+  </body>
+</html>

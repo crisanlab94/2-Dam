@@ -1,31 +1,29 @@
-#Cristina Sandoval Laborde 2ºDAM
-#Ejercicio 2
 import pandas as pd
 import datapane as dp
-import matplotlib.pyplot as plt
 
-#Carga de fichero
+df=pd.read_csv('consorcio_tranporte_uso_servicios.csv')
 
-df=pd.read_csv("uso_servicios_municipales.csv")
-df.columns=df.columns.str.lower()
+total_usos=df['usos'].sum()
 
-#Logica
+ultimo_anio=df['anio'].max()
+uso_actual=df[df['anio']== ultimo_anio]['usos'].sum()
+uso_anterior=df[df['anio']==(ultimo_anio -1)]['usos'].sum()
+delta=uso_actual - uso_anterior
 
-filtro_municipio= df[(df['distrito']) & (df['anio'] == 2023)]
-max_usosS=filtro_municipio['numero_usos'].idxmax()
-max_municipio=filtro_municipio.loc[max_usosS]
-nombre=max_municipio['distrito']
-numero_total_servicios=max_municipio['numero_usos']
+indicador_total=dp.BigNumber(
+    heading="Total de usos acumulados", value=total_usos)
 
-
-
-titulo=dp.HTML(
-    '<p style = "font-size:30px; text-align:center'
+indicador_comparativo=dp.BigNumber(
+    heading=f"Comparativa de uso en el último año {ultimo_anio} vs año anterior {ultimo_anio-1}",
+    value=uso_actual,
+    change=delta,
+    is_upward_change=delta > 0
 )
 
-reporte= dp.Report(
-    titulo,
-    dp.Text("Esta información es relevante para el ayuntamiento porque le permite ver de un solo vistazo el resumen ejecutivo de usos de servicios municipales"),
-    total_usos,
-    comparativa
+report=dp.Report(
+    dp.Text("#Ejercicio 2. Indicadores y resumen ejecutivo"),
+    dp.Text("Este informe explica el total de usos acumulados de transporte y la comparativa del año actual(último año) con el año anterior"),
+    indicador_total,
+    indicador_comparativo  
 )
+report.save("Sandoval_Cristina_E2_resumen.html", open=True)
