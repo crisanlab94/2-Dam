@@ -1,0 +1,30 @@
+import pandas as pd
+import datapane as dp
+
+# Cargar los datos
+df = pd.read_csv('uso_servicios_municipales.csv')
+
+# --- Análisis para el PDF ---
+# 1. Distrito con más usos en el último año (2023)
+ultimo_anio = df['anio'].max()
+top_distrito = df[df['anio'] == ultimo_anio].groupby('distrito')['numero_usos'].sum().idxmax()
+
+# 2. Servicio con más usos totales
+top_servicio = df.groupby('servicio')['numero_usos'].sum().idxmax()
+
+# 3. Servicio que empieza por 'B' (Bibliotecas) con más usos en 2023
+df_b = df[(df['servicio'].str.startswith('B')) & (df['anio'] == 2023)]
+top_servicio_b = df_b.loc[df_b['numero_usos'].idxmax(), 'servicio']
+
+# Generar informe
+report = dp.Report(
+    dp.Text("# Tabla Interactiva y Análisis de Uso"),
+    dp.DataTable(df),  # La tabla interactiva permite filtrar y ordenar [cite: 4189]
+    dp.Text(f"""
+    ### Hallazgos del análisis:
+    1. **Distrito top ({ultimo_anio}):** {top_distrito}
+    2. **Servicio más usado (Global):** {top_servicio}
+    3. **Servicio 'B' top (2023):** {top_servicio_b}
+    """)
+)
+report.save("apellido1_nombre_E1_tabla.html", open=True)

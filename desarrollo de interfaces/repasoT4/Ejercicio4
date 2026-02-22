@@ -1,0 +1,61 @@
+import pandas as pd
+import datapane as dp
+import matplotlib.pyplot as plt
+
+# 1. Carga y preparación de datos
+df = pd.read_csv('uso_servicios_municipales.csv')
+
+# --- Cálculos para el Resumen (Ejercicio 2) ---
+total_acumulado = df['numero_usos'].sum()
+ultimo_anio = df['anio'].max()
+usos_ultimo = df[df['anio'] == ultimo_anio]['numero_usos'].sum()
+usos_anterior = df[df['anio'] == (ultimo_anio - 1)]['numero_usos'].sum()
+delta = usos_ultimo - usos_anterior
+
+# --- Gráficos para el Análisis (Ejercicio 3) ---
+# Evolución por año
+fig_linea, ax_l = plt.subplots()
+df.groupby('anio')['numero_usos'].sum().plot(kind='line', marker='o', ax=ax_l)
+ax_l.set_title("Tendencia Anual")
+
+# --- CONSTRUCCIÓN DEL INFORME ORGANIZADO ---
+report = dp.Report(
+    # PÁGINA 1: RESUMEN [cite: 45]
+    dp.Page(
+        title="Resumen",
+        blocks=[
+            dp.Text("# Resumen ejecutivo - Uso de servicios municipales"),
+            dp.Text("Este informe analiza la demanda de servicios para optimizar la asignación de recursos municipales."),
+            
+            # Al menos un dp.Group para colocar elementos en cuadrícula 
+            dp.Group(
+                dp.BigNumber(heading="Total usos acumulados", value=total_acumulado),
+                dp.BigNumber(
+                    heading=f"Cambio {ultimo_anio} vs {ultimo_anio-1}", 
+                    value=usos_ultimo, 
+                    change=delta, 
+                    is_upward_change=(delta > 0)
+                ),
+                columns=2
+            )
+        ]
+    ),
+    
+    # PÁGINA 2: ANÁLISIS [cite: 46]
+    dp.Page(
+        title="Análisis",
+        blocks=[
+            dp.Text("# Análisis Detallado"),
+            
+            # Al menos un dp.Select para alternar vistas 
+            dp.Select(
+                blocks=[
+                    dp.DataTable(df, label="Explorar Tabla Interactiva"),
+                    dp.Plot(fig_linea, label="Ver Evolución Visual")
+                ]
+            )
+        ]
+    )
+)
+
+report.save("apellido1_nombre_E4_informe_organizado.html", open=True)
