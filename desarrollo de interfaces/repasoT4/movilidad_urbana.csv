@@ -1,0 +1,12 @@
+anio,zona,transporte,pasajeros
+2021,Centro,Metro,45000
+2021,Norte,Autobus,22000
+2021,Sur,Tren,31000
+2022,Centro,Metro,52000
+2022,Norte,Autobus,25000
+2022,Sur,Tren,28000
+2022,Centro,Moto-sharing,15000
+2023,Centro,Metro,48000
+2023,Norte,Autobus,27000
+2023,Sur,Tren,35000
+2023,Este,Tranvia,12000

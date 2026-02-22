@@ -1,0 +1,47 @@
+import pandas as pd
+import datapane as dp
+import matplotlib.pyplot as plt
+
+# 1. Cargar los datos con el nombre correcto
+df = pd.read_csv('uso_servicios_municipales.csv')
+
+# --- GRÁFICO 1: Sectores (Distribución por servicio) ---
+# Agrupado por 'servicio' y sumando 'numero_usos' [cite: 34]
+servicios_usos = df.groupby('servicio')['numero_usos'].sum()
+fig1, ax1 = plt.subplots(figsize=(8, 6))
+servicios_usos.plot.pie(ax=ax1, autopct='%1.1f%%', startangle=90)
+ax1.set_title("Distribución de usos por servicio")
+ax1.set_ylabel("") # Quitar etiqueta del eje Y para estética
+
+# --- GRÁFICO 2: Líneas (Evolución por año) ---
+# Agrupado por 'anio' y sumando 'numero_usos' [cite: 35]
+evolucion_anio = df.groupby('anio')['numero_usos'].sum()
+fig2, ax2 = plt.subplots(figsize=(10, 5))
+evolucion_anio.plot(kind='line', marker='o', ax=ax2, color='green')
+ax2.set_title("Evolución de usos totales por año")
+ax2.set_xlabel("Año")
+ax2.set_ylabel("Total de Usos")
+ax2.grid(True)
+
+# --- GRÁFICO 3: Barras (Usos por distrito) ---
+# Agrupado por 'distrito' y sumando 'numero_usos' [cite: 36]
+distritos_usos = df.groupby('distrito')['numero_usos'].sum().sort_values(ascending=False)
+fig3, ax3 = plt.subplots(figsize=(10, 5))
+distritos_usos.plot(kind='bar', ax=ax3, color='skyblue')
+ax3.set_title("Usos totales por distrito")
+ax3.set_xlabel("Distrito")
+ax3.set_ylabel("Total de Usos")
+plt.xticks(rotation=45)
+
+# --- GENERAR INFORME ---
+report = dp.Report(
+    dp.Text("# Gráficos de uso de servicios"),
+    dp.Text("## 1. Distribución por servicio"),
+    dp.Plot(fig1),
+    dp.Text("## 2. Evolución temporal"),
+    dp.Plot(fig2),
+    dp.Text("## 3. Usos por distrito"),
+    dp.Plot(fig3)
+)
+
+report.save("apellido1_nombre_E3_graficos.html", open=True)
