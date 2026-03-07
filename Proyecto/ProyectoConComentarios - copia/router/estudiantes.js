@@ -54,7 +54,7 @@ router.get('/dashboard-info', isAuthenticated, async (req, res) => {
 
         res.json({
             estado: true,
-            estudiante: estudiante, // <--- Enviamos el objeto completo de la base de datos
+            estudiante: estudiante, 
             progreso: porcentajeProgreso,
             fraseMotivacional: fraseAleatoria,
             notificaciones: notificacionesReales
@@ -164,7 +164,7 @@ router.delete('/:id', async (req, res) => {
 router.post('/aniadir-tarea', isAuthenticated, async (req, res) => {
     try {
         const { titulo, tipo, fecha, hora, mensaje_personalizado } = req.body;
-        // Usamos req.session.usuarioId directamente
+      
         await Estudiante.findByIdAndUpdate(req.session.usuarioId, {
             $push: {
                 tareas: {
@@ -206,7 +206,7 @@ router.put('/editar-tarea/:tareaId', isAuthenticated, async (req, res) => {
 // Eliminar una tarea específica
 router.delete('/eliminar-tarea/:tareaId', isAuthenticated, async (req, res) => {
     try {
-        // Usamos $pull para quitar el objeto del array que coincida con el ID
+       
         await Estudiante.findOneAndUpdate(
             { "tareas._id": req.params.tareaId },
             { $pull: { tareas: { _id: req.params.tareaId } } }
@@ -217,7 +217,7 @@ router.delete('/eliminar-tarea/:tareaId', isAuthenticated, async (req, res) => {
     }
 });
 
-// Cambiar estado de una tarea (Check/Uncheck en el calendario)
+// Cambiar estado de una tarea s
 router.put('/toggle-tarea/:tareaId', isAuthenticated, async (req, res) => {
     try {
         const estudiante = await Estudiante.findOne({ "tareas._id": req.params.tareaId });

@@ -1,0 +1,24 @@
+.add-evento-wrapper {
+    background-color: #fffde7;
+}
+
+.text-navy {
+    color: #1a3a5a;
+}
+
+.btn-navy {
+    background-color: #1a3a5a;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-navy:hover {
+    background-color: #122a42;
+    transform: translateY(-2px);
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(26, 58, 90, 0.1);
+    background-color: #f8f9fa;
+}

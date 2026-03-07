@@ -1,0 +1,94 @@
+<div class="mis-eventos-wrapper min-vh-100 pt-5 pb-5">
+    <div class="container mt-2">
+
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="fw-bold text-uppercase text-navy m-0" style="letter-spacing: 2px;">Mis Eventos</h1>
+            <a routerLink="/mi-perfil" class="btn btn-outline-navy fw-bold rounded-3 shadow-sm">
+                Volver al Panel
+            </a>
+        </div>
+
+        <div class="row justify-content-center" *ngIf="student">
+            <div class="col-lg-9">
+
+                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="small fw-bold text-muted">Progreso de objetivos</span>
+                        <span class="badge bg-navy rounded-pill">{{ porcentajeProgreso }}%</span>
+                    </div>
+                    <div class="progress" style="height: 12px; border-radius: 6px; background-color: #f0f0f0;">
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                            [style.width.%]="porcentajeProgreso"></div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-2 mb-4">
+                    <button class="btn btn-sm btn-filter" [class.active]="filtroActual === 'todas'"
+                        (click)="aplicarFiltro('todas')">Todas</button>
+                    <button class="btn btn-sm btn-filter" [class.active]="filtroActual === 'pendientes'"
+                        (click)="aplicarFiltro('pendientes')">Pendientes</button>
+                    <button class="btn btn-sm btn-filter" [class.active]="filtroActual === 'completadas'"
+                        (click)="aplicarFiltro('completadas')">Completadas</button>
+                </div>
+
+                <div class="lista-tareas">
+                    <div *ngFor="let tarea of tareasFiltradas" class="mb-3 tarea-item">
+                        <div class="card shadow-sm border-0 rounded-4"
+                            [ngClass]="tarea.completada ? 'borde-completado' : 'borde-pendiente'">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div [class.tarea-completada]="tarea.completada">
+                                        <div class="d-flex align-items-center gap-2 mb-1">
+                                            <h4 class="fw-bold text-navy mb-0">{{ tarea.titulo }}</h4>
+
+                                            <ng-container *ngIf="!tarea.completada">
+                                                <span *ngIf="getDiasFaltantes(tarea.fecha) as info"
+                                                    class="badge badge-tiempo" [ngClass]="info.clase">
+                                                    {{ info.texto }}
+                                                </span>
+                                            </ng-container>
+                                        </div>
+
+                                        <p class="text-muted small mb-2">
+                                            <i class="bi bi-calendar-event me-1"></i> {{ tarea.fecha | date:'dd/MM/yyyy'
+                                            }} |
+                                            <i class="bi bi-clock me-1"></i> {{ tarea.hora }}
+                                        </p>
+
+                                        <div *ngIf="tarea.mensaje_personalizado"
+                                            class="p-2 bg-light rounded-3 border-start border-3 border-info mt-2">
+                                            <small class="text-dark italic">"{{ tarea.mensaje_personalizado }}"</small>
+                                        </div>
+                                    </div>
+
+                                    <span class="badge rounded-pill px-3 py-2 text-uppercase bg-navy-light text-navy">
+                                        {{ tarea.tipo }}
+                                    </span>
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-2 mt-3 pt-3 border-top">
+                                    <button class="btn btn-sm btn-action"
+                                        [ngClass]="tarea.completada ? 'btn-secondary' : 'btn-primary'"
+                                        (click)="toggleTarea(tarea)">
+                                        <i class="bi"
+                                            [ngClass]="tarea.completada ? 'bi-arrow-counterclockwise' : 'bi-check-lg'"></i>
+                                        {{ tarea.completada ? 'Deshacer' : 'Completar' }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" (click)="eliminarTarea(tarea._id)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="tareasFiltradas.length === 0" class="text-center py-5">
+                    <i class="bi bi-calendar-x display-1 text-muted opacity-25"></i>
+                    <p class="text-muted mt-3 fs-5">No hay eventos para mostrar.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

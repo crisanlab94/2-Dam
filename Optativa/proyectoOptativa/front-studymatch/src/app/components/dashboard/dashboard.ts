@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
-   * Mapeo de colores personalizado según tu petición
+   * Mapeo de colores personalizado 
    */
   mapearTareas(tareas: any[]): void {
     this.calendarOptions.events = tareas.map(t => {
@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit {
         start: t.fecha ? t.fecha.split('T')[0] : new Date().toISOString().split('T')[0],
         color: colorEvento,
         allDay: true,
-        textColor: t.tipo === 'deberes' && !t.completada ? '#000' : '#fff' // Texto negro en amarillo para leer mejor
+        textColor: t.tipo === 'deberes' && !t.completada ? '#000' : '#fff' 
       };
     });
   }

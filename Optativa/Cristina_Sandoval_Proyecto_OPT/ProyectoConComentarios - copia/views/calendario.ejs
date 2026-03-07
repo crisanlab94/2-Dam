@@ -1,0 +1,82 @@
+<%- include("template/cabecera", {tituloWeb: 'Añadir Evento'}) %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4 shadow-sm border-0 bg-white rounded-4">
+                <h3 class="fw-bold mb-4" style="color: #1a3a5a;">Añadir Evento</h3>
+                
+                <form id="formTarea">
+                    <input type="text" name="titulo" class="form-control mb-3" placeholder="Título" required>
+                    
+                    <select name="tipo" class="form-select mb-3">
+                        <option value="examen">Examen</option>
+                        <option value="entrega">Entrega</option>
+                        <option value="deberes">Deberes</option>
+                        <option value="aviso">Aviso / Recordatorio</option>
+                    </select>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input type="date" name="fecha" id="inputFecha" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <input type="time" name="hora" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-primary">Nota Personalizada (Opcional):</label>
+                        <textarea name="mensaje_personalizado" class="form-control border-2" rows="2" 
+                                  placeholder="Ej: Estudiar los temas 3 y 4..."></textarea>
+                        <small class="text-muted small">Si no escribes nada, usaremos el mensaje automático.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 fw-bold mb-3 py-2 shadow-sm">
+                        GUARDAR EVENTO
+                    </button>
+                    
+                    <div class="text-center border-top pt-3">
+                        <a href="/estudiantes/mi-perfil/ver" class="btn btn-outline-primary w-100 fw-bold py-2" style="border-radius: 10px; border-width: 2px;">
+                            VOLVER AL PANEL
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const fechaDetectada = params.get('fecha');
+        
+        if (fechaDetectada) {
+            document.getElementById('inputFecha').value = fechaDetectada;
+        }
+
+        document.getElementById('formTarea').onsubmit = async (e) => {
+            e.preventDefault();
+            
+            // Recoge automáticamente todos los campos, incluido 'mensaje_personalizado'
+            const data = Object.fromEntries(new FormData(e.target));
+            
+            try {
+                const res = await fetch('/estudiantes/aniadir-tarea/<%= estudiante._id %>', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const responseData = await res.json();
+                if (responseData.estado) {
+                    window.location.href = '/estudiantes/mi-perfil/ver';
+                }
+            } catch (error) {
+                console.error("Error al guardar:", error);
+            }
+        };
+    });
+</script>
+<%- include("template/cierre") %>

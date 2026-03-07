@@ -1,0 +1,68 @@
+.text-navy {
+    color: #1a3a5a;
+}
+
+.bg-navy-light {
+    background-color: rgba(26, 58, 90, 0.1);
+}
+
+.grid-calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.header-dia {
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #888;
+    padding-bottom: 10px;
+}
+
+.celda-dia {
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.celda-dia:not(.vacia):hover {
+    background-color: #fffde7;
+    border-color: #1a3a5a;
+    transform: scale(1.05);
+}
+
+.celda-dia.vacia {
+    background-color: transparent;
+    border: none;
+    cursor: default;
+}
+
+.celda-dia.con-evento {
+    background-color: #e3f2fd;
+    border-color: #0d6efd;
+}
+
+.numero-dia {
+    font-weight: bold;
+}
+
+.puntos-contenedor {
+    display: flex;
+    gap: 2px;
+    margin-top: 4px;
+}
+
+.punto-evento {
+    width: 5px;
+    height: 5px;
+    background-color: #0d6efd;
+    border-radius: 50%;
+}

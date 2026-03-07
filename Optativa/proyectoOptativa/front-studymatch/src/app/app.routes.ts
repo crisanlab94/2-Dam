@@ -8,19 +8,19 @@ import { LoginAdmin } from './components/login-admin/login-admin';
 import { Perfil } from './components/perfil/perfil';
 import { MisEventosComponent } from './components/mis-eventos/mis-eventos';
 import { AddEventoComponent } from './components/add-evento/add-evento';
-import { CalendarioComponent } from './components/calendario/calendario'; // 👈 Añade esta línea
+import { CalendarioComponent } from './components/calendario/calendario'; 
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'estudiante', component: EstudianteComponent },
   { path: 'registro', component: EstudianteComponent },
-  { path: 'mi-perfil', component: DashboardComponent }, // Tu panel principal
+  { path: 'mi-perfil', component: DashboardComponent }, 
   { path: 'login-admin', component: LoginAdmin },
   { path: 'admin', component: AdminPanel },
   { path: 'perfil', component: Perfil },
   { path: 'mis-eventos', component: MisEventosComponent },
   { path: 'add-evento', component: AddEventoComponent },
-  { path: 'calendario', component: CalendarioComponent }, // 👈 Añade esta ruta
+  { path: 'calendario', component: CalendarioComponent }, 
   { path: '**', redirectTo: '' }
 ];

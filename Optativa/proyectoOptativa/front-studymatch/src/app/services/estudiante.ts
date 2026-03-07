@@ -62,7 +62,7 @@ export class EstudianteService {
 
   // Añade una tarea al array del estudiante logueado
   aniadirTarea(tarea: any): Observable<any> {
-    // Eliminamos el ${idEstudiante} de la URL
+
     return this.http.post<any>(`${this.API_URL}/aniadir-tarea`, tarea, { withCredentials: true });
   }
 

@@ -1,0 +1,145 @@
+<div class="registro-wrapper min-vh-100 pt-5 pb-5">
+  <div class="container mt-3"> <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        
+        <div class="mb-3 text-start">
+          <a routerLink="/" class="text-navy text-decoration-none fw-bold small">
+            <i class="bi bi-arrow-left-circle-fill fs-5 me-1"></i> Volver a la web
+          </a>
+        </div>
+
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+          <div class="card-header bg-navy text-white text-center py-3">
+            <h4 class="mb-0 fw-bold">Crear nuevo Estudiante</h4>
+          </div>
+
+          <div class="card-body p-4 p-md-5 bg-white">
+            <form (ngSubmit)="crear()">
+              
+              <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">1. Datos Personales</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-md-8">
+                  <label class="form-label small fw-bold text-muted">Nombre Completo</label>
+                  <input type="text" name="nombre" [(ngModel)]="estudiante.nombre" class="form-control" placeholder="Mínimo 5 caracteres">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small fw-bold text-muted">F. Nacimiento</label>
+                  <input type="date" name="fecha" [(ngModel)]="estudiante.fecha_nacimiento" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-muted">Email</label>
+                  <input type="email" name="email" [(ngModel)]="estudiante.email" class="form-control" placeholder="ejemplo@gmail.com">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-muted">Móvil</label>
+                  <input type="text" name="telefono" [(ngModel)]="estudiante.telefono" class="form-control" placeholder="600000000">
+                </div>
+              </div>
+
+              <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">2. Información Académica</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-muted">Tipo Centro</label>
+                  <select name="tipo" [(ngModel)]="estudiante.tipo_entidad" (change)="cambioEntidad()" class="form-select">
+                    <option value="">Selecciona...</option>
+                    <option value="Colegio">Colegio</option>
+                    <option value="Instituto">Instituto</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-muted">Nombre del Centro</label>
+                  <input type="text" name="nom_entidad" [(ngModel)]="estudiante.nombre_entidad" class="form-control" placeholder="Ej. IES Velázquez">
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label small fw-bold text-muted">Ubicación</label>
+                  <input type="text" name="ubi" [(ngModel)]="estudiante.ubicacion" class="form-control" placeholder="Ciudad, Provincia">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-muted">Curso</label>
+                  <select name="curso" [(ngModel)]="estudiante.curso" (change)="actualizarSugerencias()" class="form-select">
+                    <option value="">Selecciona curso...</option>
+                    <option *ngFor="let c of cursosDisponibles" [value]="c">{{c}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6" *ngIf="estudiante.curso.includes('Bachillerato')">
+                  <label class="form-label small fw-bold text-muted">Modalidad</label>
+                  <select name="modalidad" [(ngModel)]="estudiante.modalidad" (change)="actualizarSugerencias()" class="form-select">
+                    <option value="Ciencias">Ciencias</option>
+                    <option value="Sociales">Sociales</option>
+                    <option value="Artes">Artes</option>
+                  </select>
+                </div>
+
+                <div class="col-12 mt-3" *ngIf="asignaturasSugeridas.length > 0">
+                  <label class="form-label small fw-bold d-block mb-2 text-primary">Haz clic para desmarcar las que NO tengas:</label>
+                  <div class="d-flex flex-wrap gap-2">
+                    <button *ngFor="let asig of asignaturasSugeridas" 
+                            type="button" (click)="toggleAsignatura(asig)"
+                            [class]="asignaturasSeleccionadas.includes(asig) ? 'btn btn-primary btn-sm rounded-pill' : 'btn btn-outline-secondary btn-sm rounded-pill'">
+                      {{ asig }} <i class="bi" [ngClass]="asignaturasSeleccionadas.includes(asig) ? 'bi-check-circle-fill' : 'bi-plus-circle'"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                  <label class="form-label small fw-bold text-danger">¿Otras asignaturas? (Separadas por comas)</label>
+                  <input type="text" name="extras" [(ngModel)]="asignaturas_extra" class="form-control" placeholder="Ej: CMC, Griego, Arte...">
+                </div>
+              </div>
+
+              <h6 class="text-primary fw-bold text-uppercase small mb-3 border-bottom pb-2">3. Seguridad</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-muted">Contraseña</label>
+                  <div class="input-group">
+                    <input [type]="verClave ? 'text' : 'password'" name="clave" [(ngModel)]="estudiante.clave" 
+                           class="form-control border-end-0" placeholder="********">
+                    <span class="input-group-text bg-white border-start-0" style="cursor: pointer;" (click)="togglePassword()">
+                      <i class="bi" [ngClass]="verClave ? 'bi-eye' : 'bi-eye-slash'"></i>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-muted">Repetir Contraseña</label>
+                  <div class="input-group">
+                    <input [type]="verClaveConfirm ? 'text' : 'password'" name="confirmar" [(ngModel)]="confirmar_clave" 
+                           class="form-control border-end-0" placeholder="********">
+                    <span class="input-group-text bg-white border-start-0" style="cursor: pointer;" (click)="togglePasswordConfirm()">
+                      <i class="bi" [ngClass]="verClaveConfirm ? 'bi-eye' : 'bi-eye-slash'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-12 mt-2">
+                  <div class="p-3 bg-light rounded-3 border">
+                    <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                      <li [class.text-success]="checkMayuscula()" [class.text-muted]="!checkMayuscula()">
+                        <i class="bi" [ngClass]="checkMayuscula() ? 'bi-check-circle-fill' : 'bi-circle'"></i> Una letra Mayúscula
+                      </li>
+                      <li [class.text-success]="checkNumero()" [class.text-muted]="!checkNumero()">
+                        <i class="bi" [ngClass]="checkNumero() ? 'bi-check-circle-fill' : 'bi-circle'"></i> Un número
+                      </li>
+                      <li [class.text-success]="checkSimbolo()" [class.text-muted]="!checkSimbolo()">
+                        <i class="bi" [ngClass]="checkSimbolo() ? 'bi-check-circle-fill' : 'bi-circle'"></i> Un símbolo (@$!%*?&)
+                      </li>
+                      <li [class.text-success]="checkLongitud()" [class.text-muted]="!checkLongitud()">
+                        <i class="bi" [ngClass]="checkLongitud() ? 'bi-check-circle-fill' : 'bi-circle'"></i> Mínimo 6 caracteres
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" [disabled]="!formularioValido()" 
+                      class="btn btn-submit w-100 py-3 fw-bold rounded-pill mt-3 shadow">
+                Crear cuenta
+              </button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
