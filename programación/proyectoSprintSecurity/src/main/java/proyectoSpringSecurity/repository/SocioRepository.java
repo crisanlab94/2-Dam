@@ -1,0 +1,16 @@
+package proyectoSpringSecurity.repository;
+
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import proyectoSpringSecurity.models.Socio;
+
+public interface SocioRepository extends JpaRepository<Socio,Long> {
+	  List<Socio> findAll();
+	    Set<Socio> findByNombre(String nombre);
+	    Socio findSocioById(long id);
+	    List<Socio> findByEstaAlCorrientePagoFalse();
+
+}
