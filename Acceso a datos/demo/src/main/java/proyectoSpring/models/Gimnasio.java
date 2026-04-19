@@ -25,7 +25,7 @@ public class Gimnasio {
     private boolean estaAbierto=true;
 
 
-    // RELACIÓN M:N BIDIRECCIONAL con Socio
+    // RELACIÓN 1:N con socio
     // El "mappedBy" debe coincidir con el nombre de la variable en la clase Socio
     @OneToMany(mappedBy = "gimnasio", cascade = CascadeType.ALL)
     private List<Socio> socios = new ArrayList<Socio>();

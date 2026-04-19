@@ -55,7 +55,7 @@ export class MisEventosComponent implements OnInit {
   }
 
   toggleTarea(tarea: any) {
-    // Cambiamos el estado localmente
+  
     tarea.completada = !tarea.completada;
 
     // Guardamos el cambio en la base de datos usando el servicio
@@ -76,7 +76,7 @@ export class MisEventosComponent implements OnInit {
     }
   }
 
-  // Lógica para las etiquetas de "Faltan X días" o "¡HOY!"
+
   getDiasFaltantes(fecha: any): { texto: string, clase: string } | null {
     const fechaT = new Date(fecha);
     const hoy = new Date();

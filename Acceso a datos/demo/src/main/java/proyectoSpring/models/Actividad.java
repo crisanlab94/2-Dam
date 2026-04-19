@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,7 @@ public class Actividad {
     private long id;
     private String nombre;
     
+    @Enumerated(EnumType.STRING)
     private Dificultad dificultad;
     
  // Indicamos que el "dueño" de la relación es el socio

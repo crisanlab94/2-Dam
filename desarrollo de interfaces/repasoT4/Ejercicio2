@@ -1,0 +1,28 @@
+import pandas as pd
+import datapane as dp
+
+df = pd.read_csv('uso_servicios_municipales.csv')
+
+# Cálculos
+total_usos = df['numero_usos'].sum()
+ultimo_anio = df['anio'].max()
+usos_actual = df[df['anio'] == ultimo_anio]['numero_usos'].sum()
+usos_anterior = df[df['anio'] == (ultimo_anio - 1)]['numero_usos'].sum()
+delta = usos_actual - usos_anterior
+
+# Componentes
+indicador_total = dp.BigNumber(heading="Total de usos acumulados", value=total_usos)
+indicador_comparativo = dp.BigNumber(
+    heading=f"Uso en {ultimo_anio} vs {ultimo_anio-1}",
+    value=usos_actual,
+    change=delta,
+    is_upward_change=delta > 0
+)
+
+report = dp.Report(
+    dp.Text("# Resumen ejecutivo - Uso de servicios municipales"),
+    dp.Text("Este informe es relevante para el ayuntamiento porque permite evaluar de un vistazo el crecimiento del uso de los servicios públicos y el impacto de las políticas de innovación."),
+    indicador_total,
+    indicador_comparativo
+)
+report.save("apellido1_nombre_E2_resumen.html", open=True)

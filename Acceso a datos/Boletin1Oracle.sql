@@ -1,0 +1,156 @@
+-- 1. LIMPIEZA (Para evitar el error ORA-02303 y ORA-00955)
+DROP TABLE TABLA_TIENDAS;
+DROP TYPE TIENDA;
+DROP TYPE VPRODUCTOS;
+DROP TYPE PRODUCTO;
+DROP SEQUENCE SEC_PRODUCTOS;
+DROP SEQUENCE SEC_TIENDAS;
+
+-- 2. SECUENCIAS
+CREATE SEQUENCE SEC_PRODUCTOS START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE SEC_TIENDAS START WITH 1 INCREMENT BY 1;
+
+-- 3. TIPO PRODUCTO (Cabecera)
+CREATE OR REPLACE TYPE PRODUCTO AS OBJECT (
+    ID NUMBER,
+    NOMBRE VARCHAR2(50),
+    PRECIO NUMBER,
+    CONSTRUCTOR FUNCTION PRODUCTO(p_NOMBRE VARCHAR2, p_PRECIO NUMBER) RETURN SELF AS RESULT,
+    MEMBER FUNCTION getInformacion RETURN VARCHAR2 
+);
+/
+
+-- 4. TIPO COLECCIÓN
+CREATE OR REPLACE TYPE VPRODUCTOS AS VARRAY(15) OF PRODUCTO;
+/
+
+-- 5. TIPO TIENDA (Cabecera)
+CREATE OR REPLACE TYPE TIENDA AS OBJECT (
+    IDTIENDA NUMBER,
+    NOMBRETIENDA VARCHAR2(50),
+    PRODUCTOS VPRODUCTOS,
+    CONSTRUCTOR FUNCTION TIENDA(p_NOMBRE VARCHAR2, p_LISTA VPRODUCTOS) RETURN SELF AS RESULT,
+    MEMBER FUNCTION getProductos RETURN VARCHAR2
+);
+/
+
+-- 6. CUERPO PRODUCTO (Corregido: RETURN sin expresión)
+CREATE OR REPLACE TYPE BODY PRODUCTO AS
+    CONSTRUCTOR FUNCTION PRODUCTO(p_NOMBRE VARCHAR2, p_PRECIO NUMBER) RETURN SELF AS RESULT IS
+    BEGIN
+        SELF.ID := SEC_PRODUCTOS.NEXTVAL; 
+        SELF.NOMBRE := p_NOMBRE;
+        IF p_PRECIO IS NULL OR p_PRECIO <= 0 THEN
+            SELF.PRECIO := 1;
+        ELSE
+            SELF.PRECIO := p_PRECIO;
+        END IF;
+        RETURN; -- Correcto: Sin poner 'SELF'
+    END;
+
+    MEMBER FUNCTION getInformacion RETURN VARCHAR2 IS
+    BEGIN
+        RETURN 'Producto ' || SELF.ID || ': ' || SELF.NOMBRE || ', Precio: ' || SELF.PRECIO;
+    END;
+END;
+/
+
+-- 7. CUERPO TIENDA (Corregido: RETURN sin expresión)
+CREATE OR REPLACE TYPE BODY TIENDA AS
+    CONSTRUCTOR FUNCTION TIENDA(p_NOMBRE VARCHAR2, p_LISTA VPRODUCTOS) RETURN SELF AS RESULT IS
+    BEGIN
+        SELF.IDTIENDA := SEC_TIENDAS.NEXTVAL; 
+        SELF.NOMBRETIENDA := p_NOMBRE;
+        SELF.PRODUCTOS := p_LISTA;
+        RETURN; -- Correcto: Sin poner 'SELF'
+    END;
+
+    MEMBER FUNCTION getProductos RETURN VARCHAR2 IS
+        v_acumulado VARCHAR2(4000) := '';
+    BEGIN
+        FOR i IN 1..SELF.PRODUCTOS.COUNT LOOP
+            v_acumulado := v_acumulado || SELF.PRODUCTOS(i).getInformacion() || CHR(10);
+        END LOOP;
+        RETURN v_acumulado;
+    END;
+END;
+/
+
+-- 8. TABLA DE OBJETOS (Limpia de caracteres invisibles)
+CREATE TABLE TABLA_TIENDAS OF TIENDA (
+    IDTIENDA PRIMARY KEY
+);
+
+-- 9. INSERCIONES
+INSERT INTO TABLA_TIENDAS VALUES (
+    TIENDA('ZARA', VPRODUCTOS(
+        PRODUCTO('CHALECO MARRON', 15),
+        PRODUCTO('VAQUEROS AZULES', 25),
+        PRODUCTO('PENDIENTES', NULL),
+        PRODUCTO('CHAQUETON VERDE', 50),
+        PRODUCTO('JERSEY AZUL', 62)
+    ))
+);
+
+INSERT INTO TABLA_TIENDAS VALUES (
+    TIENDA('MANGO', VPRODUCTOS(
+        PRODUCTO('CHALECO GRIS', 20),
+        PRODUCTO('VAQUEROS', 35),
+        PRODUCTO('BOLSO', 75),
+        PRODUCTO('CINTURON', 50),
+        PRODUCTO('PEGATINAS', NULL)
+    ))
+);
+
+INSERT INTO TABLA_TIENDAS VALUES (
+    TIENDA('TODO100', VPRODUCTOS(
+        PRODUCTO('LAPIZ', 1.5),
+        PRODUCTO('CUADERNO AZUL', 3),
+        PRODUCTO('GOMA DE BORRAR', NULL),
+        PRODUCTO('PACK DE 3 BOLIGRAFOS', 5),
+        PRODUCTO('500 FOLIOS', 7.5)
+    ))
+);
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    -- Usamos el nombre real de tu tabla y cursor 
+    CURSOR c_tiendas IS SELECT * FROM TABLA_TIENDAS;
+BEGIN
+    FOR reg IN c_tiendas LOOP
+        -- Mostramos el nombre de la tienda 
+        DBMS_OUTPUT.PUT_LINE('Tienda: ' || reg.NOMBRETIENDA); 
+        
+        -- Recorremos el VARRAY de productos de esa tienda 
+        FOR i IN 1..reg.PRODUCTOS.COUNT LOOP
+            -- Llamamos al método getInformacion de cada objeto PRODUCTO 
+            DBMS_OUTPUT.PUT_LINE('  ' || reg.PRODUCTOS(i).getInformacion()); 
+        END LOOP; -- <--- ESTE ES EL QUE FALTABA
+        
+    END LOOP; 
+END;
+/
+
+--Subir el precio 5 euros todos los productos de ZARA
+DECLARE
+    v_tienda TIENDA;
+BEGIN
+    -- Seleccionamos la tienda en una variable de objeto
+    SELECT VALUE(t) INTO v_tienda FROM TABLA_TIENDAS t WHERE nombreTienda = 'ZARA';
+    
+    -- Modificamos el VARRAY en memoria
+    FOR i IN 1..v_tienda.PRODUCTOS.COUNT LOOP
+        v_tienda.PRODUCTOS(i).PRECIO := v_tienda.PRODUCTOS(i).PRECIO + 5;
+    END LOOP;
+    
+    -- Actualizamos la tabla con el objeto modificado
+    UPDATE TABLA_TIENDAS t SET t.PRODUCTOS = v_tienda.PRODUCTOS WHERE nombreTienda = 'ZARA';
+    COMMIT;
+END;
+/
+
+--Confirmar cambio de precio
+SELECT c.NOMBRETIENDA, p.NOMBRE, p.PRECIO
+FROM TABLA_TIENDAS c, TABLE(c.PRODUCTOS) p
+WHERE c.NOMBRETIENDA = 'ZARA';

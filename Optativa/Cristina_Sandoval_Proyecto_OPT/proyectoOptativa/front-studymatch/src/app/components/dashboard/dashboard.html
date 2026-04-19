@@ -1,0 +1,153 @@
+<div class="offcanvas offcanvas-start" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralLabel" style="border-radius: 0 20px 20px 0;">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title fw-bold text-primary" id="menuLateralLabel">Menú Principal</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  
+  <div class="offcanvas-body d-flex flex-column">
+    <div class="d-grid gap-3 flex-grow-1">
+
+      <button class="btn btn-light text-start py-3 px-3 fw-bold shadow-sm rounded-4 border d-flex align-items-center w-100 mb-3" 
+        [routerLink]="['/perfil']" 
+        data-bs-dismiss="offcanvas">
+        <i class="bi bi-person-circle me-3 text-primary fs-5"></i> Mi Perfil
+        </button>
+      
+      <button class="btn btn-light text-start py-3 px-3 fw-bold shadow-sm rounded-4 border d-flex align-items-center" 
+              data-bs-dismiss="offcanvas"
+              routerLink="/mis-metodos">
+        <i class="bi bi-journal-bookmark me-3 text-success fs-5"></i> Mis Métodos
+      </button>
+      
+      <button class="btn btn-light text-start py-3 px-3 fw-bold shadow-sm rounded-4 border d-flex align-items-center" 
+              data-bs-dismiss="offcanvas"
+              routerLink="/calendario">
+        <i class="bi bi-calendar-plus me-3 text-warning fs-5"></i> Añadir Evento
+      </button>
+      
+      <button class="btn btn-light text-start py-3 px-3 fw-bold shadow-sm rounded-4 border d-flex align-items-center" 
+              data-bs-dismiss="offcanvas"
+              routerLink="/mis-eventos">
+        <i class="bi bi-list-check me-3 text-info fs-5"></i> Mis Eventos
+      </button>
+      
+    </div>
+    
+    <div class="mt-5 pt-3 border-top text-center">
+      <small class="text-muted fw-bold">StudyMatch v2.0</small>
+    </div>
+  </div>
+</div>
+
+<div class="main-wrapper" *ngIf="datos">
+  <div class="container pt-4">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-white shadow-sm rounded-circle p-2 border bg-white" 
+                data-bs-toggle="offcanvas" 
+                data-bs-target="#menuLateral">
+          <i class="bi bi-list fs-4 text-primary"></i>
+        </button>
+        <div class="rounded-pill shadow-sm px-4 py-2" style="background-color: #004085; color: white;">
+          <small class="fw-bold">ID ESTUDIANTE: </small>
+          <span class="ms-1 fw-bold">{{ datos.estudiante?.id_estudiante }}</span>
+        </div>
+      </div>
+      <button (click)="logout()" class="btn btn-link text-danger fw-bold text-decoration-none d-flex align-items-center gap-1 small">
+        <i class="bi bi-box-arrow-right fs-5"></i> Salir
+      </button>
+    </div>
+
+    <div class="mb-4">
+      <h2 class="fw-bold mb-1" style="color: #1a3a5a;">
+        {{ getIconoSaludo() }} {{ saludo }}, {{ datos.estudiante?.nombre }}!
+      </h2>
+      <p class="text-muted small fw-bold text-uppercase mb-0">
+        <i class="bi bi-calendar3 me-1"></i>
+        {{ fechaActual | date:'EEEE, d MMMM':'':'es-ES' }}
+      </p>
+    </div>
+
+    <div class="p-4 mb-4 rounded-4 shadow-sm border-start border-5 border-primary bg-white" style="background-color: #f8fbff !important;">
+      <div class="d-flex align-items-start gap-3">
+        <div class="bg-primary rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px;">
+          <i class="bi bi-lightning-charge-fill text-white"></i>
+        </div>
+        <div>
+          <p class="mb-1 fw-bold" style="color: #33475b; font-size: 1.1rem; font-style: italic;">
+            "{{ datos.fraseMotivacional }}"
+          </p>
+          <small class="text-primary text-uppercase fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">
+            Inspiración para tu éxito académico
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="datos.notificaciones?.length > 0" class="mb-4">
+      <h6 class="fw-bold text-dark mb-3"><i class="bi bi-bell-fill me-2 text-primary"></i> Notificaciones Prioritarias</h6>
+      <div class="d-grid gap-2">
+        <div *ngFor="let notif of datos.notificaciones" 
+             class="alert alert-primary p-3 shadow-sm border-0 border-start border-4 border-primary mb-0 d-flex align-items-center bg-white" 
+             style="border-radius: 12px;">
+          <i class="bi bi-info-circle-fill me-3 fs-5 text-primary"></i>
+          <span class="small fw-bold text-dark">{{ notif.texto }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4 shadow-sm border-0 mb-4 bg-white" style="border-radius: 15px;">
+      <div class="d-flex justify-content-between mb-2">
+        <span class="small fw-bold text-muted">Tu Progreso Semanal</span>
+        <span class="small fw-bold text-primary">{{ datos.progreso }}% completado</span>
+      </div>
+      <div class="progress" style="height: 15px; border-radius: 10px; background-color: #e9ecef;">
+        <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" 
+             role="progressbar" 
+             [style.width.%]="datos.progreso"></div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 bg-white text-center p-4" style="border-radius: 20px; border-top: 5px solid #0dcaf0;">
+          <i class="bi bi-patch-check fs-1 text-info mb-3"></i>
+          <h5 class="fw-bold mb-2">Realizar Test</h5>
+          <p class="text-muted small mb-3">Evalúa tus conocimientos y define tu método de estudio.</p>
+          <button class="btn btn-info text-white fw-bold shadow-sm rounded-pill py-2 w-100">Ir al Cuestionario</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 bg-white text-center p-4" style="border-radius: 20px; border-top: 5px solid #0d6efd;">
+          <i class="bi bi-folder-fill fs-1 text-primary mb-3"></i>
+          <h5 class="fw-bold mb-2">Mi Biblioteca</h5>
+          <p class="text-muted small mb-3">Sube y gestiona tus materiales para usarlos con la IA.</p>
+          <button class="btn btn-primary fw-bold shadow-sm rounded-pill py-2 w-100">Ver Archivos</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 bg-white text-center p-4" style="border-radius: 20px; border-top: 5px solid #6610f2;">
+          <i class="bi bi-robot fs-1 mb-3" style="color: #6610f2;"></i>
+          <h5 class="fw-bold mb-2">Tutor IA</h5>
+          <p class="text-muted small mb-3">Crea recursos educativos guiados por inteligencia artificial.</p>
+          <button class="btn fw-bold shadow-sm rounded-pill py-2 text-white w-100" style="background-color: #6610f2;">Comenzar Guía</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4 shadow-sm border-0 bg-white mb-5" style="border-radius: 15px;">
+      <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+        <i class="bi bi-calendar-week me-2"></i>Agenda de Actividades
+      </h4>
+      <full-calendar [options]="calendarOptions"></full-calendar>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="!datos" class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh; background-color: #fffde7;">
+  <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
+  <h5 class="fw-bold text-primary">Estableciendo conexión segura...</h5>
+  <p class="text-muted">Preparando tu espacio de estudio</p>
+</div>

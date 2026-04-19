@@ -35,13 +35,13 @@ describe('EstudianteComponent', () => {
   });
 
   it('debería dar formulario inválido si los campos están vacíos', () => {
-    // Cambiamos toBeFalse() por toBe(false) para evitar el error de tipos
+   
     expect(component.formularioValido()).toBe(false);
   });
 
   it('debería validar que la contraseña cumple los requisitos mínimos', () => {
     component.estudiante.clave = '123';
-    // Comprobamos que la función de longitud detecta que es corta
+
     expect(component.checkLongitud()).toBe(false);
   });
 });

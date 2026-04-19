@@ -34,9 +34,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false, // Cambiar a true si usas HTTPS
+        secure: false, 
         httpOnly: true,
-        sameSite: 'lax' // Necesario para que el navegador comparta la sesión con Angular
+        sameSite: 'lax' 
     }
 }));
 
@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 });
 
 // --- 6. RUTAS ---
-// Es recomendable usar prefijos /api para diferenciar lo que va a Angular
+
 app.use('/api', require('./router/rutas')); 
 app.use('/api/estudiantes', require('./router/estudiantes'));
 

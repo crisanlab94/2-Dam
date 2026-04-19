@@ -1,0 +1,214 @@
+<%- include("template/cabecera", {tituloWeb: 'Mis Eventos'}) %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .tarea-completada { text-decoration: line-through; opacity: 0.6; }
+    .borde-completado { border-left: 8px solid #28a745 !important; }
+    .borde-pendiente { border-left: 8px solid #0d6efd !important; }
+    .filter-btn.active { background-color: #1a3a5a; color: white; border-color: #1a3a5a; }
+    .badge-tiempo { font-size: 0.75rem; padding: 5px 10px; border-radius: 20px; }
+    .pulse { animation: pulse-animation 2s infinite; }
+    @keyframes pulse-animation {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="position-relative d-flex align-items-center justify-content-center mb-4" style="min-height: 60px;">
+        <h1 class="fw-bold mb-0 text-uppercase" style="color: #1a3a5a; letter-spacing: 2px; font-size: 2rem;">
+            Mis Eventos
+        </h1>
+        <div class="position-absolute end-0">
+            <a href="/estudiantes/mi-perfil/ver" class="btn btn-outline-primary fw-bold rounded-3 shadow-sm">Volver al Panel</a>
+        </div>
+    </div>
+
+    <% if (estudiante.tareas && estudiante.tareas.length > 0) { %>
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-9">
+                <div class="card border-0 shadow-sm rounded-4 p-3 bg-light">
+                    <% 
+                        const total = estudiante.tareas.length;
+                        const completadas = estudiante.tareas.filter(t => t.completada).length;
+                        const porcentaje = total > 0 ? Math.round((completadas / total) * 100) : 0;
+                        
+                        // SOLUCIÓN DEFINITIVA: Generamos el atributo completo como string
+                        // Esto evita que VS Code intente validar el CSS interno.
+                        const inlineStyle = 'style="width: ' + porcentaje + '%;"';
+                    %>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="small fw-bold text-muted">Progreso de objetivos</span>
+                        <span class="badge bg-primary rounded-pill"><%= completadas %> / <%= total %></span>
+                    </div>
+                    <div class="progress" style="height: 10px; border-radius: 5px;">
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" <%- inlineStyle %>></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center gap-2 mb-4">
+            <button class="btn btn-sm btn-outline-secondary filter-btn active" onclick="filtrarTareas('todas', this)">Todas</button>
+            <button class="btn btn-sm btn-outline-secondary filter-btn" onclick="filtrarTareas('pendientes', this)">Pendientes</button>
+            <button class="btn btn-sm btn-outline-secondary filter-btn" onclick="filtrarTareas('completadas', this)">Completadas</button>
+        </div>
+
+        <div class="row justify-content-center" id="contenedorTareas">
+            <% estudiante.tareas.forEach(tarea => { %>
+                <% 
+                    const fechaT = new Date(tarea.fecha);
+                    const hoy = new Date();
+                    hoy.setHours(0,0,0,0);
+                    const diff = fechaT - hoy;
+                    const diasFaltan = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                %>
+                <div class="col-lg-9 mb-3 tarea-item" data-completada="<%= tarea.completada %>">
+                    <div class="card shadow-sm border-0 rounded-4 <%= tarea.completada ? 'borde-completado' : 'borde-pendiente' %>">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="<%= tarea.completada ? 'tarea-completada' : '' %>">
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <h4 class="fw-bold text-primary mb-0"><%= tarea.titulo %></h4>
+                                        <% if (!tarea.completada) { %>
+                                            <% if (diasFaltan === 0) { %>
+                                                <span class="badge bg-danger badge-tiempo pulse">¡HOY!</span>
+                                            <% } else if (diasFaltan === 1) { %>
+                                                <span class="badge bg-warning text-dark badge-tiempo">Mañana</span>
+                                            <% } else if (diasFaltan > 1 && diasFaltan <= 7) { %>
+                                                <span class="badge bg-light text-primary border border-primary badge-tiempo">Faltan <%= diasFaltan %> días</span>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                    <p class="text-muted small mb-2">
+                                        <i class="bi bi-calendar-event"></i> <%= tarea.fecha.toLocaleDateString() %> | 
+                                        <i class="bi bi-clock"></i> <%= tarea.hora %>
+                                    </p>
+                                    <% if (tarea.mensaje_personalizado) { %>
+                                        <div class="p-2 bg-light rounded-3 border-start border-3 border-info mb-0 mt-2">
+                                            <small class="text-dark font-italic">"<%= tarea.mensaje_personalizado %>"</small>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 text-uppercase" style="background-color: #004085;">
+                                    <%= tarea.tipo %>
+                                </span>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end gap-2 mt-3 pt-3 border-top">
+                                <button class="btn btn-sm <%= tarea.completada ? 'btn-secondary' : 'btn-primary' %> border-2 fw-bold" 
+                                    onclick="toggleTarea('<%= tarea._id %>')">
+                                    <i class="bi <%= tarea.completada ? 'bi-arrow-counterclockwise' : 'bi-check-lg' %>"></i>
+                                    <%= tarea.completada ? 'Deshacer' : 'Completar' %>
+                                </button>
+
+                                <button class="btn btn-sm btn-outline-info border-2 btn-editar fw-bold" 
+                                    data-id="<%= tarea._id %>"
+                                    data-titulo="<%= tarea.titulo %>"
+                                    data-fecha="<%= tarea.fecha.toISOString().split('T')[0] %>"
+                                    data-hora="<%= tarea.hora %>"
+                                    data-mensaje="<%= tarea.mensaje_personalizado || '' %>">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </button>
+
+                                <button class="btn btn-sm btn-outline-danger border-2 fw-bold" onclick="eliminarTarea('<%= tarea._id %>')">
+                                    <i class="bi bi-trash"></i> Borrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <div class="text-center py-5">
+            <i class="bi bi-calendar-x display-1 text-muted opacity-25"></i>
+            <p class="text-muted mt-3 fs-5">No tienes eventos programados aún.</p>
+        </div>
+    <% } %>
+
+    <div class="mt-5 mb-5 text-center">
+        <a href="/estudiantes/mi-perfil/ver" class="btn btn-outline-primary px-5 py-3 fw-bold shadow-sm" style="border-radius: 30px; border-width: 2px;">
+            VOLVER AL PANEL PRINCIPAL
+        </a>
+    </div>
+</div>
+
+<script>
+    function filtrarTareas(filtro, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tareas = document.querySelectorAll('.tarea-item');
+        tareas.forEach(t => {
+            const isCompletada = t.dataset.completada === 'true';
+            if (filtro === 'todas') t.style.display = 'block';
+            else if (filtro === 'pendientes') t.style.display = isCompletada ? 'none' : 'block';
+            else if (filtro === 'completadas') t.style.display = isCompletada ? 'block' : 'none';
+        });
+    }
+
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.btn-editar');
+        if (btn) {
+            const { id, titulo, fecha, hora, mensaje } = btn.dataset;
+            abrirEditorTarea(id, titulo, fecha, hora, mensaje);
+        }
+    });
+
+    async function toggleTarea(id) {
+        const res = await fetch('/estudiantes/toggle-tarea/' + id, { method: 'PUT' });
+        if ((await res.json()).estado) location.reload();
+    }
+
+    async function eliminarTarea(id) {
+        const result = await Swal.fire({
+            title: '¿Eliminar este evento?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar'
+        });
+        if (result.isConfirmed) {
+            const res = await fetch('/estudiantes/eliminar-tarea/' + id, { method: 'DELETE' });
+            if ((await res.json()).estado) location.reload();
+        }
+    }
+
+    async function abrirEditorTarea(id, titulo, fecha, hora, mensaje) {
+        const { value: formValues } = await Swal.fire({
+            title: 'Editar Evento',
+            html: `
+                <div class="text-start">
+                    <label class="small fw-bold">Título:</label>
+                    <input id="swal-titulo" class="swal2-input m-0 w-100 mb-3" value="${titulo}">
+                    <label class="small fw-bold">Nota Personalizada:</label>
+                    <textarea id="swal-mensaje" class="swal2-textarea m-0 w-100 mb-3" style="height: 80px">${mensaje}</textarea>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="small fw-bold">Fecha:</label>
+                            <input id="swal-fecha" type="date" class="swal2-input m-0 w-100" value="${fecha}">
+                        </div>
+                        <div class="col-6">
+                            <label class="small fw-bold">Hora:</label>
+                            <input id="swal-hora" type="time" class="swal2-input m-0 w-100" value="${hora}">
+                        </div>
+                    </div>
+                </div>`,
+            preConfirm: () => ({
+                titulo: document.getElementById('swal-titulo').value,
+                mensaje_personalizado: document.getElementById('swal-mensaje').value,
+                fecha: document.getElementById('swal-fecha').value,
+                hora: document.getElementById('swal-hora').value
+            })
+        });
+        if (formValues) {
+            const res = await fetch('/estudiantes/editar-tarea/' + id, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formValues)
+            });
+            if ((await res.json()).estado) location.reload();
+        }
+    }
+</script>
+<%- include("template/cierre") %>
